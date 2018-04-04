@@ -41,9 +41,9 @@
     </ul>
     -->
 
-    <Autocomplete :suggestions="suggestions" v-model="selection"></Autocomplete>
+    <!-- <Autocomplete :suggestions="suggestions" v-model="selection"></Autocomplete>
     <h2>{{selection}}</h2>
-    
+     -->
   </div>
 </template>
 
