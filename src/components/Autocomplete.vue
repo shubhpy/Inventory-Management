@@ -10,7 +10,7 @@
                 v-bind:class="{'active': isActive(index)}"
                 @click="suggestionClick(index)"
             >
-              <a href="#">{{ suggestion.city }} <small>{{ suggestion.state }}</small>
+              <a href="#">{{ suggestion.item }} <small>{{ suggestion.quantity }}</small>
               </a>
             </li>
         </ul>
@@ -39,7 +39,7 @@ export default {
     // Filtering the suggestion based on the input
     matches () {
       return this.suggestions.filter((obj) => {
-        return obj.city.indexOf(this.value) >= 0
+        return obj.item.indexOf(this.value) >= 0
       })
     },
     openSuggestion () {
@@ -58,7 +58,7 @@ export default {
     },
     // When enter pressed on the input
     enter () {
-      this.$emit('input', this.matches[this.current].city)
+      this.$emit('input', this.matches[this.current].item)
       this.open = false
     },
     // When up pressed while suggestions are open
@@ -79,7 +79,7 @@ export default {
     },
     // When one of the suggestion is clicked
     suggestionClick (index) {
-      this.$emit('input', this.matches[index].city)
+      this.$emit('input', this.matches[index].item)
       this.open = false
     }
   }

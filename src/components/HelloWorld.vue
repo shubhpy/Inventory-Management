@@ -20,16 +20,20 @@
     <br> </br>
     Didn't Find your person, Add Now
     <input type="text" v-model.text="newPerson"> </input>
-    <button v-if="newPerson" @click = "boardPersons.push(newPerson)">
-    Add {{newPerson}}
+    <button v-if="newPerson" @click = "addBoardPerson">
+    Add
     </button>
 
     <br>
     Didn't Find the Board, Add Now
     <input type="text" v-model.text="newBoard"> </input>
     <button v-if="newBoard" @click = "boards.push(newBoard)">
-    Add {{newBoard}}
+    Add
     </button>
+
+    <button @click = "getBoardPerson">
+    GET
+    </button>    
     <!-- <h2>{{ Notifications }}</h2> 
     <ul>
       <li v-for="item in items"> {{item}} </li>
@@ -37,7 +41,7 @@
     </ul>
     -->
 
-    <autocomplete :suggestions="suggestions" v-model="selection"></autocomplete>
+    <Autocomplete :suggestions="suggestions" v-model="selection"></Autocomplete>
     <h2>{{selection}}</h2>
     
   </div>
@@ -54,13 +58,11 @@ export default {
       return {
         msg: 'Welcome to Your Vue.js App',
         selection: '',
-      suggestions: [
-        { city: 'Bangalore', state: 'Karnataka' },
-        { city: 'Chennai', state: 'Tamil Nadu' },
-        { city: 'Delhi', state: 'Delhi' },
-        { city: 'Kolkata', state: 'West Bengal' },
-        { city: 'Mumbai', state: 'Maharashtra' }
-      ],
+        suggestions: [
+          {item:"Akash",quantity:""},
+          {item:"Pradeep",quantity:""},
+          {item:"Susheela",quantity:""},
+        ],
         items: [
           "Stapler",
           "Stapler pin",
@@ -89,15 +91,53 @@ export default {
         newPerson : null,
         newBoard : null
       }
-    }
+    },
+    methods: {
+      addBoardPerson: function() {
+        console.log("Here");
+        // console.log($http.get);
+        // console.log($http.post);      
+        var datatosend = {
+          newPerson : this.newPerson
+          // dict : {heelo:"Helllo"},
+          // list : ["Heeyy","heyyy"]
+        };
+
+        console.log(datatosend);
+
+        // var formData = new FormData();
+        // formData.append('newPerson', this.newPerson);
+        // formData.append('dict', {heelo:"Helllo"});
+        // formData.append('list', ["Heeyy","heyyy"]);
+        
+        this.$http.post('http://localhost:8000/addBoardPerson',datatosend)
+        .then(function (data) {
+          console.log(data.body);
+          this.boardPersons.push(this.newPerson);
+          this.suggestions.push({item:this.newPerson,quantity:''});
+        }.bind(this),function(data){
+          console.log(data);
+        })
+      },
+      getBoardPerson: function() {
+        fetch('http://localhost:8000/addBoardPerson')
+          .then(response => response.json())
+          .then(json => {
+            this.boardPersons.push(json.persons);
+            this.suggestions.push({item:json.persons,quantity:''})
+      })
+      }
+      },
     // created () {
-    //   fetch('http://localhost:8000/getHomePage')
-    //   .then(response => response.json())
-    //   .then(json => {
-    //     this.Notifications = json.notifications.latest
+    //     fetch('http://localhost:8000/addBoardPerson')
+    //       .then(response => response.json())
+    //       .then(json => {
+    //         this.boardPersons.push(json.persons);
+    //         this.suggestions.push({item:json.persons,quantity:''})
     //   })
     // }
-  }
+}
+
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
