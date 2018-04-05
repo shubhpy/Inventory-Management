@@ -22,8 +22,8 @@ export default new Router({
       component: Dashboard,
       children: [
         {
-          path: '',
-          redirect : "/users",
+          path: '/',
+          redirect : "/login",
           },
         {
           path: '/users',

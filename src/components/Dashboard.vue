@@ -17,7 +17,7 @@
     </aside>
     <header class="topbar">
     <div class="topbar-right">
-        <a class="topbar-btn text-white" data-toggle="quickview" @click="logout()"><i class="ti-power-off"></i></a>
+        <a class="topbar-btn text-white" data-toggle="quickview" @click="logout">Logout<i class="ti-power-off"></i></a>
     </div>
     </header>
     <main class="main-container">
@@ -26,9 +26,16 @@
 </div>
 </template>
 <script>
-
-export default {
-  name: 'Dashboard'
+    import router from '../router'
+    export default {
+    name: 'Dashboard',
+    methods : {
+        logout: function(e) {
+        e.preventDefault();
+        localStorage.removeItem('token');
+        router.push({ name:"Login"});
+        }
+    }
 }
 </script>
 

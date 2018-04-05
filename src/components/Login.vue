@@ -16,15 +16,15 @@
       <br />
       <form>
         <div class="form-group do-float">
-          <label for="uname">Username</label>
-          <input type="text" class="form-control" name="uname" v-model="uname" />
+          <label>Username</label>
+          <input type="text" class="form-control" name="email" v-model="email" />
         </div>
         <div class="form-group do-float">
-          <label for="pwd">Password</label>
+          <label>Password</label>
           <input type="password" class="form-control" name="pwd" v-model="pwd" />
         </div>
         <div class="form-group">
-          <button class="btn btn-bold btn-block btn-primary" type="submit" @click="login()">Login</button><!-- [routerLink]="['/user']"-->
+          <button class="btn btn-bold btn-block btn-primary" type="submit" @click="loginMethod">Login</button>
         </div>
       </form>
     </div>
@@ -33,8 +33,58 @@
 </template>
 
 <script>
+  import router from '../router'
+
 export default {
-  name: 'App'
+  name: 'LoginComponent',
+  data() {
+      return {
+        email : '',
+        pwd : ''
+      }
+    },
+  methods: {
+      loginMethod: function(e) {
+        e.preventDefault();
+        console.log("Logging Here");
+        // console.log($http.get);
+        // console.log($http.post);
+        // var datatosend = {
+        //   email : this.uname,
+        //   pwd : this.pwd
+        //   // dict : {heelo:"Helllo"},
+        //   // list : ["Heeyy","heyyy"]
+        // };
+
+        // console.log(datatosend);
+
+        var formData = new FormData();
+        formData.append('email', this.email);
+        formData.append('pwd', this.pwd);        
+        // formData.append('dict', {heelo:"Helllo"});
+        // formData.append('list', ["Heeyy","heyyy"]);
+        
+        this.$http.post('http://localhost:8000/login',formData)
+        .then(function (data) {
+          console.log(data.body);
+          localStorage.setItem('token',data.body.token);
+          router.push({ name: "Tables" });
+          // this.boardPersons.push(this.newPerson);
+          // this.suggestions.push({item:this.newPerson,quantity:''});
+        }.bind(this),function(data){
+          console.log("In bind")
+          console.log(data.body);
+        })
+      }
+    },
+  created () {
+    if(localStorage.getItem('token')){
+      console.log("Token Found");
+      router.push({ name: "Tables"});      
+    }else{
+      router.push({ name: "Login"});
+    }
+  }
 }
 </script>
 
