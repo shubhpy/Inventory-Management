@@ -1,46 +1,12 @@
 <template>
-  <div class="hello" id="app">
-    <select v-model="selectPerson">
-      <option value="null" disabled hidden>Select Person</option>
-        <option v-for="p in boardPersons" v-bind:value="p">
-        {{p}}
-        </option>
-    </select>
+  <div id="inner_remaining">
 
-    <select v-model="selectBoard">
-      <option value="null" disabled hidden>Select Board</option>
-        <option v-for="b in boards" v-bind:value="b">
-        {{b}}
-        </option>
-    </select>
-
-    <h2 v-if="selectPerson"> Board Person : {{ selectPerson }}</h2>
-    <h2 v-if="selectBoard">  Board  : {{ selectBoard }}</h2>
-    
-    <br> </br>
-    Didn't Find your person, Add Now
-    <input type="text" v-model.text="newPerson"> </input>
-    <button v-if="newPerson" @click = "addBoardPerson">
-    Add
-    </button>
-
-    <br>
-    Didn't Find the Board, Add Now
-    <input type="text" v-model.text="newBoard"> </input>
-    <button v-if="newBoard" @click = "boards.push(newBoard)">
-    Add
-    </button>
-
-    <button @click = "getBoardPerson">
-    GET
-    </button>    
     <!-- <h2>{{ Notifications }}</h2> 
     <ul>
       <li v-for="item in items"> {{item}} </li>
       <li v-for="item in boards"> {{item}} </li>      
     </ul>
     -->
-
     <Autocomplete :suggestions="suggestions" v-model="selection"></Autocomplete>
     <h2>{{selection}}</h2>
 
@@ -58,6 +24,7 @@ export default {
       return {
         msg: 'Welcome to Your Vue.js App',
         selection: '',
+        entryDate : '',
         suggestions: [
           {item:"Akash",quantity:""},
           {item:"Pradeep",quantity:""},
@@ -84,6 +51,31 @@ export default {
           "NABET",
           "WHO"
         ],
+        pickerOptions1: {
+          disabledDate(time) {
+            return time.getTime() > Date.now();
+          },
+          shortcuts: [{
+            text: 'Today',
+            onClick(picker) {
+              picker.$emit('pick', new Date());
+            }
+          }, {
+            text: 'Yesterday',
+            onClick(picker) {
+              const date = new Date();
+              date.setTime(date.getTime() - 3600 * 1000 * 24);
+              picker.$emit('pick', date);
+            }
+          }, {
+            text: 'A week ago',
+            onClick(picker) {
+              const date = new Date();
+              date.setTime(date.getTime() - 3600 * 1000 * 24 * 7);
+              picker.$emit('pick', date);
+            }
+          }]
+        },
         selectItem : null,
         selectBoard : null,
         selectPerson : null,
@@ -127,7 +119,7 @@ export default {
             this.suggestions.push({item:json.persons,quantity:''})
       })
       }
-      },
+    }
     // created () {
     //     fetch('http://localhost:8000/addBoardPerson')
     //       .then(response => response.json())
@@ -142,6 +134,8 @@ export default {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
+  @import url("//unpkg.com/element-ui@2.3.3/lib/theme-chalk/index.css");
+
   h1, h2 {
     font-weight: normal;
   }
@@ -155,5 +149,12 @@ export default {
   } */
   a {
     color: #42b983;
+  }
+  #inner_remaining {
+      background-color: #fff;
+      position: absolute;
+      top: 0px;
+      bottom: 0;
+      width: 100%; 
   }
 </style>

@@ -4,7 +4,10 @@ import Vue from 'vue'
 import App from './App'
 import router from './router'
 import Resource from 'vue-resource';
+import Element from "element-ui";
+import en from "element-ui/lib/locale/lang/en";
 
+Vue.use(Element, { locale: en });
 Vue.use(Resource)
 Vue.config.productionTip = false
 Vue.http.options.emulateJSON = true;

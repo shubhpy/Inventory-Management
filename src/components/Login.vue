@@ -64,17 +64,17 @@ export default {
         // formData.append('dict', {heelo:"Helllo"});
         // formData.append('list', ["Heeyy","heyyy"]);
         
-        this.$http.post('http://localhost:8000/login',formData)
-        .then(function (data) {
-          console.log(data.body);
-          localStorage.setItem('token',data.body.token);
+        // this.$http.post('http://localhost:8000/login',formData)
+        // .then(function (data) {
+        //   console.log(data.body);
+          // localStorage.setItem('token',data.body.token);
           router.push({ name: "Tables" });
           // this.boardPersons.push(this.newPerson);
           // this.suggestions.push({item:this.newPerson,quantity:''});
-        }.bind(this),function(data){
-          console.log("In bind")
-          console.log(data.body);
-        })
+        // }.bind(this),function(data){
+        //   console.log("In bind")
+        //   console.log(data.body);
+        // })
       }
     },
   created () {
@@ -89,14 +89,4 @@ export default {
 </script>
 
 <style>
-/* #app {
-      <router-link :to="{ name: 'HelloWorld' }">Home</router-link>
-    <router-link to="/">Dashboard</router-link>
-  font-family: 'Avenir', Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
-} */
 </style>

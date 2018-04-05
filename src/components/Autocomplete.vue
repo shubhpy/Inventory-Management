@@ -1,11 +1,11 @@
 <template>
-    <div style="position:relative" v-bind:class="{'open':openSuggestion}">
-        <input class="form-control" type="text" :value="value" @input="updateValue($event.target.value)"
+    <div style="position:relative" v-bind:class="{'open':openSuggestion}" v-clickoutside="clickedOutside">
+        <input class="form-control"  type="text" :value="value" @input="updateValue($event.target.value)"
           @keydown.enter = 'enter'
           @keydown.down = 'down'
           @keydown.up = 'up'
         >
-        <ul class="dropdown-menu" style="width:50%" v-clickoutside="clickedOutside">
+        <ul class="dropdown-menu">
             <li v-for="(suggestion, index) in matches"
                 v-bind:class="{'active': isActive(index)}"
                 @click="suggestionClick(index)"
@@ -18,8 +18,6 @@
 </template>
 
 <script>
-import clickoutside from '../main'
-
 export default {
   props: {
     value: {
@@ -84,18 +82,34 @@ export default {
     suggestionClick (index) {
       this.$emit('input', this.matches[index].item)
       this.open = false
+    },
+    clickedOutside () {
+      console.log("Outside")
+      // this.$emit('input', value)
+      this.open = false
     }
   },
-  events :{
-    clickedOutside: function () {
-      console.log("Outside")
-      this.open = false
-      this.$emit('input', value)
+  // events :{
+  //   clickedOutside: function (event) {
+  //     console.log("Outside")
+  //     this.open = false
+  //     this.$emit('input', value)
+  //   }
+  // },
+  directives: {
+    clickoutside: {
+      bind: function (el, binding, vnode) {
+      el.event = function (event) {
+        if (!(el == event.target || el.contains(event.target))) {
+          vnode.context[binding.expression](event);
+        }
+      };
+      document.body.addEventListener('click', el.event)
+    },
+    unbind: function (el) {
+      document.body.removeEventListener('click', el.event)
     }
-  }
-  // ,
-  // directives: {
-  //   clickoutside
-  // }
+      }
+    }
 }
 </script>
