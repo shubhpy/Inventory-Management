@@ -5,7 +5,7 @@
           @keydown.down = 'down'
           @keydown.up = 'up'
         >
-        <ul class="dropdown-menu" style="width:50%">
+        <ul class="dropdown-menu" style="width:50%" v-clickoutside="clickedOutside">
             <li v-for="(suggestion, index) in matches"
                 v-bind:class="{'active': isActive(index)}"
                 @click="suggestionClick(index)"
@@ -18,6 +18,8 @@
 </template>
 
 <script>
+import clickoutside from '../main'
+
 export default {
   props: {
     value: {
@@ -32,7 +34,7 @@ export default {
   data () {
     return {
       open: false,
-      current: 0
+      current: 0,
     }
   },
   computed: {
@@ -60,6 +62,7 @@ export default {
     enter () {
       this.$emit('input', this.matches[this.current].item)
       this.open = false
+      // this.$emit('input', value)
     },
     // When up pressed while suggestions are open
     up () {
@@ -82,6 +85,17 @@ export default {
       this.$emit('input', this.matches[index].item)
       this.open = false
     }
+  },
+  events :{
+    clickedOutside: function () {
+      console.log("Outside")
+      this.open = false
+      this.$emit('input', value)
+    }
   }
+  // ,
+  // directives: {
+  //   clickoutside
+  // }
 }
 </script>

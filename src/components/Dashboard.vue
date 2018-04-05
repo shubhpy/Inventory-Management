@@ -10,7 +10,7 @@
             <router-link class="menu-link rounded-left pl-3" to="/tables">Tables</router-link> 
         </li>
         <li class="menu-category menu-item pr-0">
-            <router-link class="menu-link rounded-left pl-3" to="/users">Items IN/OUT</router-link>         
+            <router-link class="menu-link rounded-left pl-3" to="/itementry">Items IN/OUT</router-link>         
         </li>
         </ul>
     </nav>
@@ -21,7 +21,7 @@
     </div>
     </header>
     <main class="main-container">
-        <router-view></router-view>    
+        <router-view></router-view>
     </main>
 </div>
 </template>

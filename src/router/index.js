@@ -6,6 +6,7 @@ import Dashboard from '@/components/Dashboard'
 import Users from '@/components/Users'
 import Tables from '@/components/Tables'
 import Login from '@/components/Login'
+import ItemEntry from '@/components/ItemEntry'
 
 Vue.use(Router)
 
@@ -31,10 +32,15 @@ export default new Router({
           component: Users
           },
         {
-            path: '/tables',
-            name: 'Tables',
-            component: Tables
-          }
+          path: '/tables',
+          name: 'Tables',
+          component: Tables
+          },
+        {
+          path: '/itementry',
+          name: 'ItemEntry',
+          component: ItemEntry
+        }
       ]
     },
     {
