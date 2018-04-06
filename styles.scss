@@ -556,6 +556,7 @@ select.form-control:not([size]):not([multiple]){
     }
 }
 .card{
+    height:83vh;
     border:0;
     border-radius:0px;
     margin-bottom:30px;
@@ -752,12 +753,15 @@ table.dataTable.display tbody td{
     width:12%;
 }.brdr{
     border-right:1px solid #d1d1d1;
-}#vendor-items thead th{
+}.col-sm-4.brdr{
+    height:70vh;
+}
+#vendor-items thead th{
     border:none
 }// absolute and parent relative
 .dropdown-menu{
     width:100%;
-    max-height:200px;
+    max-height:220px;
     overflow-x:hidden;
     overflow-y:auto; 
     & .active a{
@@ -769,7 +773,7 @@ table.dataTable.display tbody td{
 }.poAbs{
     position:absolute;
     width:95%;
-    max-height:180px;
+    max-height:320px;
     overflow-x:hidden;
     overflow-y:auto;
     & .col-sm-12.p-0{

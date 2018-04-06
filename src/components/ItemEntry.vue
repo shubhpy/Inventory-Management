@@ -18,7 +18,7 @@
               <div class="col-sm-4 brdr">
                 <label class="col-sm-12 float-left mb-0 pl-0">Add / Search Vendor :</label><br />
                 <Autocomplete class="col-sm-12 p-0" :suggestions="vendors" v-model="selectedVendor"></Autocomplete><br />
-                <label for="typeahead-focus col-sm-12 float-left" style="display:block"> Vendor : {{selectedVendor}}</label>
+                <label for="typeahead-focus col-sm-12 float-left" style="display:block">Vendor : {{selectedVendor}}</label>
                 <div class="col-sm-6 pl-0 pt-4">
                   <label class="demonstration d-block">Date</label>
                   <el-date-picker class="col-sm-12 p-0" v-model="entryDate" type="date" placeholder="Pick a Date" format="dd/MM/yyyy" :picker-options="pickerOptions1"></el-date-picker>
@@ -33,7 +33,7 @@
                   <label for="typeahead-focus col-sm-12 float-left text-primary">Selected user is : {{selectedUser}}</label>
                 </div>
               </div>
-              <div class="col-sm-8 card vendorItems">
+              <div class="col-sm-8 card vendorItems mb-0">
                 <div class="card-body pl-0 pr-3 pt-1">
                   <table id="vendor-items" class="table table-striped table-bordered dataTable display" cellspacing="0" cellpadding="0">
                     <thead>
@@ -104,7 +104,7 @@
                   <el-date-picker class="col-sm-12 p-0" v-model="entryDate" type="date" placeholder="Pick a Date" format="dd/MM/yyyy" :picker-options="pickerOptions1"></el-date-picker>
                 </div>
               </div>
-              <div class="col-sm-8 card vendorItems">
+              <div class="col-sm-8 card vendorItems mb-0">
                 <div class="card-body pl-0 pr-3 pt-1">
                   <table id="vendor-items" class="table table-striped table-bordered dataTable display" cellspacing="0" cellpadding="0">
                     <thead>
@@ -195,6 +195,7 @@
           {item:"Halke Ram",quantity:""},
           {item:"Ram Chand",quantity:""}
         ],
+      receivers:[],
       addedItems : [
         // {item:"",boxes:"",quantity:""}
       ],
