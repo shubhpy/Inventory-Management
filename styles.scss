@@ -10,23 +10,19 @@ $info:#48b0f7; // You can use RGBA values too
 $danger:#f96868;
 $secondary:#e4e7ea;
 
-
 //more colors
 $default-bg:#efefef;
 $white:#fff;
-
 
 // Font & Weight
 $default-font:Roboto, sans-serif;
 $default-font-weight:300;
 
-
 //functions
 @function dark-theme($value){
     @return $value - rgb(25, 25, 25);
     //The above color is a #33cabb with a slight light tint
-}
-@function light-theme($value){
+} @function light-theme($value){
     @return $value + rgb(25, 25, 25);
     //The above color is a #33cabb with a slight dark tint
 }
@@ -37,7 +33,7 @@ $default-font-weight:300;
             box-shadow:$shadow;
 }
     //transition
-@mixin transition($args...){-webkit-transition:$args;-moz-transition:$args;-ms-transition:$args;-o-transition:$args;transition:$args;}
+@mixin transition($args...){ -webkit-transition:$args;-moz-transition:$args;-ms-transition:$args;-o-transition:$args;transition:$args; }
 body{
     font-family:$default-font;
     font-weight:$default-font-weight;
