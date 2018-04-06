@@ -622,6 +622,7 @@ td.text-left a.nav-action:hover{
     }
     & .menu>.menu-item:hover>.menu-link{
         background-color:$white;
+        cursor: pointer;
     }
 }
 .router-link-active {
@@ -692,7 +693,7 @@ table.dataTable.display tbody td{
     width:8% !important;
 }
 .th-modify{
-    width:9% !important;
+    width:10% !important;
 }
 .th-id{
     width:10% !important;
@@ -756,8 +757,8 @@ table.dataTable.display tbody td{
 }.col-sm-4.brdr{
     height:70vh;
 }
-#vendor-items thead th{
-    border:none
+thead th{
+    border:none !important;
 }// absolute and parent relative
 .dropdown-menu{
     width:100%;
@@ -823,8 +824,8 @@ table.dataTable.display tbody td{
     .nav-tabs .nav-link.active,
         .nav-tabs .nav-link.active:focus,
             .nav-tabs .nav-link.active:hover{
-                color:#4d5259;
-                border-color:#33cabb
+    color:#4d5259;
+    border-color:#33cabb;
 }
 .nav-tabs .nav-link .icon{
     margin-right:4px
@@ -865,4 +866,32 @@ table.dataTable.display tbody td{
 }.posrt32 {
     position:relative;
     top:-32px;
+}
+
+.tab-pane.fade.active.show .row {
+    margin: 0;
+}
+.clearfix > .btn-group.pull-right{
+    display: none   ;
+}
+
+
+
+.table .form-control{
+    border-color: transparent;
+    background-color: transparent;
+    box-shadow: none;
+    padding-left:0;
+    padding-right:0; 
+    &::placeholder { /* Chrome, Firefox, Opera, Safari 10.1+ */
+        color:#444;
+        opacity: 1; /* Firefox */
+    }
+    &.open{
+        border-color:#ccc;
+        background-color:#fff;
+        box-shadow:1px 1px 1px #ccc;
+        padding-left:5px;
+        padding-right:5px;
+    }
 }

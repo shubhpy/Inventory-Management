@@ -87,7 +87,7 @@ export default {
     },
     // When one of the suggestion is clicked
     suggestionClick (index) {
-      this.$emit('input', this.matches[index].item)
+      this.$emit( 'input', this.matches[index].item )
       this.open = false
     },
     clickedOutside () {
