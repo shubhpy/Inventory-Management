@@ -2,7 +2,7 @@
 <div class="main-content p-0">
   <div class="card h-fullscreen pt-5 mb-0">
     <div class="card-body pl-3 pr-3 pt-5">
-      <table id="user" class="table table-striped table-bordered dataTable display" cellspacing="0" cellpadding="0">
+      <table id="user" class="table table-striped table-bordered dataTable display pt-4" cellspacing="0" cellpadding="0">
         <thead>
           <tr role="row">
             <th class="th-1 sorting_asc" tabindex="0" aria-controls="DataTables_Table_0" rowspan="1" colspan="1" aria-sort="ascending">Sr. No.</th>

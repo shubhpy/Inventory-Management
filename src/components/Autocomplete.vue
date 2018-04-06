@@ -4,6 +4,7 @@
           @keydown.enter = 'enter'
           @keydown.down = 'down'
           @keydown.up = 'up'
+          v-on:focus='setfocus'
         >
         <ul class="dropdown-menu">
             <li v-for="(suggestion, index) in matches"
@@ -49,6 +50,12 @@ export default {
     }
   },
   methods: {
+    setfocus(){
+      if (this.open === false) {
+        this.open = true
+        this.current = 0
+      }
+    },
     updateValue (value) {
       if (this.open === false) {
         this.open = true

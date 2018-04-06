@@ -4,13 +4,13 @@
     <nav class="sidebar-navigation ps-container ps-theme-default ps-active-y">
         <ul class="menu">
         <li class="menu-category menu-item pr-0">
-            <router-link class="menu-link rounded-left pl-3" to="/users">Users</router-link> 
+            <router-link class="menu-link rounded-left pl-3" tag="li" to="/users">Users</router-link> 
         </li>
         <li class="menu-category menu-item pr-0">
-            <router-link class="menu-link rounded-left pl-3" to="/tables">Tables</router-link> 
+            <router-link class="menu-link rounded-left pl-3" tag="li" to="/tables">Tables</router-link> 
         </li>
         <li class="menu-category menu-item pr-0">
-            <router-link class="menu-link rounded-left pl-3" to="/itementry">Items IN/OUT</router-link>         
+            <router-link class="menu-link rounded-left pl-3" tag="li" to="/itementry">Items IN/OUT</router-link>         
         </li>
         </ul>
     </nav>

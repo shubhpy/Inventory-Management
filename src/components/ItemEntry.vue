@@ -13,76 +13,79 @@
         </ul>
         <!-- Tab panes -->
         <div class="tab-content">
-          <div class="tab-pane fade active show" id="In">
-            <label class="col-sm-3 float-left mb-0">Add / Search Vendor :</label><br />
-            <Autocomplete :suggestions="vendors" v-model="selectedVendor"></Autocomplete>
-            <label for="typeahead-focus col-sm-2 float-left mb-0" > Vendor : {{selectedVendor}}</label>
-            <!-- <div class="col-sm-2 float-right posrt32 pl-0">
-            <input id="typeahead-focus" type="text"  v-model="model" @click="click$.next($event.target.value)" />
-            
-              <label class=""><br /></label>
-              <a class="col-sm-12 btn btn-primary btn-outline text-dark" (click)="addVendorInfo()">+ Add</a>
-                    <input  placeholder="yyyy-mm-dd" name="dp" v-model="Odate"  />
+          <div class="tab-pane fade active show" id="In"><br />
+            <div class="col-sm-4 brdr">
+              <label class="col-sm-12 float-left mb-0 pl-0">Add / Search Vendor :</label><br />
+              <Autocomplete class="col-sm-12 p-0" :suggestions="vendors" v-model="selectedVendor"></Autocomplete><br />
+              <label for="typeahead-focus col-sm-12 float-left" style="display:block"> Vendor : {{selectedVendor}}</label>
+              <!-- <div class="col-sm-2 float-right posrt32 pl-0">
+              <input id="typeahead-focus" type="text"  v-model="model" @click="click$.next($event.target.value)" />
               
-            </div> -->
-            <div class="col-sm-3 float-right posrt32">
-              <label>Select User:</label>
-              <Autocomplete :suggestions="users" v-model="selectedUser"></Autocomplete>
-              <label for="typeahead-focus col-sm-2 float-left mb-0" > selected user is : {{selectedUser}}</label>
-            </div>
-                <div class="block">
-                <span class="demonstration">date</span>
-                    <el-date-picker 
-              v-model="entryDate"
-              type="date"
-              placeholder="Pick a Date"
-              format="dd/MM/yyyy"
-              :picker-options="pickerOptions1"
-              >
-              </el-date-picker>
+                <label class=""><br /></label>
+                <a class="col-sm-12 btn btn-primary btn-outline text-dark" (click)="addVendorInfo()">+ Add</a>
+                      <input  placeholder="yyyy-mm-dd" name="dp" v-model="Odate"  />
+                
+              </div> -->
+              <div class="col-sm-6 pl-0 pt-4">
+                <label class="demonstration d-block">Date</label>
+                <el-date-picker class="col-sm-12 p-0" v-model="entryDate" type="date" placeholder="Pick a Date" format="dd/MM/yyyy" :picker-options="pickerOptions1"></el-date-picker>
               </div>
-            <div class="col-sm-2 float-right posrt32">
-              <label>Bill No:</label>
-              <input type="text" class="form-control" />
+              <div class="col-sm-6 pl-0 pr-0 pt-4">
+                <label class="d-block">Bill No:</label>
+                <input type="text" class="form-control" style="height:40px;" />
+              </div>
+              <div class="col-sm-8 pl-0 pr-0 pt-5">
+                <label>Select User:</label>
+                <Autocomplete :suggestions="users" v-model="selectedUser"></Autocomplete>
+                <label for="typeahead-focus col-sm-12 float-left text-primary">Selected user is : {{selectedUser}}</label>
+              </div>
             </div>
-            <div class="col-sm-12 card p-0 vendorItems">
+            <div class="col-sm-8 card vendorItems">
               <div class="card-body pl-0 pr-3 pt-1">
                 <table id="vendor-items" class="table table-striped table-bordered dataTable display" cellspacing="0" cellpadding="0">
-                  <tbody>
+                  <thead>
                     <tr style="background:#f4f4f4;">
-                      <td>&nbsp;</td>
-                      <td>
-                        <label>Select Item Name</label>
+                      <th class="frst">&nbsp;</th>
+                      <th class="scnd">
+                        <label class="d-block">Select Item Name</label>
                         <Autocomplete :suggestions="items" v-model="selectedItem"></Autocomplete>              
-                      </td>
-                      <td>
-                          <label>Enter Number of Boxes<span class="text-primary"> ( if applicable )</span></label>
-                        <input type="text" class="form-control col-sm-6" placeholder="Boxes" v-model="noBoxes" >
-                      </td>
-                      <td>
-                          <label>Enter Quantity in each box</label>
-                        <input type="text" class="form-control col-sm-7" placeholder="Quantity" v-model="quantity">
-                      </td>
-                      <td>
+                      </th>
+                      <th class="thrd">
+                        <label class="d-block">No. of Boxes<span class="text-primary"> (if applicable)</span></label>
+                        <input type="text" class="form-control col-sm-4" placeholder="Boxes" v-model="noBoxes" >
+                      </th>
+                      <th class="frth">
+                        <label class="d-block">Qty. in each box</label>
+                        <input type="text" class="form-control col-sm-4" placeholder="Quantity" v-model="quantity">
+                      </th>
+                      <th class="ffth">
                         <label class="d-block">Add Item(s)</label>
-                        <a class="col-sm-6 btn btn-primary btn-outline text-dark" @click="addItem">+</a>
-                      </td>
+                        <a class="col-sm-6 btn btn-primary btn-outline text-dark p-2" @click="addItem">+</a>
+                      </th>
                     </tr>
-                    <tr style="background:#fff;">
-                        <td><ins>Sr no.</ins></td>
-                        <td><ins>Item Name</ins></td>
-                        <td><ins>Boxes</ins></td>
-                        <td><ins>Quantity</ins></td>
-                        <td><!--<ins>More Actions</ins>--></td>
-                      </tr>
-                  </tbody>
+                  </thead>
                   <tbody>
-                    <tr v-for="(ai,index) in addedItems">
-                        <td>{{index+1}}</td>
-                        <td>{{ai.item}}</td>
-                        <td>{{ai.boxes}}</td>
-                        <td>{{ai.quantity}}</td>
-                        <td><!-- <a class="btn btn-w-md btn-info nav-action d-inline text-white"><span class="ti-pencil"></span></a> --></td>
+                    <tr style="background:#fff;position:relative;">
+                      <div class="poAbs">
+                        <div class="col-sm-12 p-0">
+                          <div class="col-sm-2"><ins>Sr no.</ins></div>
+                          <div class="col-sm-3"><ins>Item Name</ins></div>
+                          <div class="col-sm-2"><ins>Boxes</ins></div>
+                          <div class="col-sm-2"><ins>Quantity</ins></div>
+                          <div class="col-sm-2">&nbsp;</div>
+                        </div>
+                      </div>
+                    </tr>
+                    <tr style="position:relative;">
+                      <div class="poAbs mt-5">
+                        <div class="col-sm-12 p-0" v-for="(ai,index) in addedItems">
+                          <div class="col-sm-2 pt-1 pb-1">{{index+1}}.</div>
+                          <div class="col-sm-3 pt-1 pb-1">{{ai.item}}</div>
+                          <div class="col-sm-2 pt-1 pb-1">{{ai.boxes}}</div>
+                          <div class="col-sm-2 pt-1 pb-1">{{ai.quantity}}</div>
+                          <div class="col-sm-2 pt-1 pb-1">&nbsp;</div>
+                        </div>
+                      </div>
                     </tr>
                   </tbody>
                 </table>
@@ -90,18 +93,80 @@
             </div>
           </div>
           <div class="tab-pane fade" id="Out">
-            <div class="card pt-0 mb-0">
+            <div class="col-sm-4 brdr">
+              <label class="col-sm-12 float-left mb-0 pl-0">Vendor from:</label><br />
+              <Autocomplete class="col-sm-12 p-0" :suggestions="vendors" v-model="selectedVendor"></Autocomplete><br />
+              <label for="typeahead-focus col-sm-12 float-left" style="display:block">Selected Vendor : {{selectedVendor}}</label>
+              <!-- <div class="col-sm-2 float-right posrt32 pl-0">
+              <input id="typeahead-focus" type="text"  v-model="model" @click="click$.next($event.target.value)" />
+              
+                <label class=""><br /></label>
+                <a class="col-sm-12 btn btn-primary btn-outline text-dark" (click)="addVendorInfo()">+ Add</a>
+                      <input  placeholder="yyyy-mm-dd" name="dp" v-model="Odate"  />
+                
+              </div> -->
+              <div class="col-sm-6 pl-0 pt-4">
+                <label class="demonstration d-block">Date</label>
+                <el-date-picker class="col-sm-12 p-0" v-model="entryDate" type="date" placeholder="Pick a Date" format="dd/MM/yyyy" :picker-options="pickerOptions1"></el-date-picker>
+              </div>
+              <div class="col-sm-6 pl-0 pr-0 pt-4">
+                <label class="d-block">Bill No:</label>
+                <input type="text" class="form-control" style="height:40px;" />
+              </div>
+              <div class="col-sm-8 pl-0 pr-0 pt-5">
+                <label>Select User:</label>
+                <Autocomplete :suggestions="users" v-model="selectedUser"></Autocomplete>
+                <label for="typeahead-focus col-sm-12 float-left text-primary">Selected user is : {{selectedUser}}</label>
+              </div>
+            </div>
+            <div class="col-sm-8 card vendorItems">
               <div class="card-body pl-0 pr-3 pt-1">
-                <table id="category" class="table table-striped table-bordered dataTable display" cellspacing="0" cellpadding="0">
+                <table id="vendor-items" class="table table-striped table-bordered dataTable display" cellspacing="0" cellpadding="0">
                   <thead>
-                    <tr role="row">
-                      <th class="th-1 sorting_asc" tabindex="0" aria-controls="DataTables_Table_0" rowspan="1" colspan="1" aria-sort="ascending">Bill. No.</th>
-                      <th class="sorting" tabindex="0" aria-controls="DataTables_Table_0" rowspan="1" colspan="1">Date</th>
-                      <th class="sorting" tabindex="0" aria-controls="DataTables_Table_0" rowspan="1" colspan="1">Boxes</th>
-                      <th class="sorting" tabindex="0" aria-controls="DataTables_Table_0" rowspan="1" colspan="1">Quantity</th>
+                    <tr style="background:#f4f4f4;">
+                      <th class="frst">&nbsp;</th>
+                      <th class="scnd">
+                        <label class="d-block">Select Item Name</label>
+                        <Autocomplete :suggestions="items" v-model="selectedItem"></Autocomplete>              
+                      </th>
+                      <th class="thrd">
+                        <label class="d-block">No. of Boxes<span class="text-primary"> (if applicable)</span></label>
+                        <input type="text" class="form-control col-sm-4" placeholder="Boxes" v-model="noBoxes" >
+                      </th>
+                      <th class="frth">
+                        <label class="d-block">Qty. in each box</label>
+                        <input type="text" class="form-control col-sm-4" placeholder="Quantity" v-model="quantity">
+                      </th>
+                      <th class="ffth">
+                        <label class="d-block">Add Item(s)</label>
+                        <a class="col-sm-6 btn btn-primary btn-outline text-dark p-2" @click="addItem">+</a>
+                      </th>
                     </tr>
                   </thead>
-                  <tbody></tbody>
+                  <tbody>
+                    <tr style="background:#fff;position:relative;">
+                      <div class="poAbs">
+                        <div class="col-sm-12 p-0">
+                          <div class="col-sm-2"><ins>Sr no.</ins></div>
+                          <div class="col-sm-3"><ins>Item Name</ins></div>
+                          <div class="col-sm-2"><ins>Boxes</ins></div>
+                          <div class="col-sm-2"><ins>Quantity</ins></div>
+                          <div class="col-sm-2">&nbsp;</div>
+                        </div>
+                      </div>
+                    </tr>
+                    <tr style="position:relative;">
+                      <div class="poAbs mt-5">
+                        <div class="col-sm-12 p-0" v-for="(ai,index) in addedItems">
+                          <div class="col-sm-2 pt-1 pb-1">{{index+1}}.</div>
+                          <div class="col-sm-3 pt-1 pb-1">{{ai.item}}</div>
+                          <div class="col-sm-2 pt-1 pb-1">{{ai.boxes}}</div>
+                          <div class="col-sm-2 pt-1 pb-1">{{ai.quantity}}</div>
+                          <div class="col-sm-2 pt-1 pb-1">&nbsp;</div>
+                        </div>
+                      </div>
+                    </tr>
+                  </tbody>
                 </table>
               </div>
             </div>
@@ -190,133 +255,4 @@
 
 <style>
   @import url("//unpkg.com/element-ui@2.3.3/lib/theme-chalk/index.css");
-
-  #inner_remaining {
-      background-color: #fff;
-      position: absolute;
-      top: 0px;
-      bottom: 0;
-      width: 100%; 
-  }
-  .nav-tabs{
-      border-bottom-color:#ebebeb;
-      margin-bottom:1rem
-  }.nav-tabs .nav-item.show .nav-link,
-      .nav-tabs .nav-item.show .nav-link:focus,
-          .nav-tabs .nav-item.show .nav-link:hover{
-      color:#4d5259
-  }.nav-tabs .nav-link{
-      position:relative;
-      border:none;
-      font-size:13px;
-      text-align:center;
-      color:#8b95a5;
-      border-bottom:2px solid transparent;
-      padding:10px 16px;
-      border-radius:0;
-      -webkit-transition:0.5s;
-      transition:0.5s
-  }
-  @media (max-width: 767px){
-      .nav-tabs .nav-link{
-          padding:8px 12px
-      }
-  }
-  .nav-tabs .nav-link:hover,
-      .nav-tabs .nav-link.active,
-          .nav-tabs .nav-link.active:focus,
-              .nav-tabs .nav-link.active:hover{
-                  color:#4d5259;
-                  border-color:#33cabb
-  }
-  .nav-tabs .nav-link .icon{
-      margin-right:4px
-  }
-  .nav-tabs .nav-link .close{
-      width:12px;
-      height:12px;
-      margin-top:6px;
-      font-size:20px;
-      opacity:0;
-      -webkit-transform:translateX(10px);
-      transform:translateX(10px)
-  }
-  .nav-tabs .nav-link .close span{
-      display:inline-block;
-      width:inherit;
-      height:inherit
-  }.nav-tabs .nav-link:hover .close{
-      opacity:.25
-  }.nav-tabs.nav-tabs-primary .nav-link:hover,
-      .nav-tabs.nav-tabs-primary .nav-link.active,
-          .nav-tabs.nav-tabs-primary .nav-link.active:focus,
-              .nav-tabs.nav-tabs-primary .nav-link.active:hover{
-                  border-color:#33cabb
-  }
-  .nav-tabs.nav-tabs-secondary .nav-link:hover,
-      .nav-tabs.nav-tabs-secondary .nav-link.active,
-          .nav-tabs.nav-tabs-secondary .nav-link.active:focus,
-              .nav-tabs.nav-tabs-secondary .nav-link.active:hover{
-                  border-color:#e4e7ea
-  }
-  .dropdown-menu.show .dropdown-item.active, .dropdown-menu.show .dropdown-item:active, .dropdown-menu.show .dropdown-item:focus, .dropdown-menu.show .dropdown-item:hover {
-      background-color:#33cabb !important;
-  }
-
-  .posrt40 {
-      position:relative;
-      top:-40px;
-  } .posrt32 {
-      position:relative;
-      top:-32px;
-  }
-
-
-
-
-
-
-
-
-
-
-  /* HeroSearch private styles */
-  /* .search-result li {
-      border-bottom: 1px solid gray;
-      border-left: 1px solid gray;
-      border-right: 1px solid gray;
-      width:195px;
-      height: 16px;
-      padding: 5px;
-      background-color: white;
-      cursor: pointer;
-      list-style-type: none;
-    }
-    
-    .search-result li:hover {
-      background-color: #607D8B;
-    }
-    
-    .search-result li a {
-      color: #888;
-      display: block;
-      text-decoration: none;
-    }
-    
-    .search-result li a:hover {
-      color: white;
-    }
-    .search-result li a:active {
-      color: white;
-    }
-    #search-box {
-      width: 200px;
-      height: 20px;
-    }
-    
-    
-    ul.search-result {
-      margin-top: 0;
-      padding-left: 0;
-    } */
 </style>
