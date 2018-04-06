@@ -22,7 +22,7 @@
             <td>15</td>            
             <td class="text-left">
               <!-- <a class="btn btn-w-md btn-info nav-action d-inline text-white" data-toggle="modal" data-target="#edit-user"><span class="ti-pencil"></span></a> -->
-              <a class="btn btn-w-md btn-danger nav-action d-inline text-white" @click="remove(t.user_id)"><span class="ti-close"></span></a>
+              <a class="btn btn-w-md btn-danger nav-action d-inline text-white" @click="remove(t.user_id)"><span class="ti-close">Delete</span></a>
             </td>
           </tr>
         </tbody>
