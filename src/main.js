@@ -12,6 +12,10 @@ Vue.use(Resource)
 Vue.config.productionTip = false
 Vue.http.options.emulateJSON = true;
 
+Vue.prototype.$hostname = "http://192.168.15.153:5000/inventory/";
+// Vue.prototype.$hostname = "http://192.168.15.187:8000/inventory/";
+// Vue.prototype.$hostname = "https://qcitech.org:8085/inventory/";
+
 /* eslint-disable no-new */
 new Vue({
   el: '#app',
@@ -19,23 +23,3 @@ new Vue({
   components: { App },
   template: '<App/>'
 })
-
-// Vue.directive('clickoutside', {
-//   priority: 700,
-//   bind () {
-//     let self  = this
-//     this.event = function (event) { 
-//     	console.log('emitting event')
-//     	self.vm.$emit(self.expression,event) 
-//  	  }
-//     this.el.addEventListener('click', this.stopProp)
-//     document.body.addEventListener('click',this.event)
-//   },
-  
-//   unbind() {
-//   	console.log('unbind')
-//     this.el.removeEventListener('click', this.stopProp)
-//     document.body.removeEventListener('click',this.event)
-//   },
-//   stopProp(event) {event.stopPropagation() }
-// })

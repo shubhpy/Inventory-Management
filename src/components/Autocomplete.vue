@@ -4,14 +4,14 @@
           @keydown.enter = 'enter'
           @keydown.down = 'down'
           @keydown.up = 'up'
-          v-on:focus='setfocus'
+          v-on:focus="setFocus"
         >
         <ul class="dropdown-menu">
             <li v-for="(suggestion, index) in matches"
                 v-bind:class="{'active': isActive(index)}"
                 @click="suggestionClick(index)"
             >
-              <a href="#">{{ suggestion.item }} <small>{{ suggestion.quantity }}</small>
+              <a href="#">{{ suggestion.name }} <small>{{ suggestion.quantity }}</small>
               </a>
             </li>
         </ul>
@@ -40,7 +40,7 @@ export default {
     // Filtering the suggestion based on the input
     matches () {
       return this.suggestions.filter((obj) => {
-        return obj.item.indexOf(this.value) >= 0
+        return obj.name.indexOf(this.value) >= 0
       })
     },
     openSuggestion () {
@@ -50,7 +50,7 @@ export default {
     }
   },
   methods: {
-    setfocus(){
+    setFocus(){
       if (this.open === false) {
         this.open = true
         this.current = 0
@@ -65,7 +65,7 @@ export default {
     },
     // When enter pressed on the input
     enter () {
-      this.$emit('input', this.matches[this.current].item)
+      this.$emit('input', this.matches[this.current].name)
       this.open = false
       // this.$emit('input', value)
     },
@@ -87,7 +87,7 @@ export default {
     },
     // When one of the suggestion is clicked
     suggestionClick (index) {
-      this.$emit( 'input', this.matches[index].item )
+      this.$emit('input', this.matches[index].name)
       this.open = false
     },
     clickedOutside () {

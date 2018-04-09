@@ -38,7 +38,7 @@ body{
     font-family:$default-font;
     font-weight:$default-font-weight;
     color:#4d5259;
-    font-size:13px;
+    font-size:14px;
     line-height:24px;
     background-color:$default-bg;
 }
@@ -125,7 +125,7 @@ a{
     display:block;
     text-transform:uppercase;
     letter-spacing:1px;
-    font-size:1rem;
+    //font-size:1rem;
     font-weight:500;
     line-height:32px;
     padding:1rem 20px 0.5rem;
@@ -150,7 +150,7 @@ a{
 // Navigation Top 
 .topbar-btn{
     display:inline-block;
-    font-size:1.4rem;
+    //font-size:1.4rem;
     font-weight:$default-font-weight;
     line-height:64px;
     padding:0 12px;
@@ -224,7 +224,7 @@ a{
 }
 label{
     font-weight:$default-font-weight;
-    font-size:12px;
+    font-size:13px;
     letter-spacing:.5px;
 }
 .row.no-gutters{
@@ -289,7 +289,7 @@ label{
 small{
   font-family:$default-font;
   font-weight:$default-font-weight;
-  font-size:11px;
+  font-size:12px;
   color:#8b95a5;
 }
 button, input, select{
@@ -377,7 +377,7 @@ h6 { font-size:14px; font-weight:$default-font-weight; }
 }
 //buttons
 .btn{
-    font-size:14px;
+    font-size:13px;
     padding:5px 16px;
     line-height:inherit;
     color:#8b95a5;
@@ -399,7 +399,7 @@ h6 { font-size:14px; font-weight:$default-font-weight; }
     font-family:$default-font;
     text-transform:uppercase;
     font-weight:500;
-    font-size:12px;
+    font-size:13px;
 }
 .btn-w-md{
     width:120px;
@@ -675,7 +675,7 @@ td.text-left a.nav-action:hover{
 }
 td.text-left a.btn{
     padding:2px 0 0 2px;
-    box-shadow:5px 3px 15px 0px #ccc;
+    box-shadow:7px 5px 5px -5px #ddd;
 }
 table.dataTable thead th,
 table.dataTable thead td{
@@ -743,14 +743,16 @@ table.dataTable.display tbody td{
 
 
 .frst{
-    width:8%;
+    width:1%;
 }.scnd{
-    width:28%;
+    width:26%;
 }.thrd{
-    width:26%;
+    width:25%;
 }.frth{
-    width:26%;
+    width:20%;
 }.ffth{
+    width:15%;
+}.six{
     width:12%;
 }.brdr{
     border-right:1px solid #d1d1d1;
@@ -806,7 +808,7 @@ thead th{
 }.nav-tabs .nav-link{
     position:relative;
     border:none;
-    font-size:13px;
+    font-size:14px;
     text-align:center;
     color:#8b95a5;
     border-bottom:2px solid transparent;
@@ -875,23 +877,14 @@ thead th{
     display: none   ;
 }
 
-
-
-.table .form-control{
-    border-color: transparent;
-    background-color: transparent;
-    box-shadow: none;
-    padding-left:0;
-    padding-right:0; 
-    &::placeholder { /* Chrome, Firefox, Opera, Safari 10.1+ */
-        color:#444;
-        opacity: 1; /* Firefox */
-    }
-    &.open{
-        border-color:#ccc;
-        background-color:#fff;
-        box-shadow:1px 1px 1px #ccc;
-        padding-left:5px;
-        padding-right:5px;
-    }
+.shw{
+    display: none;
+}
+.hid{
+    display: inline;
+}.open .hid{
+    display:none;
+}
+.open .shw{
+    display: inline;
 }
