@@ -32,7 +32,28 @@
 
 <script>
 export default {
-  name: 'Users'
+  name: 'Users',
+  created () {
+    this.$data.fetchList(this.$hostname + 'getnames', names).then(val => {})
+    // fetch(this.$hostname + 'getnames')
+    .then(val => {
+        console.log(val)
+        if (val.success){
+          console.log("Data Received")   
+        }else{
+          alert("API is working")
+        }
+    })
+      // .then(response => response.json())
+    //   .then(json => {
+        // console.log(json)
+        // if (json.success){
+        //   console.log("Data Received")   
+        // }else{
+        //   alert("API is working")
+        // }
+    // })
+  }
 }
 </script>
 
