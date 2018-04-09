@@ -162,12 +162,12 @@
         receiverOpen:null,
         itemOpen:null,
         boardOpen:null,
-        users:[
-          {name:"Sanjeev",id:""},
-          {name:"Kumar",id:""},
-          {name:"Halke Ram",id:""},
-          {name:"Ram Chand",id:""}
-        ],
+        // users:[
+        //   {name:"Sanjeev",id:""},
+        //   {name:"Kumar",id:""},
+        //   {name:"Halke Ram",id:""},
+        //   {name:"Ram Chand",id:""}
+        // ],
         vendors:[
           {name:"Sanjeev",id:""},
           {name:"Kumar",id:""},
@@ -265,23 +265,45 @@
       }
     },
     created(){
-      fetch(this.$hostname + 'getnames' )
-        .then(response => response.json())
-        .then(json => {
-          console.log(json)
-          if(json.success){
-            this.vendors = json.vendors
-            this.items = json.item_names
-            this.receivers = json.users
-            this.users = json.users
-            // console.log(this.vendors)
-            // console.log(this.items)
-            // console.log(this.receivers)
-            // console.log(this.users)
-          }else{
-            alert("API is working")
-          }
-      })
+      this.$store.dispatch('fetchNames');
+
+      // users = this.$store.getters.getUserNames;
+      // fetch(this.$hostname + 'getnames' )
+      // // .then(val => {})      
+      // // this.$data.fetchList(this.$hostname + 'getnames',names)
+      //   .then(response => response.json())
+      //   .then(json => {
+      //     console.log(json)
+      //     if(json.success){
+      //       this.vendors = json.users
+      //       this.items = json.users
+      //       this.receivers = json.users
+      //       this.users = json.users
+      //       // console.log(this.vendors)
+      //       // console.log(this.items)
+      //       // console.log(this.receivers)
+      //       // console.log(this.users)
+      //     }else{
+      //       alert("API is working")
+      //     }
+      // })
+      // fetchNames(){
+      //   this.$store.
+      // }
+    },
+    computed:{
+      users(){
+        const names = this.$store.getters.getUserNames
+        if (typeof(names.length) == 'undefined') {
+          return [{name:"Sanjeev",id:""},
+              {name:"Kumar",id:""},
+              {name:"Halke Ram",id:""},
+              {name:"Ram Chand",id:""}
+            ]
+        }else{
+          return names
+        }
+      }
     }
   }
 </script>
