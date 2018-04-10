@@ -38,9 +38,9 @@
                       <input type="text" class="form-control col-sm-7 shw" v-model="user.name" />
                     </td>            
                     <td class="col-sm-2 text-left pt-4">
-                      <a class="col-sm-5 btn btn-w-md btn-primary btn-outline nav-action shw mr-2" @click="save(index,'users')">Save</a><!--save(index,'users')-->
+                      <a class="col-sm-5 btn btn-w-md btn-primary btn-outline nav-action shw mr-2" @click="save(index,'users')">Save</a>
                       <a class="col-sm-5 btn btn-w-md btn-primary btn-outline nav-action hid mr-2" @click="edit_user(user)">Edit</a>
-                      <a class="col-sm-5 btn btn-w-md btn-danger nav-action d-inline text-white" @click="del_user(index)">Delete</a>
+                      <!-- <a class="col-sm-5 btn btn-w-md btn-danger nav-action d-inline text-white" @click="delete_name(index,'users')">Delete</a> -->
                     </td>
                   </tr>
                 </tbody>
@@ -65,7 +65,7 @@
                     <td class="text-left pt-4">
                       <a class="col-sm-5 btn btn-w-md btn-primary btn-outline nav-action shw mr-2" @click="save(index,'vendors')">Save</a>
                       <a class="col-sm-5 btn btn-w-md btn-primary btn-outline nav-action hid mr-2" @click="edit_vendor(vendor)">Edit</a>
-                      <a class="col-sm-5 btn btn-w-md btn-danger nav-action d-inline text-white" @click="del_vendor(vendor)">Delete</a>
+                      <!-- <a class="col-sm-5 btn btn-w-md btn-danger nav-action d-inline text-white" @click="del_vendor(vendor)">Delete</a> -->
                     </td>
                   </tr>
                 </tbody>
@@ -90,7 +90,7 @@
                     <td class="text-left pt-4">
                       <a class="col-sm-5 btn btn-w-md btn-primary btn-outline nav-action shw mr-2" @click="save(index,'receivers')">Save</a>
                       <a class="col-sm-5 btn btn-w-md btn-primary btn-outline nav-action hid mr-2" @click="edit_receiver(receiver)">Edit</a>
-                      <a class="col-sm-5 btn btn-w-md btn-danger nav-action d-inline text-white" @click="del_receiver(receiver)">Delete</a>
+                      <!-- <a class="col-sm-5 btn btn-w-md btn-danger nav-action d-inline text-white" @click="del_receiver(receiver)">Delete</a> -->
                     </td>
                   </tr>
                 </tbody>
@@ -106,16 +106,16 @@
                   </tr>
                 </thead>
                 <tbody>
-                  <tr role="row" class="odd" v-for="(item,index) in items" :class="{open: item == itemOpen}">
+                  <tr role="row" class="odd" v-for="(itemname,index) in itemnames" :class="{open: itemname == itemOpen}">
                     <td class="sorting_1">{{index+1}}</td>
                     <td>
-                      <span class="hid pl-2">{{item.name}}</span>
-                      <input type="text" class="form-control col-sm-7 shw" v-model="item.name" />
+                      <span class="hid pl-2">{{itemname.name}}</span>
+                      <input type="text" class="form-control col-sm-7 shw" v-model="itemname.name" />
                     </td>            
                     <td class="text-left pt-4">
-                      <a class="col-sm-5 btn btn-w-md btn-primary btn-outline nav-action shw mr-2" @click="save(index,'items')">Save</a>
-                      <a class="col-sm-5 btn btn-w-md btn-primary btn-outline nav-action hid mr-2" @click="edit_item(item)">Edit</a>
-                      <a class="col-sm-5 btn btn-w-md btn-danger nav-action d-inline text-white" @click="del_item(item)">Delete</a>
+                      <a class="col-sm-5 btn btn-w-md btn-primary btn-outline nav-action shw mr-2" @click="save(index,'itemnames')">Save</a>
+                      <a class="col-sm-5 btn btn-w-md btn-primary btn-outline nav-action hid mr-2" @click="edit_item(itemname)">Edit</a>
+                      <!-- <a class="col-sm-5 btn btn-w-md btn-danger nav-action d-inline text-white" @click="del_item(itemname)">Delete</a> -->
                     </td>
                   </tr>
                 </tbody>
@@ -139,8 +139,8 @@
                     </td>            
                     <td class="text-left pt-4">
                       <a class="col-sm-5 btn btn-w-md btn-primary btn-outline nav-action shw mr-2" @click="save(index,'boards')">Save</a>
-                      <a class="col-sm-5 btn btn-w-md btn-primary btn-outline nav-action hid mr-2" @click="edit_item(board)">Edit</a>
-                      <a class="col-sm-5 btn btn-w-md btn-danger nav-action d-inline text-white" @click="del_item(board)">Delete</a>
+                      <a class="col-sm-5 btn btn-w-md btn-primary btn-outline nav-action hid mr-2" @click="edit_board(board)">Edit</a>
+                      <!-- <a class="col-sm-5 btn btn-w-md btn-danger nav-action d-inline text-white" @click="del_board(board)">Delete</a> -->
                     </td>
                   </tr>
                 </tbody>
@@ -180,7 +180,7 @@
           {name:"Halke Ram",id:""},
           {name:"Ram Chand",id:""}
         ],
-        items:[
+        itemnames:[
           {name:"Sanjeev",id:""},
           {name:"Kumar",id:""},
           {name:"Halke Ram",id:""},
@@ -198,42 +198,34 @@
       edit_user(user) {
         this.userOpen = user
       },
-      save_user() {
-        this.userOpen = null
-      },
-      del_user: function(index) {
-        this.users.splice(index, 1);
-      },
       edit_vendor(vendor) {
         this.vendorOpen = vendor
-      },
-      save_vendor() {
-        this.vendorOpen = null
-      },
-      del_vendor: function(index) {
-        this.vendors.splice(index, 1);
       },
       edit_receiver(receiver) {
         this.receiverOpen = receiver
       },
-      save_receiver() {
-        this.receiverOpen = null
+      edit_item(itemname) {
+        this.itemOpen = itemname
+      },
+      edit_board(board) {
+        this.boardOpen = board
+      },/* 
+      del_user: function(index) {
+        this.users.splice(index, 1);
+      },
+      del_vendor: function(index) {
+        this.vendors.splice(index, 1);
       },
       del_receiver: function(index) {
         this.receivers.splice(index, 1);
       },
-      edit_item(item) {
-        this.itemOpen = item
-      },
-      save_item() {
-        this.itemOpen = null
-      },
       del_item: function(index) {
-        this.items.splice(index, 1);
+        this.itemnames.splice(index, 1);
       },
-      save: function(index,typee) {
-        //console.log(index);
-        //console.log(typee);              
+      del_board: function(index) {
+        this.boards.splice(index, 1);
+      }, */
+      delete_name: function(index,typee) {
         var datatosend = {
           type : typee
         }
@@ -243,20 +235,53 @@
           datatosend['element'] = this.vendors[index]
         } else if ( typee == "receivers" ) {
           datatosend['element'] = this.receivers[index]
-        } else if ( typee == "items" ) {
-          datatosend['element'] = this.items[index]
+        } else if ( typee == "itemnames" ) {
+          datatosend['element'] = this.itemnames[index]
         } else if ( typee == "boards" ) {
           datatosend['element'] = this.boards[index]
         }
-
-        console.log(JSON.stringify(datatosend))
+        this.$http.post( this.$hostname + 'edit' , JSON.stringify(datatosend))
+        .then( function ( data ) {
+          console.log(data);
+          if (data.body.status){
+            //console.log("saved")
+          }else{
+            //alert("Some else error occured")          
+          }
+        }.bind(this),function(data){
+          console.log(data.body);
+          alert("Some error occured")
+        })
+      },
+      save: function(index,typee) {
+        //console.log(index);
+        //console.log(typee);              
+        var datatosend = {
+          type : typee
+        }
+        if (typee =="users"){
+          this.userOpen = null
+          datatosend['element'] = this.users[index]
+        } else if ( typee == "vendors" ) {
+          this.vendorOpen = null
+          datatosend['element'] = this.vendors[index]
+        } else if ( typee == "receivers" ) {
+          this.receiverOpen = null
+          datatosend['element'] = this.receivers[index]
+        } else if ( typee == "itemnames" ) {
+          this.itemOpen = null
+          datatosend['element'] = this.itemnames[index]
+        } else if ( typee == "boards" ) {
+          this.boardOpen = null
+          datatosend['element'] = this.boards[index]
+        }
         this.$http.post( this.$hostname + 'edit' , JSON.stringify(datatosend))
         .then( function ( data ) {
           console.log(data.body);
           if (data.body.status){
             console.log("saved")
           }else{
-            alert("Some else error occured")          
+            //alert("Some else error occured")          
           }
         }.bind(this),function(data){
           console.log(data.body);
@@ -271,16 +296,13 @@
           console.log(json)
           if(json.success){
             this.vendors = json.vendors
-            this.items = json.item_names
+            this.itemnames = json.item_names
             this.receivers = json.users
             this.users = json.users
-            // console.log(this.vendors)
-            // console.log(this.items)
-            // console.log(this.receivers)
-            // console.log(this.users)
-          }else{
-            alert("API is working")
-          }
+            this.boards = json.boards
+          } else {
+            alert( "API is working" )
+        }
       })
     }
   }

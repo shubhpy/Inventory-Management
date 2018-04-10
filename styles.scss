@@ -59,7 +59,7 @@ body>main{
   }
 }
 @media print{
-  body *{
+  body * {
     visibility:hidden;
   }
 }
@@ -96,20 +96,20 @@ a{
         text-decoration:none;
     }
 }
-.ps-container{
+.ps-container {
     position:relative;
 }
 //Navigation ?
-.menu{
+.menu {
     list-style:none;
     padding-left:0;
     margin-bottom:30px;
 }
-.menu-item{
+.menu-item {
     vertical-align:top;
     @include transition(all 0.2s linear);
 }
-.menu-link{
+.menu-link {
     height:56px;
     padding:0 12px;
     font-weight:$default-font-weight;
@@ -119,7 +119,7 @@ a{
     align-items:center;
     @include transition(all 0.2s linear);
 }
-.menu-category{
+.menu-category {
     position:relative;
     font-family:$default-font;
     display:block;
@@ -135,7 +135,7 @@ a{
     overflow:hidden;
     text-overflow:ellipsis;
 }
-.menu-category::after{
+.menu-category::after {
     content:'';
     position:absolute;
     width:100%;
@@ -148,7 +148,7 @@ a{
     margin-top:3px;
 }
 // Navigation Top 
-.topbar-btn{
+.topbar-btn {
     display:inline-block;
     //font-size:1.4rem;
     font-weight:$default-font-weight;
@@ -169,7 +169,7 @@ a{
         border-top-color:$primary;
     }
 }
-.topbar-right{
+.topbar-right {
     display:-webkit-box;
     display:flex;
 
@@ -192,7 +192,7 @@ a{
     border-radius:8px 0 0 8px;
     box-shadow:0px 2px 2px -1px #555;
 }
-.topbar-left{
+.topbar-left {
     @include transition(all 0.2s linear);
     display:none;
     -webkit-box-align:center;
@@ -219,7 +219,7 @@ a{
     }
 }
 //make height fullscreen
-.h-fullscreen{
+.h-fullscreen {
     height:100vh !important;
 }
 label{
@@ -227,18 +227,18 @@ label{
     font-size:13px;
     letter-spacing:.5px;
 }
-.row.no-gutters{
+.row.no-gutters {
     margin-left:0;
     margin-right:0;
 }
-.row.no-gutters>[class*="col-"]{
+.row.no-gutters>[class*="col-"] {
     padding-right:0;
     padding-left:0;
 }
-.bg-white{
+.bg-white {
     background-color:$white !important;
 }
-.bg-img{
+.bg-img {
     position:relative;
     border-bottom:none;
     background-position:center;
@@ -247,10 +247,10 @@ label{
     background-repeat:no-repeat;
     z-index:0;
 }
-[data-overlay]{
+[data-overlay] {
     position:relative;
 }
-[data-overlay]::before{
+[data-overlay]::before {
     position:absolute;
     content:'';
     
@@ -263,40 +263,40 @@ label{
     z-index:-1;
     border-radius:inherit;
 }
-[data-overlay="5"]::before{
+[data-overlay="5"]::before {
     opacity:.5;
 }
 .form-control:disabled,
-.form-control[readonly]{
+.form-control[readonly] {
     background:#f7f7f7;
     color:$primary;
 }
-.min-h-fullscreen{
+.min-h-fullscreen {
     min-height:100vh !important;
 }
-.py-30{
+.py-30 {
     padding-top:30px !important;
     padding-bottom:30px !important;
 }
-.pl-50{
+.pl-50 {
     padding-left:50px !important;
 }
-.px-80{
+.px-80 {
     padding-right:80px !important;
     padding-left:80px !important;
 }
 //
-small{
+small {
   font-family:$default-font;
   font-weight:$default-font-weight;
   font-size:12px;
   color:#8b95a5;
 }
-button, input, select{
+button, input, select {
   font-family:$default-font;
   font-weight:$default-font-weight;
 }
-h1, h4, h5, h6{
+h1, h4, h5, h6 {
   font-family:$default-font;
   font-weight:$default-font-weight;
   color:#313944;
@@ -308,14 +308,14 @@ h4 { font-size:19px; }
 h5 { font-size:16px; font-weight:$default-font-weight; }
 h6 { font-size:14px; font-weight:$default-font-weight; }
 
-@media ( max-width:991px ){
+@media ( max-width:991px ) {
   html { font-size:16px; }
   h1{ font-size:31px; }
   h4{ font-size:18px; }
   h5{ font-size:15px; }
   h6{ font-size:13px; }
 }
-@media (max-width:767px){
+@media (max-width:767px) {
   html { font-size:15px; }
   h1 { font-size:24px; }
   h4 { font-size:16px; }
@@ -407,6 +407,7 @@ h6 { font-size:14px; font-weight:$default-font-weight; }
 
 //Tupple function
 $buttonConfig:'primary' $primary, 'info' $info, 'danger' $danger, 'secondary' $secondary;
+
 @each $tuple in $buttonConfig{
   .btn-#{nth($tuple, 1)}{
     color:$white;

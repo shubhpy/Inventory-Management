@@ -289,7 +289,7 @@
           this.addedItems.push({name:this.selectedItem,boxes:this.noBoxes,quantity:this.quantity,price:this.price})
         }
       }else{
-        console.log("Details not entered")
+        console.log("Details can not be zero")
       }
     },
     postNewItemsEntry: function() {
@@ -303,7 +303,6 @@
           price : this.totalPrice,
           items: this.addedItems
         };
-
         console.log(datatosend)
         this.$http.post( this.$hostname + 'input',JSON.stringify(datatosend))
         .then(function (data) {
@@ -401,19 +400,13 @@
           this.vendors = json.vendors
           this.items = json.item_names
           this.receivers = json.users
-          // this.users = json.users
-          this.users = json.users/* 
-          console.log( this.users )
-          console.log( this.vendors )
-          console.log( this.items )
-          console.log( this.receivers ) */        
-        }else{
+          this.users = json.users        
+        } else{
           alert("API is working")
-        }
+      }
     })
   }}
 </script>
-
 <style>
   @import url("//unpkg.com/element-ui@2.3.3/lib/theme-chalk/index.css");
 </style>
