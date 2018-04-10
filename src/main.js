@@ -7,9 +7,11 @@ import Resource from 'vue-resource';
 import Element from "element-ui";
 import en from "element-ui/lib/locale/lang/en";
 import { store } from './store/store'
-import Datatable from 'vue2-datatable-component'
+import VueGoodTable from 'vue-good-table';
+// import the styles 
+import 'vue-good-table/dist/vue-good-table.css'
 
-Vue.use(Datatable) // done!
+Vue.use(VueGoodTable);
 Vue.use(Element, { locale: en });
 Vue.use(Resource)
 Vue.config.productionTip = false

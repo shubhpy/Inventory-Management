@@ -22,6 +22,7 @@
           </ul>
           <div class="tab-content">
             <div class="tab-pane fade active show" id="Users">
+              <input type="text" id="myInput" v-model="searchUserKey" placeholder="Search for names.." title="Type in a name">
               <table id="User" class="table table-striped table-bordered dataTable display pt-4" cellspacing="0" cellpadding="0">
                 <thead>
                   <tr role="row">
@@ -162,6 +163,7 @@
         receiverOpen:null,
         itemOpen:null,
         boardOpen:null,
+        searchUserKey : null,
         // users:[
         //   {name:"Sanjeev",id:""},
         //   {name:"Kumar",id:""},
@@ -265,7 +267,7 @@
       }
     },
     created(){
-      this.$store.dispatch('fetchNames');
+      // this.$store.dispatch('fetchNames');
 
       // users = this.$store.getters.getUserNames;
       // fetch(this.$hostname + 'getnames' )
@@ -292,18 +294,33 @@
       // }
     },
     computed:{
-      users(){
-        const names = this.$store.getters.getUserNames
-        if (typeof(names.length) == 'undefined') {
-          return [{name:"Sanjeev",id:""},
+      users () {
+        var userss = [{name:"Sanjeev",id:""},
               {name:"Kumar",id:""},
               {name:"Halke Ram",id:""},
               {name:"Ram Chand",id:""}
             ]
-        }else{
-          return names
-        }
+            if (this.searchUserKey){
+              return userss.filter(user => {
+                return user.name.toLowerCase().includes(this.searchUserKey.toLowerCase())
+              })
+            }else{
+              return userss
+            }
       }
+      // users(){
+      //   const names = this.$store.getters.getUserNames
+      //   if (typeof(names.length) == 'undefined') {
+      //     return [{name:"Sanjeev",id:""},
+      //         {name:"Kumar",id:""},
+      //         {name:"Halke Ram",id:""},
+      //         {name:"Ram Chand",id:""}
+      //       ]
+      //   }else{
+      //     return names
+      //   }
+      // },
+      
     }
   }
 </script>
