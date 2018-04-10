@@ -7,17 +7,17 @@ import Resource from 'vue-resource';
 import Element from "element-ui";
 import en from "element-ui/lib/locale/lang/en";
 import { store } from './store/store'
-// import cache from 'vue-cache'
+import Datatable from 'vue2-datatable-component'
 
-// Vue.use(cache, {http: Vue.http, appkey: 'enter your key'});
+Vue.use(Datatable) // done!
 Vue.use(Element, { locale: en });
 Vue.use(Resource)
 Vue.config.productionTip = false
 Vue.http.options.emulateJSON = true;
 
-Vue.prototype.$hostname = "http://localhost:8000/";
+// Vue.prototype.$hostname = "http://localhost:8000/";
 
-// Vue.prototype.$hostname = "http://192.168.15.187:8000/inventory/";
+Vue.prototype.$hostname = "http://192.168.15.153:5000/#/inventory/";
 // Vue.prototype.$hostname = "https://qcitech.org:8085/inventory/";
 
 /* eslint-disable no-new */

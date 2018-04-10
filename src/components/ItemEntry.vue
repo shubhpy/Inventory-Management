@@ -40,7 +40,7 @@
                         <th class="frst">&nbsp;</th>
                         <th class="scnd">
                           <label class="d-block">Select Item Name</label>
-                          <Autocomplete :suggestions="items" v-model="selectedItem"></Autocomplete>              
+                          <Autocomplete :suggestions="items" v-model="selectedItem"></Autocomplete>
                         </th>
                         <th class="thrd">
                           <label class="d-block">No. of Boxes<span class="text-primary"> (if applicable)</span></label>
@@ -125,7 +125,7 @@
                         <th class="frst">&nbsp;</th>
                         <th class="scnd">
                           <label class="d-block">Select Item Name</label>
-                          <Autocomplete :suggestions="items" v-model="selectedItem_Collect"></Autocomplete>              
+                          <Autocomplete :suggestions="items" v-model="selectedItem_Collect"></Autocomplete>
                         </th>
                         <th class="thrd">
                           <label class="d-block">Qty. in each box</label>
@@ -178,65 +178,119 @@
 
 <script>
   import router from '../router'
-  import Autocomplete from './Autocomplete'  
+  import Autocomplete from './Autocomplete'
   
   export default {
-  name: 'ItemEntry',
-  components: {
-    Autocomplete
-  },
-  data() {
-    return {
-      vendors: [
-        {name:"Aggarwal",quantity:""},
-        {name:"Horizon Computers",quantity:""},
-        {name:"Cafe Coffee",quantity:""},
-      ],
-      items: [
-          {name:"Stapler",quantity:""},
-          {name:"Stapler pin",quantity:""},
-          {name:"Milk",quantity:""},
-          {name:"Green Tea",quantity:""}
+    name: 'ItemEntry',
+    components: {
+      Autocomplete
+    },
+    data() {
+      return {
+        vendors: [{
+            name: "Aggarwal",
+            quantity: ""
+          },
+          {
+            name: "Horizon Computers",
+            quantity: ""
+          },
+          {
+            name: "Cafe Coffee",
+            quantity: ""
+          },
         ],
-      users: [
-          {name:"Sanjeev",quantity:""},
-          {name:"Kumar",quantity:""},
-          {name:"Halke Ram",quantity:""},
-          {name:"Ram Chand",quantity:""}
+        items: [{
+            name: "Stapler",
+            quantity: ""
+          },
+          {
+            name: "Stapler pin",
+            quantity: ""
+          },
+          {
+            name: "Milk",
+            quantity: ""
+          },
+          {
+            name: "Green Tea",
+            quantity: ""
+          }
         ],
-      boards: [
-        {name:"NABH",quantity:""},
-        {name:"ZED",quantity:""},
-        {name:"IAEA Office",quantity:""},
-        {name:"NABET",quantity:""}
-      ],
-      receivers :[
-          {name:"Sanjeev",quantity:""},
-          {name:"Kumar",quantity:""},
-          {name:"Halke Ram",quantity:""},
-          {name:"Ram Chand",quantity:""}
-      ],
-
-      enteredDate : "",
-      enteredBillNo : "",
-      selectedVendor : "",
-      selectedUser : "",
-      selectedItem : "",
-      noBoxes : '0',
-      quantity : '0',
-      price : '0',
-      addedItems : [],
-
-      selectedReceiver : "",
-      selectedBoard : "",
-      enteredDate_Collect : "",
-      selectedItem_Collect : "",
-      quantity_Collect : '0',
-      addedItems_Collect : [],
-
-      pickerOptions1: {
+        users: [{
+            name: "Sanjeev",
+            quantity: ""
+          },
+          {
+            name: "Kumar",
+            quantity: ""
+          },
+          {
+            name: "Halke Ram",
+            quantity: ""
+          },
+          {
+            name: "Ram Chand",
+            quantity: ""
+          }
+        ],
+        boards: [{
+            name: "NABH",
+            quantity: ""
+          },
+          {
+            name: "ZED",
+            quantity: ""
+          },
+          {
+            name: "IAEA Office",
+            quantity: ""
+          },
+          {
+            name: "NABET",
+            quantity: ""
+          }
+        ],
+        receivers: [{
+            name: "Sanjeev",
+            quantity: ""
+          },
+          {
+            name: "Kumar",
+            quantity: ""
+          },
+          {
+            name: "Halke Ram",
+            quantity: ""
+          },
+          {
+            name: "Ram Chand",
+            quantity: ""
+          }
+        ],
+  
+        enteredDate: "",
+        enteredBillNo: "",
+        selectedVendor: "",
+        selectedUser: "",
+        selectedItem: "",
+        noBoxes: '0',
+        quantity: '0',
+        price: '0',
+        addedItems: [],
+  
+        selectedReceiver: "",
+        selectedBoard: "",
+        enteredDate_Collect: "",
+        selectedItem_Collect: "",
+        quantity_Collect: '0',
+        addedItems_Collect: [],
+  
+        pickerOptions1: {
           // disabledDate(time) {
-          //   return time.getTime() > Date.now();
+          //   if (time.getDay()=='0' || time.getTime() < new Date()){
+          //     return true
+          //   }
           // },
           shortcuts: [{
             text: 'Today',
@@ -257,7 +311,7 @@
               date.setTime(date.getTime() + 3600 * 1000 * 24);
               picker.$emit('pick', date);
             }
-          },{
+          }, {
             text: 'A week ago',
             onClick(picker) {
               const date = new Date();
@@ -266,152 +320,162 @@
             }
           }]
         },
-    }
-  },
-  methods : {
-    deleteItem: function(index,e){
-      this.addedItems.splice(index, 1)
+      }
     },
-    addItem: function(e) {
-      e.preventDefault();
-      var i
-      var found = false
-      if (this.selectedItem && this.noBoxes && parseInt(this.quantity)){
-        for (i = 0; i < this.addedItems.length; i++) { 
-            if (this.selectedItem == this.addedItems[i].name){
+    methods: {
+      deleteItem: function(index, e) {
+        this.addedItems.splice(index, 1)
+      },
+      addItem: function(e) {
+        e.preventDefault();
+        var i
+        var found = false
+        if (this.selectedItem && this.noBoxes && parseInt(this.quantity)) {
+          for (i = 0; i < this.addedItems.length; i++) {
+            if (this.selectedItem == this.addedItems[i].name) {
               found = true
               this.addedItems[i].boxes = parseInt(this.addedItems[i].boxes) + parseInt(this.noBoxes)
               this.addedItems[i].quantity = parseInt(this.addedItems[i].quantity) + parseInt(this.quantity)
               this.addedItems[i].price = parseInt(this.addedItems[i].price) + parseInt(this.price)
             }
-        }
-        if (!found){
-          this.addedItems.push({name:this.selectedItem,boxes:this.noBoxes,quantity:this.quantity,price:this.price})
-        }
-      }else{
-        console.log("Details not entered")
-      }
-    },
-    postNewItemsEntry: function() {
-      if (this.selectedVendor!="" && this.selectedUser!="" && this.enteredBillNo!="" && this.enteredDate!="" && this.addedItems.length){
-        console.log("Here");      
-        var datatosend = {
-          vendor : this.selectedVendor,
-          user : this.selectedUser,
-          bill : this.enteredBillNo,
-          date : this.enteredDate,
-          price : this.totalPrice,
-          items: this.addedItems
-        };
-
-        console.log(datatosend)
-        this.$http.post( this.$hostname + 'input',JSON.stringify(datatosend))
-        .then(function (data) {
-          console.log(data.body);
-          if (data.body.status){
-            alert("Entry saved")
-            this.selectedVendor="" 
-            this.selectedUser=""
-            this.enteredBillNo=""
-            this.enteredDate=""
-            this.addedItems=[]
-          }else{
-            alert("Some error occured")          
           }
-        }.bind(this),function(data){
-          console.log(data.body);
-          alert("Some error occured")
-        })
-      }else{
-        alert("Fill all the details as Vendor, User, Date ,Billno and atleast one item in items")
-      }
-    },
-    postNewItemsEntry_Collect:function(){
-      if (this.selectedReceiver!="" && this.selectedBoard!="" && this.enteredDate_Collect!="" && this.addedItems_Collect.length){
-        console.log("Here");      
-        var datatosend = {
-          collector : this.selectedReceiver,
-          board : this.selectedBoard,
-          date : this.enteredDate_Collect,
-          items: this.addedItems_Collect
-        };
-        this.$http.post( this.$hostname + 'output',JSON.stringify(datatosend))
-        .then(function (data) {
-          console.log(data.body);
-          if (data.body.status){
-            alert("Entry saved")
-            this.selectedReceiver=""
-            this.selectedBoard=""
-            this.enteredDate_Collect=""
-            this.addedItems_Collect=[]
-          }else{
-            alert("Some error occured")          
+          if (!found) {
+            this.addedItems.push({
+              name: this.selectedItem,
+              boxes: this.noBoxes,
+              quantity: this.quantity,
+              price: this.price
+            })
           }
-        }.bind(this),function(data){
-          console.log(data.body);
-          alert("Some error occured")
-        })
-      }else{
-        alert("Fill all the details as Item Collector, Board, Date and atleast one item in items")
-      }
-    },
-    addItem_Collect: function(e) {
-      e.preventDefault();
-      var i
-      var found = false
-      if (this.selectedItem_Collect && parseInt(this.quantity_Collect)){
-        for (i = 0; i < this.addedItems_Collect.length; i++) { 
-            if (this.selectedItem_Collect == this.addedItems_Collect[i].name){
+        } else {
+          console.log("Details not entered")
+        }
+      },
+      postNewItemsEntry: function() {
+        if (this.selectedVendor != "" && this.selectedUser != "" && this.enteredBillNo != "" && this.enteredDate != "" && this.addedItems.length) {
+          console.log("Here");
+          var datatosend = {
+            vendor: this.selectedVendor,
+            user: this.selectedUser,
+            bill: this.enteredBillNo,
+            date: this.enteredDate,
+            price: this.totalPrice,
+            items: this.addedItems
+          };
+  
+          console.log(datatosend)
+          this.$http.post(this.$hostname + 'input', JSON.stringify(datatosend))
+            .then(function(data) {
+              console.log(data.body);
+              if (data.body.status) {
+                alert("Entry saved")
+                this.selectedVendor = ""
+                this.selectedUser = ""
+                this.enteredBillNo = ""
+                this.enteredDate = ""
+                this.addedItems = []
+              } else {
+                alert("Some error occured")
+              }
+            }.bind(this), function(data) {
+              console.log(data.body);
+              alert("Some error occured")
+            })
+        } else {
+          alert("Fill all the details as Vendor, User, Date ,Billno and atleast one item in items")
+        }
+      },
+      postNewItemsEntry_Collect: function() {
+        if (this.selectedReceiver != "" && this.selectedBoard != "" && this.enteredDate_Collect != "" && this.addedItems_Collect.length) {
+          console.log("Here");
+          var datatosend = {
+            collector: this.selectedReceiver,
+            board: this.selectedBoard,
+            date: this.enteredDate_Collect,
+            items: this.addedItems_Collect
+          };
+          this.$http.post(this.$hostname + 'output', JSON.stringify(datatosend))
+            .then(function(data) {
+              console.log(data.body);
+              if (data.body.status) {
+                alert("Entry saved")
+                this.selectedReceiver = ""
+                this.selectedBoard = ""
+                this.enteredDate_Collect = ""
+                this.addedItems_Collect = []
+              } else {
+                alert("Some error occured")
+              }
+            }.bind(this), function(data) {
+              console.log(data.body);
+              alert("Some error occured")
+            })
+        } else {
+          alert("Fill all the details as Item Collector, Board, Date and atleast one item in items")
+        }
+      },
+      addItem_Collect: function(e) {
+        e.preventDefault();
+        var i
+        var found = false
+        if (this.selectedItem_Collect && parseInt(this.quantity_Collect)) {
+          for (i = 0; i < this.addedItems_Collect.length; i++) {
+            if (this.selectedItem_Collect == this.addedItems_Collect[i].name) {
               found = true
               this.addedItems_Collect[i].quantity = parseInt(this.addedItems_Collect[i].quantity) + parseInt(this.quantity_Collect)
             }
+          }
+          if (!found) {
+            this.addedItems_Collect.push({
+              name: this.selectedItem_Collect,
+              quantity: this.quantity_Collect
+            })
+          }
         }
-        if (!found){
-          this.addedItems_Collect.push({name:this.selectedItem_Collect,quantity:this.quantity_Collect})
-        }
+      },
+      deleteItem_Collect: function(index, e) {
+        this.addedItems_Collect.splice(index, 1)
       }
     },
-    deleteItem_Collect: function(index,e){
-      this.addedItems_Collect.splice(index, 1)
+    computed: {
+      totalItems() {
+        return this.addedItems.reduce((sum) => {
+          return sum + 1
+        }, 0)
+      },
+      totalPrice() {
+        return this.addedItems.reduce((sum, item) => {
+          return parseInt(sum) + parseInt(item.price)
+        }, 0)
+      },
+      totalItems_Collect() {
+        return this.addedItems_Collect.reduce((sum) => {
+          return sum + 1
+        }, 0)
+      },
+    },
+    created() {
+      fetch(this.$hostname + 'getnames')
+        .then(response => response.json())
+        .then(json => {
+          console.log(json)
+          if (json.success) {
+            this.vendors = json.vendors
+            this.items = json.item_names
+            this.receivers = json.users
+            // this.users = json.users
+            this.users = json.users
+            /* 
+                      console.log( this.users )
+                      console.log( this.vendors )
+                      console.log( this.items )
+                      console.log( this.receivers ) */
+          } else {
+            alert("API is working")
+          }
+        })
     }
-  },
-  computed: {
-    totalItems(){
-      return this.addedItems.reduce((sum) => {
-        return sum + 1
-      }, 0)
-    },
-    totalPrice(){
-      return this.addedItems.reduce((sum,item) => {
-        return parseInt(sum) + parseInt(item.price)
-      }, 0)
-    },
-    totalItems_Collect(){
-      return this.addedItems_Collect.reduce((sum) => {
-        return sum + 1
-      }, 0)
-    },
-  },
-  created () {
-    fetch(this.$hostname + 'getnames' )
-      .then(response => response.json())
-      .then(json => {
-        console.log(json)
-        if(json.success){
-          this.vendors = json.vendors
-          this.items = json.item_names
-          this.receivers = json.users
-          // this.users = json.users
-          this.users = json.users/* 
-          console.log( this.users )
-          console.log( this.vendors )
-          console.log( this.items )
-          console.log( this.receivers ) */        
-        }else{
-          alert("API is working")
-        }
-    })
-  }}
+  }
 </script>
 
 <style>
