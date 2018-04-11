@@ -11,7 +11,7 @@
                 v-bind:class="{'active': isActive(index)}"
                 @click="suggestionClick(index)"
             >
-              <a href="#">{{ suggestion.name }} <small>{{ suggestion.quantity }}</small>
+              <a href="#">{{ suggestion.name }} - <span class="text-primary">{{ suggestion.remaining_quantity}}</span>
               </a>
             </li>
         </ul>
@@ -21,6 +21,11 @@
 <script>
 export default {
   props: {
+    clickout : {
+      type: Boolean,
+      required: false,
+      value : true
+    },
     value: {
       type: String,
       required: true
@@ -91,9 +96,16 @@ export default {
       this.open = false
     },
     clickedOutside () {
-      console.log("Outside")
-      // this.$emit('input', value)
-      this.open = false
+      if (!this.clickout){
+        // console.log("Outside")
+        // this.$emit('input', value)
+        this.open = false
+      }
+      if (this.value==''){
+        // console.log("Outside")
+        // this.$emit('input', value)
+        this.open = false
+      }
     }
   },
   // events :{

@@ -4,9 +4,7 @@ import router from './router'
 import Resource from 'vue-resource';
 import Element from "element-ui";
 import en from "element-ui/lib/locale/lang/en";
-import Datatable from 'vue2-datatable-component'
 
-Vue.use(Datatable)
 Vue.use(Element, { locale: en });
 Vue.use(Resource)
 Vue.config.productionTip = false

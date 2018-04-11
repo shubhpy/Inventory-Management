@@ -99,6 +99,10 @@ a{
 .ps-container {
     position:relative;
 }
+
+.brdr-clr {
+    position:relative;
+}
 //Navigation ?
 .menu {
     list-style:none;
@@ -705,13 +709,14 @@ table.dataTable.display tbody td{
 .form-control, .dataTables_filter input, .dataTables_length select{
     background-color:$white;
     border:1px solid rgba(0, 0, 0, .45);
-    border-color:#ebebeb;
+    border-color:#e0e0e0;
     border-radius:2px;
     color:#8b95a5;
     padding:5px 12px;
     font-size:14px;
     line-height:inherit;
     @include transition(all 0.2s linear);
+    box-shadow: 5px 5px 5px -5px #ddd;
 }
 .btn-outline.btn-primary{
     color:$primary;

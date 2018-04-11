@@ -4,24 +4,25 @@
       <div class="card">
         <div class="card-body">
           <ul class="nav nav-tabs">
-            <li class="nav-item col-sm-2 float-left p-0">
+            <li class="nav-item col-sm-1 float-left p-0 mr-4">
               <a class="nav-link active" data-toggle="tab" href="#Users">Users</a>
             </li>
-            <li class="nav-item col-sm-2 float-left p-0">
+            <li class="nav-item col-sm-1 float-left p-0 mr-4">
               <a class="nav-link" data-toggle="tab" href="#Vendors">Vendors</a>
             </li>
-            <li class="nav-item col-sm-2 float-left p-0">
+            <li class="nav-item col-sm-1 float-left p-0 mr-4">
               <a class="nav-link" data-toggle="tab" href="#Receivers">Receivers</a>
             </li>
-            <li class="nav-item col-sm-2 float-left p-0">
+            <li class="nav-item col-sm-1 float-left p-0 mr-4">
               <a class="nav-link" data-toggle="tab" href="#Items">Items</a>
             </li>
-            <li class="nav-item col-sm-2 float-left p-0">
+            <li class="nav-item col-sm-1 float-left p-0">
               <a class="nav-link" data-toggle="tab" href="#Boards">Boards</a>
             </li>
           </ul>
           <div class="tab-content">
             <div class="tab-pane fade active show" id="Users">
+              <input type="text" v-model="searchUserkey" class="form-control col-sm-3 mt-3 ml-4" placeholder="Search Users" title="Type a name" />
               <table id="User" class="table table-striped table-bordered dataTable display pt-4" cellspacing="0" cellpadding="0">
                 <thead>
                   <tr role="row">
@@ -47,6 +48,7 @@
               </table>
             </div>
             <div class="tab-pane fade" id="Vendors">
+              <input type="text" v-model="searchVendorkey" class="form-control col-sm-3 mt-3 ml-4" placeholder="Search Vendors" title="Type a name" />
               <table id="vendor" class="table table-striped table-bordered dataTable display pt-4" cellspacing="0" cellpadding="0">
                 <thead>
                   <tr role="row">
@@ -72,6 +74,7 @@
               </table>
             </div>
             <div class="tab-pane fade" id="Receivers">
+              <input type="text" v-model="searchReceiverkey" class="form-control col-sm-3 mt-3 ml-4" placeholder="Search Receivers" title="Type a name" />
               <table id="receiver" class="table table-striped table-bordered dataTable display pt-4" cellspacing="0" cellpadding="0">
                 <thead>
                   <tr role="row">
@@ -97,6 +100,7 @@
               </table>
             </div>
             <div class="tab-pane fade" id="Items">
+              <input type="text" v-model="searchItemkey" class="form-control col-sm-3 mt-3 ml-4" placeholder="Search Items" title="Type a name" />
               <table id="item" class="table table-striped table-bordered dataTable display pt-4" cellspacing="0" cellpadding="0">
                 <thead>
                   <tr role="row">
@@ -122,6 +126,7 @@
               </table>
             </div>
             <div class="tab-pane fade" id="Boards">
+              <input type="text" v-model="searchBoardkey" class="form-control col-sm-3 mt-3 ml-4" placeholder="Search Boards" title="Type a name" />
               <table id="board" class="table table-striped table-bordered dataTable display pt-4" cellspacing="0" cellpadding="0">
                 <thead>
                   <tr role="row">
@@ -161,37 +166,17 @@
         vendorOpen:null,
         receiverOpen:null,
         itemOpen:null,
+        searchUserkey:null,
+        searchVendorkey:null,
+        searchReceiverkey:null,
+        searchItemkey:null,
+        searchBoardkey:null,
         boardOpen:null,
-        users:[
-          {name:"Sanjeev",id:""},
-          {name:"Kumar",id:""},
-          {name:"Halke Ram",id:""},
-          {name:"Ram Chand",id:""}
-        ],
-        vendors:[
-          {name:"Sanjeev",id:""},
-          {name:"Kumar",id:""},
-          {name:"Halke Ram",id:""},
-          {name:"Ram Chand",id:""}
-        ],
-        receivers:[
-          {name:"Sanjeev",id:""},
-          {name:"Kumar",id:""},
-          {name:"Halke Ram",id:""},
-          {name:"Ram Chand",id:""}
-        ],
-        itemnames:[
-          {name:"Sanjeev",id:""},
-          {name:"Kumar",id:""},
-          {name:"Halke Ram",id:""},
-          {name:"Ram Chand",id:""}
-        ],
-        boards:[
-          {name:"Sanjeev",id:""},
-          {name:"Kumar",id:""},
-          {name:"Halke Ram",id:""},
-          {name:"Ram Chand",id:""}
-        ]
+        users_:[],
+        vendors_:[],
+        receivers_:[],
+        itemnames_:[],
+        boards_:[]
       }
     },
     methods:{
@@ -209,49 +194,6 @@
       },
       edit_board(board) {
         this.boardOpen = board
-      },/* 
-      del_user: function(index) {
-        this.users.splice(index, 1);
-      },
-      del_vendor: function(index) {
-        this.vendors.splice(index, 1);
-      },
-      del_receiver: function(index) {
-        this.receivers.splice(index, 1);
-      },
-      del_item: function(index) {
-        this.itemnames.splice(index, 1);
-      },
-      del_board: function(index) {
-        this.boards.splice(index, 1);
-      }, */
-      delete_name: function(index,typee) {
-        var datatosend = {
-          type : typee
-        }
-        if (typee =="users"){
-          datatosend['element'] = this.users[index]
-        } else if ( typee == "vendors" ) {
-          datatosend['element'] = this.vendors[index]
-        } else if ( typee == "receivers" ) {
-          datatosend['element'] = this.receivers[index]
-        } else if ( typee == "itemnames" ) {
-          datatosend['element'] = this.itemnames[index]
-        } else if ( typee == "boards" ) {
-          datatosend['element'] = this.boards[index]
-        }
-        this.$http.post( this.$hostname + 'edit' , JSON.stringify(datatosend))
-        .then( function ( data ) {
-          console.log(data);
-          if (data.body.status){
-            //console.log("saved")
-          }else{
-            //alert("Some else error occured")          
-          }
-        }.bind(this),function(data){
-          console.log(data.body);
-          alert("Some error occured")
-        })
       },
       save: function(index,typee) {
         //console.log(index);
@@ -289,17 +231,64 @@
         })
       }
     },
+    computed:{
+      users (){
+        if (this.searchUserkey){
+          return this.users_.filter(user => {
+            return user.name.toLowerCase().includes(this.searchUserkey.toLowerCase())
+          })
+        }else{
+          return this.users_
+        }
+      },
+      vendors (){
+        if (this.searchVendorkey){
+          return this.vendors_.filter(vendor => {
+            return vendor.name.toLowerCase().includes(this.searchVendorkey.toLowerCase())
+          })
+        }else{
+          return this.vendors_
+        }
+      },
+      receivers (){
+        if (this.searchReceiverkey){
+          return this.receivers_.filter(receiver => {
+            return receiver.name.toLowerCase().includes(this.searchReceiverkey.toLowerCase())
+          })
+        }else{
+          return this.receivers_
+        }
+      },
+      itemnames (){
+        if (this.searchItemkey){
+          return this.itemnames_.filter(itemname => {
+            return itemname.name.toLowerCase().includes(this.searchItemkey.toLowerCase())
+          })
+        }else{
+          return this.itemnames_
+        }
+      },
+      boards (){
+        if (this.searchBoardkey){
+          return this.boards_.filter(board => {
+            return board.name.toLowerCase().includes(this.searchBoardkey.toLowerCase())
+          })
+        }else{
+          return this.boards_
+        }
+      }
+    },
     created(){
       fetch(this.$hostname + 'getnames' )
         .then(response => response.json())
         .then(json => {
           console.log(json)
           if(json.success){
-            this.vendors = json.vendors
-            this.itemnames = json.item_names
-            this.receivers = json.users
-            this.users = json.users
-            this.boards = json.boards
+            this.vendors_ = json.vendors
+            this.itemnames_ = json.item_names
+            this.receivers_ = json.receivers
+            this.users_ = json.users
+            this.boards_ = json.boards
           } else {
             alert( "API is working" )
         }

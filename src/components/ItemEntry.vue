@@ -125,9 +125,13 @@
                         <th class="frst">&nbsp;</th>
                         <th class="scnd">
                           <label class="d-block">Select Item Name</label>
-                          <Autocomplete :suggestions="items" v-model="selectedItem_Collect"></Autocomplete>              
+                          <Autocomplete :suggestions="items" :clickout="true" v-model="selectedItem_Collect"  ></Autocomplete>            
                         </th>
-                        <th class="thrd">
+                        <th class="thrd" v-if="itemRemainingQuantity">
+                          <label class="d-block">Remaining</label>
+                          {{itemRemainingQuantity}}
+                        </th>
+                        <th class="frth">
                           <label class="d-block">Qty. in each box</label>
                           <input type="text" class="form-control col-sm-4" placeholder="Quantity" v-model="quantity_Collect">
                         </th>
@@ -187,35 +191,35 @@
   },
   data() {
     return {
-      vendors: [
+      vendors: [/* 
         {name:"Aggarwal",quantity:""},
         {name:"Horizon Computers",quantity:""},
         {name:"Cafe Coffee",quantity:""},
-      ],
+       */],
       items: [
-          {name:"Stapler",quantity:""},
+          /* {name:"Stapler",quantity:""},
           {name:"Stapler pin",quantity:""},
           {name:"Milk",quantity:""},
           {name:"Green Tea",quantity:""}
-        ],
+         */],
       users: [
-          {name:"Sanjeev",quantity:""},
+          /* {name:"Sanjeev",quantity:""},
           {name:"Kumar",quantity:""},
           {name:"Halke Ram",quantity:""},
           {name:"Ram Chand",quantity:""}
-        ],
+         */],
       boards: [
-        {name:"NABH",quantity:""},
+        /* {name:"NABH",quantity:""},
         {name:"ZED",quantity:""},
         {name:"IAEA Office",quantity:""},
         {name:"NABET",quantity:""}
-      ],
+       */],
       receivers :[
-          {name:"Sanjeev",quantity:""},
+         /*  {name:"Sanjeev",quantity:""},
           {name:"Kumar",quantity:""},
           {name:"Halke Ram",quantity:""},
           {name:"Ram Chand",quantity:""}
-      ],
+       */],
 
       enteredDate : "",
       enteredBillNo : "",
@@ -307,12 +311,16 @@
         this.$http.post( this.$hostname + 'input',JSON.stringify(datatosend))
         .then(function (data) {
           console.log(data.body);
-          if (data.body.status){
+          if (data.body.success){
             alert("Entry saved")
             this.selectedVendor="" 
             this.selectedUser=""
             this.enteredBillNo=""
             this.enteredDate=""
+            this.selectedItem=""            
+            this.noBoxes  = '0'
+            this.quantity = '0'
+            this.price = '0'
             this.addedItems=[]
           }else{
             alert("Some error occured")          
@@ -337,11 +345,14 @@
         this.$http.post( this.$hostname + 'output',JSON.stringify(datatosend))
         .then(function (data) {
           console.log(data.body);
-          if (data.body.status){
+          if (data.body.success){
             alert("Entry saved")
             this.selectedReceiver=""
             this.selectedBoard=""
             this.enteredDate_Collect=""
+            this.selectedItem_Collect=""            
+            this.noBoxes  = '0'
+            this.quantity_Collect = '0'
             this.addedItems_Collect=[]
           }else{
             alert("Some error occured")          
@@ -356,25 +367,60 @@
     },
     addItem_Collect: function(e) {
       e.preventDefault();
-      var i
-      var found = false
-      if (this.selectedItem_Collect && parseInt(this.quantity_Collect)){
-        for (i = 0; i < this.addedItems_Collect.length; i++) { 
-            if (this.selectedItem_Collect == this.addedItems_Collect[i].name){
-              found = true
-              this.addedItems_Collect[i].quantity = parseInt(this.addedItems_Collect[i].quantity) + parseInt(this.quantity_Collect)
+      var selectedInItemsAndValidQuantity = false
+      
+      for (i = 0; i < this.items.length; i++) { 
+          if (this.selectedItem_Collect == this.items[i].name){
+            if (parseInt(this.quantity_Collect) <= this.items[i].remaining_quantity){
+              selectedInItemsAndValidQuantity = true
+              break
             }
-        }
-        if (!found){
-          this.addedItems_Collect.push({name:this.selectedItem_Collect,quantity:this.quantity_Collect})
+          }
+      }
+      if (selectedInItemsAndValidQuantity){
+        var i
+        var found = false
+        if (this.selectedItem_Collect && parseInt(this.quantity_Collect)){
+          for (i = 0; i < this.addedItems_Collect.length; i++) {
+              if (this.selectedItem_Collect == this.addedItems_Collect[i].name){
+                found = true
+                if (parseInt(this.quantity_Collect) + parseInt(this.addedItems_Collect[i].quantity) <= this.items[i].remaining_quantity){
+                  this.addedItems_Collect[i].quantity = parseInt(this.addedItems_Collect[i].quantity) + parseInt(this.quantity_Collect)
+                  this.items[i].remaining_quantity=this.items[i].remaining_quantity - parseInt(this.quantity_Collect)
+                }
+                break
+              }
+          }
+          if (!found){
+            this.addedItems_Collect.push({name:this.selectedItem_Collect,quantity:this.quantity_Collect})
+            this.items[i].remaining_quantity=this.items[i].remaining_quantity - parseInt(this.quantity_Collect)
+          }
         }
       }
     },
     deleteItem_Collect: function(index,e){
+      var itemname = this.addedItems_Collect[index].name
+      var itemquantity = this.addedItems_Collect[index].quantity
       this.addedItems_Collect.splice(index, 1)
+      var i
+      for (i = 0; i < this.items.length; i++) { 
+          if (itemname == this.items[i].name){
+              this.items[i].remaining_quantity = this.items[i].remaining_quantity + parseInt(itemquantity)
+              break
+            }
+          }
     }
   },
   computed: {
+    itemRemainingQuantity(){
+      var i
+      for (i = 0; i < this.items.length; i++) { 
+          if (this.selectedItem_Collect == this.items[i].name){
+              return this.items[i].remaining_quantity
+          }
+      }
+      return false
+    },
     totalItems(){
       return this.addedItems.reduce((sum) => {
         return sum + 1
@@ -399,8 +445,9 @@
         if(json.success){
           this.vendors = json.vendors
           this.items = json.item_names
-          this.receivers = json.users
-          this.users = json.users        
+          this.receivers = json.receivers
+          this.users = json.users
+          this.boards = json.boards
         } else{
           alert("API is working")
       }
