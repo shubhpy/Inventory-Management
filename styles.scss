@@ -753,7 +753,7 @@ table.dataTable.display tbody td{
 }.scnd{
     width:26%;
 }.thrd{
-    width:25%;
+    width:26%;
 }.frth{
     width:20%;
 }.ffth{
@@ -893,4 +893,14 @@ thead th{
 }
 .open .shw{
     display: inline;
+}
+
+ins, .dropdown-menu a, table tr td, .card-body div span { text-transform: capitalize}
+.el-range-editor.el-input__inner {
+    padding:0 10px !important;
+    height:34px;
+    border-radius:2px;
+    box-shadow:5px 5px 5px -5px #ddd;
+}.el-range-separator{
+    width: 7%;
 }

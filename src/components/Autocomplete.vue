@@ -11,7 +11,7 @@
                 v-bind:class="{'active': isActive(index)}"
                 @click="suggestionClick(index)"
             >
-              <a href="#">{{ suggestion.name }} - <span class="text-primary">{{ suggestion.remaining_quantity}}</span>
+              <a href="#">{{ suggestion.name }}<!--  - <span class="text-primary">{{ suggestion.remaining_quantity}} --></span>
               </a>
             </li>
         </ul>

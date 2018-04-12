@@ -1,65 +1,183 @@
 <template>
   <div class="main-content p-0">
-    <div class="card h-fullscreen pt-5 mb-0 pl-3 pr-3">
+    <div class="card h-fullscreen pt-5 mb-0">
       <div class="card">
         <div class="card-body">
-          <ul class="nav nav-tabs">
+          <ul class="nav nav-tabs ml-3 mr-3">
             <li class="nav-item col-sm-1 float-left p-0 mr-4">
               <a class="nav-link active" data-toggle="tab" href="#Items">Items</a>
             </li>
             <li class="nav-item col-sm-2 float-left p-0 mr-4">
-              <a class="nav-link" data-toggle="tab" href="#VenHis">Vendor History</a>
+              <a class="nav-link" data-toggle="tab" href="#card-title" @click="getInputDetails">Vendor History</a>
+            </li>
+            <li class="nav-item col-sm-2 float-left p-0 mr-4">
+              <a class="nav-link" data-toggle="tab" href="#CollectHis" @click="getOutputDetails" >Collect History</a>
             </li>
           </ul>
           <div class="tab-content">
             <div class="tab-pane fade active show" id="Items">
-              <div class="card-body">
+              <div class="card-body ml-3 mr-3">
                 <input type="text" v-model="searchItemkey" class="form-control col-sm-3 mt-3 ml-4" placeholder="Search Items" title="Type a name" />
-                <table id="user" class="table table-striped table-bordered dataTable display pt-4" cellspacing="0" cellpadding="0">
-                  <thead>
-                    <tr role="row">
-                      <th class="sorting" tabindex="0" aria-controls="DataTables_Table_0" rowspan="1" colspan="1" v-for="headr in header">{{headr}}</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    <tr role="row" class="odd" v-for="row in rows">
-                      <td v-for="val in row">{{val}}</td>
-                    </tr>
-                  </tbody>
-                </table>
+                <div class="ovf col-sm-12 p-0">
+                  <table id="user" class="table table-striped table-bordered dataTable display pt-4" cellspacing="0" cellpadding="0">
+                    <thead>
+                      <tr role="row">
+                        <th class="sorting" tabindex="0" aria-controls="DataTables_Table_0" rowspan="1" colspan="1" v-for="headr in header">{{headr}}</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr role="row" class="odd" v-for="row in rows">
+                        <td v-for="val in row">{{val}}</td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
               </div>
             </div>
-            <div class="tab-pane fade" id="VenHis">
-              <div class="card-body">
-                <div class="accordion" id="accordion-1">
-                  <div class="card col-sm-6 p-0">
-                    <h5 class="card-title m-0">
-                      <a data-toggle="collapse" data-parent="#accordion-1" href="#collapse-1-1" aria-expanded="false" class="collapsed d-block p-3 text-dark">
-                        Vendor Name
-                      </a>
-                    </h5>
-                    <div id="collapse-1-1" class="collapse mb-4">
-                      <div class="card-body">1</div>
+            <div class="tab-pane fade" id="card-title">
+              <input type="text" v-model="searchVendorKey" class="form-control col-sm-3 mt-3 ml-4" placeholder="Search Vendor" title="Type a name" />
+              <el-date-picker class="ml-3 mt-3"
+                  v-model="searchVendorDates"
+                  type="daterange"
+                  range-separator="To"
+                  start-placeholder="Start date"
+                  end-placeholder="End date"
+                  format="dd/MM/yyyy">
+                </el-date-picker>
+              <br /><br />
+              <div class="ovf col-sm-12 p-0">
+                <div class="col-xl-6 float-left pt-3" >
+                  <div class="accordion accordion-connected" id="accordion-2" v-for="(vendor,index) in vendorList1">
+                    <div class="card">
+                      <h5 class="card-title">
+                        <a data-toggle="collapse" data-parent="#accordion-2" :href="itemHref(index)" aria-expanded="false" class="text-dark collapsed d-block pt-3 pb-3 pl-4">
+                          <ins>{{vendor.Vendor_Name}}</ins>
+                          <span class="text-primary float-right pr-4">{{vendor.Date_of_Entry}}</span>
+                        </a>
+                      </h5>
+                      <div :id="itemId(index)" class="collapse pt-3">
+                        <div class="card-body">
+                          <div class="col-sm-12 cs12">
+                            <div class="col-sm-4 float-left p-0"><strong>Bill No.</strong> <span class="float-right">{{vendor.Bill_No}}</span></div>
+                            <div class="col-sm-5 float-right p-0"><strong>User Name</strong> <span class="float-right">{{vendor.User_Name}}</span></div>
+                            <br />
+                            <hr />
+                            <div class="col-sm-3 p-0"><strong>Item Name</strong></div>
+                            <div class="col-sm-3 p-0"><strong>Boxes</strong></div>
+                            <div class="col-sm-3 p-0"><strong>Quantity</strong> </div>
+                            <div class="col-sm-3 p-0"><strong>Price</strong></div>
+
+                            <div v-for="item in vendor.items_details" >
+                              <div class="col-sm-3 p-0"><span>{{item.name}}</span></div>
+                              <div class="col-sm-3 p-0"><span>{{item.boxes}}</span></div>
+                              <div class="col-sm-3 p-0"><span>{{item.quantity}}</span></div>
+                              <div class="col-sm-3 p-0"><span>{{item.price}}</span></div>
+                            </div>
+                            <div class="col-sm-12">
+                              <br /><br />
+                            </div>
+                          </div>
+                        </div>
+                      </div>
                     </div>
                   </div>
-                  <div class="card col-sm-6 p-0">
-                    <h5 class="card-title m-0 bg-secondary">
-                      <a data-toggle="collapse" data-parent="#accordion-1" href="#collapse-1-2" class="collapsed d-block p-3 text-dark" aria-expanded="false">
-                        Vendor Name
-                      </a>
-                    </h5>
-                    <div id="collapse-1-2" class="collapse mb-4">
-                      <div class="card-body">2</div>
+                </div>
+                <div class="col-xl-6 float-left pt-3">
+                  <div class="accordion accordion-connected" id="accordion-2" v-for="(vendor,index) in vendorList2">
+                    <div class="card">
+                      <h5 class="card-title">
+                        <a data-toggle="collapse" data-parent="#accordion-2" :href="itemHref2(index)" aria-expanded="false" class="text-dark collapsed d-block pt-3 pb-3 pl-4">
+                          <ins>{{vendor.Vendor_Name}}</ins>
+                          <span class="text-primary float-right pr-4">{{vendor.Date_of_Entry}}</span>
+                        </a>
+                      </h5>
+                      <div :id="itemId2(index)" class="collapse pt-3">
+                        <div class="card-body">
+                          <div class="col-sm-12 cs12">
+                            <div class="col-sm-4 float-left p-0"><strong>Bill No.</strong> <span class="float-right">{{vendor.Bill_No}}</span></div>
+                            <div class="col-sm-5 float-right p-0"><strong>User Name</strong> <span class="float-right">{{vendor.User_Name}}</span></div>
+                            <br />
+                            <hr />
+                            <div class="col-sm-3 p-0"><strong>Item Name</strong></div>
+                            <div class="col-sm-3 p-0"><strong>Boxes</strong></div>
+                            <div class="col-sm-3 p-0"><strong>Quantity</strong> </div>
+                            <div class="col-sm-3 p-0"><strong>Price</strong></div>
+
+                            <div v-for="item in vendor.items_details" >
+                              <div class="col-sm-3 p-0"><span>{{item.name}}</span></div>
+                              <div class="col-sm-3 p-0"><span>{{item.boxes}}</span></div>
+                              <div class="col-sm-3 p-0"><span>{{item.quantity}}</span></div>
+                              <div class="col-sm-3 p-0"><span>{{item.price}}</span></div>
+                            </div>
+                            <div class="col-sm-12">
+                              <br /><br />
+                            </div>
+                          </div>
+                        </div>
+                      </div>
                     </div>
                   </div>
-                  <div class="card col-sm-6 p-0">
-                    <h5 class="card-title m-0">
-                      <a data-toggle="collapse" data-parent="#accordion-1" href="#collapse-1-3" class="collapsed d-block p-3 text-dark" aria-expanded="false">
-                        Vendor Name
-                      </a>
-                    </h5>
-                    <div id="collapse-1-3" class="collapse mb-4">
-                      <div class="card-body">3</div>
+                </div>
+              </div>
+            </div>
+            <div class="tab-pane fade" id="CollectHis">
+              <input type="text" v-model="searchBoardKey" class="form-control col-sm-3 mt-3 ml-4" placeholder="Search Board" title="Type a name..." />
+              <input type="text" v-model="searchReceiverKey" class="form-control col-sm-3 mt-3 ml-4" placeholder="Search Receiver" title="Type a name..." />
+              <el-date-picker class="ml-3 mt-3"
+                  v-model="searchBoardDates"
+                  type="daterange"
+                  range-separator="To"
+                  start-placeholder="Start date"
+                  end-placeholder="End date"
+                  format="dd/MM/yyyy">
+                </el-date-picker>
+              <br /><br />
+              <div class="ovf">
+                <div class="col-xl-6 float-left pt-3" >
+                  <div class="accordion accordion-connected" id="accordion-2" v-for="(board,index) in boardList1">
+                    <div class="card">
+                      <h5 class="card-title">
+                        <a data-toggle="collapse" data-parent="#accordion-2" :href="ritemHref1(index)" aria-expanded="false" class="text-dark collapsed d-block pt-3 pb-3 pl-4">
+                          <ins>{{board.Board_Name}}</ins> ( {{board.Receiver_Name}} )
+                          <span class="text-primary float-right pr-4">{{board.Date_of_receiving}}</span>
+                        </a>
+                      </h5>
+                      <div :id="ritemId1(index)" class="collapse pt-3">
+                        <div class="card-body">
+                          <div class="col-sm-12 cs12"><br />
+                            <div class="col-sm-6 p-0"><strong>Item Name</strong></div>
+                            <div class="col-sm-6 p-0"><strong>Quantity</strong></div>
+                            <div v-for="board in board.items_details" >
+                              <div class="col-sm-6 p-0"><span>{{board.name}}</span></div>
+                              <div class="col-sm-6 p-0"><span>{{board.quantity}}</span></div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-xl-6 float-left pt-3" >
+                  <div class="accordion accordion-connected" id="accordion-2" v-for="(board,index) in boardList2">
+                    <div class="card">
+                      <h5 class="card-title">
+                        <a data-toggle="collapse" data-parent="#accordion-2" :href="ritemHref2(index)" aria-expanded="false" class="text-dark collapsed d-block pt-3 pb-3 pl-4">
+                          <ins>{{board.Board_Name}}</ins> ( {{board.Receiver_Name}} )
+                          <span class="text-primary float-right pr-4">{{board.Date_of_receiving}}</span>
+                        </a>
+                      </h5>
+                      <div :id="ritemId2(index)" class="collapse pt-3">
+                        <div class="card-body">
+                          <div class="col-sm-12 cs12"><br />
+                            <div class="col-sm-6 p-0"><strong>Item Name</strong></div>
+                            <div class="col-sm-6 p-0"><strong>Quantity</strong></div>
+                            <div v-for="board in board.items_details" >
+                              <div class="col-sm-6 p-0"><span>{{board.name}}</span></div>
+                              <div class="col-sm-6 p-0"><span>{{board.quantity}}</span></div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
                     </div>
                   </div>
                 </div>
@@ -71,63 +189,82 @@
     </div>
   </div>
 </template>
-<style>
-.accordion .card {
-  height:auto;
-  background-color:#fff;/* 
-  border:1px solid #f1f2f3; */
-  margin-bottom: 16px;
-}
-
-.accordion .card-title{
-  background-color:#fcfcfc;
-  border-bottom:1px solid rgba(77,82,89,0.07);
-}
-
-.accordion .card-title a::before{
-  content:"\e648";
-  display:inline-block;
-  font-family:themify;
-  font-size:12px;
-  margin-right:20px;
-  margin-left:-33px;
-  -webkit-transition:.2s linear;
-  transition:.2s linear}
-</style>
 <script>
   export default {
     name: 'Users',
     data () {
       return {
+        searchBoardKey:null,
+        searchVendorKey:null,
+        searchReceiverKey:null,
         searchItemkey:null,
         tablOpen:null,
+        searchBoardDates:null,
+        searchVendorDates : null,
         rows_:[],
         header_:[],
-          // { item:"pen",on:"123",loc:"NABH",ri:"20" },
-          // { item:"pencil",on:"225",loc:"EB",ri:"10" },
-          // { item:"stapler",on:"40",loc:"IMA",ri:"15" }
+        vendorList1_:[],
+        vendorList2_:[],
+        boardList1_:[],
+        boardList2_:[]
+      }
+    },
+ 
+    methods : {
+      itemHref: function (index) {
+        return "#item" + index.toString();
+        },
+      itemId: function (index) {
+        return "item" + index.toString();
+      },
+      itemHref2: function (index) {
+        return "#items" + index.toString();
+        },
+      itemId2: function (index) {
+        return "items" + index.toString();
+      },
+      ritemHref1: function (index) {
+        return "#ritem" + index.toString();
+        },
+      ritemId1: function (index) {
+        return "ritem" + index.toString();
+      },
+      ritemHref2: function (index) {
+        return "#ritems" + index.toString();
+        },
+      ritemId2: function (index) {
+        return "ritems" + index.toString();
+      },
+      getInputDetails: function(){
+          fetch( this.$hostname + 'inputdetails' )
+          .then( response => response.json() )
+          .then( json => {
+            console.log( json )
+            if ( json.success ) {
+              this.vendorList1_ = json.result1
+              this.vendorList2_ = json.result2
+            } else {
+              alert("API is working")
           }
+        })
+      },
+      getOutputDetails: function(){
+          fetch( this.$hostname + 'outputdetails' )
+          .then( response => response.json() )
+          .then( json => {
+            console.log( json )
+            if ( json.success ) {
+              this.boardList1_ = json.result1
+              this.boardList2_ = json.result2
+            } else {
+              alert("API is working")
+          }
+        })
+      }
     },
     computed:{
       rows (){
-        /* var details =  [[0, "marker", 
-              24, 
-              246, 
-              235, 
-              11, 
-              0
-            ], 
-            [
-              1, 
-              "bags", 
-              20, 
-              200, 
-              189, 
-              0, 
-              11
-            ]
-          ] */
-        if (this.searchItemkey){
+       if (this.searchItemkey){
           return this.rows_.filter(row => {
             return row[1].toLowerCase().includes(this.searchItemkey.toLowerCase())
           })
@@ -136,30 +273,126 @@
         }
       },
       header (){
-     /*  var headers = [
-          "Serial.No", 
-          "Item", 
-          "Boxes", 
-          "Quantity Total", 
-          "Quantity_Remaining", 
-          "NABL", 
-          "NABH"
-        ] */
         return this.header_
-      }
       },
-    created() {
+      vendorList1 (){
+        return this.vendorList1_.filter(row => {
+          if (this.searchVendorKey){
+            var VK = row.Vendor_Name.toLowerCase().includes(this.searchVendorKey.toLowerCase())
+          }else{
+            var VK = true
+          }
+
+          if (this.searchVendorDates){
+            var DK = (row.epoch_of_date*1000 >= this.searchVendorDates[0] &&  row.epoch_of_date*1000 <= this.searchVendorDates[1] ) 
+          }else{
+            var DK = true
+          }
+            return (VK && DK)
+          })
+      },
+      vendorList2 (){
+       return this.vendorList2_.filter(row => {
+          if (this.searchVendorKey){
+            var VK = row.Vendor_Name.toLowerCase().includes(this.searchVendorKey.toLowerCase())
+          }else{
+            var VK = true
+          } 
+          if (this.searchVendorDates){
+            var DK = (row.epoch_of_date*1000 >= this.searchVendorDates[0] &&  row.epoch_of_date*1000 <= this.searchVendorDates[1] ) 
+          }else{
+            var DK = true
+          }
+            return (VK && DK)
+          })
+      },
+      boardList1 (){
+        return this.boardList1_.filter(row => {
+          if (this.searchReceiverKey){
+            var RK = row.Receiver_Name.toLowerCase().includes(this.searchReceiverKey.toLowerCase())
+          }else{
+            var RK = true
+          }
+
+          if (this.searchBoardKey){
+            var BK = row.Board_Name.toLowerCase().includes(this.searchBoardKey.toLowerCase())
+          }else{
+            var BK = true
+          }
+
+          if (this.searchBoardDates){
+            var DK = (row.epoch_of_date*1000 >= this.searchBoardDates[0] &&  row.epoch_of_date*1000 <= this.searchBoardDates[1] ) 
+          }else{
+            var DK = true
+          }
+          
+          return (RK && BK && DK)
+        })
+      },
+      boardList2 (){
+        return this.boardList2_.filter(row => {
+          if (this.searchReceiverKey){
+            var RK = row.Receiver_Name.toLowerCase().includes(this.searchReceiverKey.toLowerCase())
+          }else{
+            var RK = true
+          }
+
+          if (this.searchBoardKey){
+            var BK = row.Board_Name.toLowerCase().includes(this.searchBoardKey.toLowerCase())
+          }else{
+            var BK = true
+          }
+          if (this.searchBoardDates){
+            var DK = (row.epoch_of_date*1000 >= this.searchBoardDates[0] &&  row.epoch_of_date*1000 <= this.searchBoardDates[1] ) 
+          }else{
+            var DK = true
+          }
+          return (RK && BK && DK)
+        })
+      }
+    },
+    created(){
       fetch( this.$hostname + 'tabledetails' )
-        .then( response => response.json() )
-        .then( json => {
-          console.log( json )
-          if ( json.success ) {
-            this.rows_ = json.details
-            this.header_ = json.headers
-          } else {
-            alert("API is working")
+      .then( response => response.json() )
+      .then( json => {
+        console.log( json )
+        if ( json.success ) {
+          this.rows_ = json.details
+          this.header_ = json.headers
+        } else {
+          alert("API is working")
         }
       })
     }
   }
 </script>
+
+<style>
+  @import url("//unpkg.com/element-ui@2.3.3/lib/theme-chalk/index.css");
+.accordion{
+    display: inline-block;
+    width:100%;
+}
+.accordion .card {
+  height:auto;
+  background-color:#fff;
+  margin-bottom:10px;
+  display:inline-block;
+  width:100%;
+  box-shadow: 5px 5px 5px -5px #eee;
+  border: 1px solid #eee;
+}
+.accordion .card-title{
+  background-color:#fcfcfc;
+  /* border-bottom:1px solid rgba(77,82,89,0.2);
+   */margin:0
+}
+.card-body .cs12{
+  box-shadow:5px 5px 10px 0px #efefef;
+  padding-bottom:10px;
+}.ovf{
+    height:66vh;
+    overflow:hidden;
+    overflow-y:auto;
+}
+</style>
