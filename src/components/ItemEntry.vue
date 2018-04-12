@@ -14,25 +14,25 @@
           <div class="tab-content">
             <div class="tab-pane fade active show" id="In">
               <br />
-              <div class="col-sm-4 brdr">
+              <div class="col-sm-3 brdr">
                 <label class="col-sm-12 float-left mb-0 pl-0">Add / Search Vendor :</label><br />
                 <Autocomplete class="col-sm-12 p-0" :suggestions="vendors" v-model="selectedVendor"></Autocomplete><br />
-                <label for="typeahead-focus" class="col-sm-12 float-left text-primary d-block p-0">Selected Vendor : {{selectedVendor}}</label>
-                <div class="col-sm-6 pl-0 pt-4">
+                <label for="typeahead-focus" class="col-sm-12 float-left text-primary d-block p-0">Selected Vendor : <span>{{selectedVendor}}</span></label>
+                <div class="col-sm-8 pl-0 pt-4">
                   <label class="demonstration d-block">Date</label>
                   <el-date-picker class="col-sm-12 p-0" v-model="enteredDate" type="date" placeholder="Pick a Date" format="dd/MM/yyyy" value-format="dd/MM/yyyy" :picker-options="pickerOptions1"></el-date-picker>
                 </div>
-                <div class="col-sm-6 pl-0 pr-0 pt-4">
+                <div class="col-sm-4 pl-0 pr-0 pt-4">
                   <label class="d-block">Bill No:</label>
                   <input type="text" class="form-control" style="height:40px;" v-model="enteredBillNo" />
                 </div>
-                <div class="col-sm-8 pl-0 pr-0 pt-5">
+                <div class="col-sm-12 pl-0 pr-0 pt-5">
                   <label>Select User:</label>
                   <Autocomplete :suggestions="users" v-model="selectedUser"></Autocomplete>
-                  <label for="typeahead-focus" class="col-sm-12 float-left text-primary p-0">Selected user is : {{selectedUser}}</label>
+                  <label for="typeahead-focus" class="col-sm-12 float-left text-primary p-0">Selected user is : <span>{{selectedUser}}</span></label>
                 </div>
               </div>
-              <div class="col-sm-8 vendorItems mb-0">
+              <div class="col-sm-9 vendorItems mb-0">
                 <div class="card-body pl-0 pr-3 pt-1">
                   <table id="vendor-items" class="table table-striped table-bordered dataTable display" cellspacing="0" cellpadding="0">
                     <thead>
@@ -103,21 +103,21 @@
             </div>
             <div class="tab-pane fade" id="Out">
               <br />
-              <div class="col-sm-4 brdr">
+              <div class="col-sm-3 brdr">
                 <label class="col-sm-12 float-left mb-0 pl-0">Collector Name:</label><br />
                 <Autocomplete class="col-sm-12 p-0" :suggestions="receivers" v-model="selectedReceiver"></Autocomplete><br />
-                <label for="typeahead-focus" class="col-sm-12 float-left text-primary p-0 d-block">Selected Collector : {{selectedReceiver}}</label>
-                <div class="col-sm-8 pl-0 pr-0 pt-3">
+                <label for="typeahead-focus" class="col-sm-12 float-left text-primary p-0 d-block">Selected Collector : <span>{{selectedReceiver}}</span></label>
+                <div class="col-sm-12 pl-0 pr-0 pt-3">
                   <label>Dept/Board:</label>
                   <Autocomplete :suggestions="boards" v-model="selectedBoard"></Autocomplete>
-                  <label for="typeahead-focus" class=" col-sm-12 float-left text-primary p-0">Location selected : {{selectedBoard}}</label>
+                  <label for="typeahead-focus" class=" col-sm-12 float-left text-primary p-0">Location selected : <span>{{selectedBoard}}</span></label>
                 </div>
-                <div class="col-sm-6 pl-0 pt-4">
+                <div class="col-sm-12 pl-0 pt-4">
                   <label class="demonstration d-block">Date</label>
                   <el-date-picker class="col-sm-12 p-0" v-model="enteredDate_Collect" type="date" placeholder="Pick a Date" format="dd/MM/yyyy" value-format="dd/MM/yyyy" :picker-options="pickerOptions1"></el-date-picker>
                 </div>
               </div>
-              <div class="col-sm-8 vendorItems mb-0">
+              <div class="col-sm-9 vendorItems mb-0">
                 <div class="card-body pl-0 pr-3 pt-1">
                   <table id="vendor-items" class="table table-striped table-bordered dataTable display" cellspacing="0" cellpadding="0">
                     <thead>

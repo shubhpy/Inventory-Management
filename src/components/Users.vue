@@ -22,7 +22,7 @@
           </ul>
           <div class="tab-content">
             <div class="tab-pane fade active show" id="Users">
-              <input type="text" v-model="searchUserkey" class="form-control col-sm-3 mt-3 ml-4" placeholder="Search Users" title="Type a name" />
+              <input type="text" v-model="searchUserkey" class="form-control col-sm-3 mt-3 ml-2" placeholder="Search Users" title="Type a name" />
               <div class="ovf col-sm-12 p-0">
                 <table id="User" class="table table-striped table-bordered dataTable display pt-4" cellspacing="0" cellpadding="0">
                   <thead>
@@ -50,7 +50,7 @@
               </div>
             </div>
             <div class="tab-pane fade" id="Vendors">
-              <input type="text" v-model="searchVendorkey" class="form-control col-sm-3 mt-3 ml-4" placeholder="Search Vendors" title="Type a name" />
+              <input type="text" v-model="searchVendorkey" class="form-control col-sm-3 mt-3 ml-2" placeholder="Search Vendors" title="Type a name" />
               <div class="ovf col-sm-12 p-0">
                 <table id="vendor" class="table table-striped table-bordered dataTable display pt-4" cellspacing="0" cellpadding="0">
                   <thead>
@@ -78,7 +78,7 @@
               </div>
             </div>
             <div class="tab-pane fade" id="Receivers">
-              <input type="text" v-model="searchReceiverkey" class="form-control col-sm-3 mt-3 ml-4" placeholder="Search Receivers" title="Type a name" />
+              <input type="text" v-model="searchReceiverkey" class="form-control col-sm-3 mt-3 ml-2" placeholder="Search Receivers" title="Type a name" />
               <div class="ovf col-sm-12 p-0">
                 <table id="receiver" class="table table-striped table-bordered dataTable display pt-4" cellspacing="0" cellpadding="0">
                   <thead>
@@ -106,7 +106,7 @@
               </div>
             </div>
             <div class="tab-pane fade" id="Items">
-              <input type="text" v-model="searchItemkey" class="form-control col-sm-3 mt-3 ml-4" placeholder="Search Items" title="Type a name" />
+              <input type="text" v-model="searchItemkey" class="form-control col-sm-3 mt-3 ml-2" placeholder="Search Items" title="Type a name" />
               <div class="ovf col-sm-12 p-0">
                 <table id="item" class="table table-striped table-bordered dataTable display pt-4" cellspacing="0" cellpadding="0">
                   <thead>
@@ -134,7 +134,7 @@
               </div>
             </div>
             <div class="tab-pane fade" id="Boards">
-              <input type="text" v-model="searchBoardkey" class="form-control col-sm-3 mt-3 ml-4" placeholder="Search Boards" title="Type a name" />
+              <input type="text" v-model="searchBoardkey" class="form-control col-sm-3 mt-3 ml-2" placeholder="Search Boards" title="Type a name" />
               <div class="ovf col-sm-12 p-0">
                 <table id="board" class="table table-striped table-bordered dataTable display pt-4" cellspacing="0" cellpadding="0">
                   <thead>

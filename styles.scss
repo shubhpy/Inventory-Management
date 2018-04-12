@@ -228,7 +228,7 @@ a{
 }
 label{
     font-weight:$default-font-weight;
-    font-size:13px;
+    font-size:14px;
     letter-spacing:.5px;
 }
 .row.no-gutters {
@@ -895,12 +895,12 @@ thead th{
     display: inline;
 }
 
-ins, .dropdown-menu a, table tr td, .card-body div span { text-transform: capitalize}
+ins, .dropdown-menu a, table tr td, .card-body div span, input, label.col-sm-12.float-left.text-primary.p-0 { text-transform: capitalize}
 .el-range-editor.el-input__inner {
     padding:0 10px !important;
     height:34px;
     border-radius:2px;
     box-shadow:5px 5px 5px -5px #ddd;
 }.el-range-separator{
-    width: 7%;
+    width: 7% !important;
 }

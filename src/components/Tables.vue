@@ -17,7 +17,7 @@
           <div class="tab-content">
             <div class="tab-pane fade active show" id="Items">
               <div class="card-body ml-3 mr-3">
-                <input type="text" v-model="searchItemkey" class="form-control col-sm-3 mt-3 ml-4" placeholder="Search Items" title="Type a name" />
+                <input type="text" v-model="searchItemkey" class="form-control col-sm-3 mt-3 ml-2" placeholder="Search Items" title="Type a name" />
                 <div class="ovf col-sm-12 p-0">
                   <table id="user" class="table table-striped table-bordered dataTable display pt-4" cellspacing="0" cellpadding="0">
                     <thead>
@@ -365,6 +365,11 @@
       })
     }
   }
+  
+  // this.token = localStorage.getItem('token');
+  //   this.headers =  new Headers();
+  //   this.headers.append( 'Authorization', this.token );
+  //   return this.http.get( this.URL+'/inventory/users', {headers:this.headers}).map( response => response.json() );    
 </script>
 
 <style>

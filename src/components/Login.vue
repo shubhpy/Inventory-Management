@@ -47,35 +47,25 @@ export default {
       loginMethod: function(e) {
         e.preventDefault();
         console.log("Logging Here");
-        // console.log($http.get);
-        // console.log($http.post);
-        // var datatosend = {
-        //   email : this.uname,
-        //   pwd : this.pwd
-        //   // dict : {heelo:"Helllo"},
-        //   // list : ["Heeyy","heyyy"]
-        // };
+        var datatosend = {
+          email : this.email,
+          password : this.pwd
+        };
+        console.log(datatosend);
 
-        // console.log(datatosend);
-
-        var formData = new FormData();
-        formData.append('email', this.email);
-        formData.append('pwd', this.pwd);        
-        // formData.append('dict', {heelo:"Helllo"});
-        // formData.append('list', ["Heeyy","heyyy"]);
-        
-        // this.$http.post('http://localhost:8000/login',formData)
-        // .then(function (data) {
-        //   console.log(data.body);
-          // localStorage.setItem('token',data.body.token);
-          router.push({ name: "Tables" });
-          // this.boardPersons.push(this.newPerson);
-          // this.suggestions.push({item:this.newPerson,quantity:''});
-        // }.bind(this),function(data){
-        //   console.log("In bind")
-        //   console.log(data.body);
-        // })
-      }
+         this.$http.post(this.$hostname+"login" , JSON.stringify(datatosend) )
+        .then(function (data) {
+          console.log(data.body);
+          if (data.body.success){
+            localStorage.setItem('token',data.body.token);
+            router.push({ name: "Tables" });
+          } else {
+            alert("not found")
+          }
+        }.bind(this),function(data){
+          alert("API not working");
+        })
+       }
     },
   created () {
     if(localStorage.getItem('token')){
@@ -89,4 +79,5 @@ export default {
 </script>
 
 <style>
+input{text-transform:inherit;}
 </style>
