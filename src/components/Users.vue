@@ -66,11 +66,10 @@
                       <td>
                         <span class="hid pl-2">{{vendor.name}}</span>
                         <input type="text" class="form-control col-sm-7 shw" v-model="vendor.name" />
-                      </td>            
+                      </td>
                       <td class="text-left pt-4">
                         <a class="col-sm-5 btn btn-w-md btn-primary btn-outline nav-action shw mr-2" @click="save(index,'vendors')">Save</a>
                         <a class="col-sm-5 btn btn-w-md btn-primary btn-outline nav-action hid mr-2" @click="edit_vendor(vendor)">Edit</a>
-                        <!-- <a class="col-sm-5 btn btn-w-md btn-danger nav-action d-inline text-white" @click="del_vendor(vendor)">Delete</a> -->
                       </td>
                     </tr>
                   </tbody>
@@ -98,7 +97,7 @@
                       <td class="text-left pt-4">
                         <a class="col-sm-5 btn btn-w-md btn-primary btn-outline nav-action shw mr-2" @click="save(index,'receivers')">Save</a>
                         <a class="col-sm-5 btn btn-w-md btn-primary btn-outline nav-action hid mr-2" @click="edit_receiver(receiver)">Edit</a>
-                        <!-- <a class="col-sm-5 btn btn-w-md btn-danger nav-action d-inline text-white" @click="del_receiver(receiver)">Delete</a> -->
+                        <!--<a class="col-sm-5 btn btn-w-md btn-danger nav-action d-inline text-white" @click="del_receiver(receiver)">Delete</a>-->
                       </td>
                     </tr>
                   </tbody>
@@ -122,7 +121,7 @@
                       <td>
                         <span class="hid pl-2">{{itemname.name}}</span>
                         <input type="text" class="form-control col-sm-7 shw" v-model="itemname.name" />
-                      </td>            
+                      </td>
                       <td class="text-left pt-4">
                         <a class="col-sm-5 btn btn-w-md btn-primary btn-outline nav-action shw mr-2" @click="save(index,'itemnames')">Save</a>
                         <a class="col-sm-5 btn btn-w-md btn-primary btn-outline nav-action hid mr-2" @click="edit_item(itemname)">Edit</a>
@@ -150,7 +149,7 @@
                       <td>
                         <span class="hid pl-2">{{board.name}}</span>
                         <input type="text" class="form-control col-sm-7 shw" v-model="board.name" />
-                      </td>            
+                      </td>
                       <td class="text-left pt-4">
                         <a class="col-sm-5 btn btn-w-md btn-primary btn-outline nav-action shw mr-2" @click="save(index,'boards')">Save</a>
                         <a class="col-sm-5 btn btn-w-md btn-primary btn-outline nav-action hid mr-2" @click="edit_board(board)">Edit</a>
@@ -205,9 +204,7 @@
       edit_board(board) {
         this.boardOpen = board
       },
-      save: function(index,typee) {
-        //console.log(index);
-        //console.log(typee);              
+      save: function(index,typee) {        
         var datatosend = {
           type : typee
         }
@@ -229,14 +226,12 @@
         }
         this.$http.post( this.$hostname + 'edit' , JSON.stringify(datatosend))
         .then( function ( data ) {
-          console.log(data.body);
           if (data.body.status){
             console.log("saved")
           }else{
             //alert("Some else error occured")          
           }
         }.bind(this),function(data){
-          console.log(data.body);
           alert("Some error occured")
         })
       }
@@ -292,15 +287,14 @@
       fetch(this.$hostname + 'getnames' )
         .then(response => response.json())
         .then(json => {
-          console.log(json)
-          if(json.success){
+          if ( json.success ) {
             this.vendors_ = json.vendors
             this.itemnames_ = json.item_names
             this.receivers_ = json.receivers
             this.users_ = json.users
             this.boards_ = json.boards
           } else {
-            alert( "API is working" )
+            alert("API is working")
         }
       })
     }

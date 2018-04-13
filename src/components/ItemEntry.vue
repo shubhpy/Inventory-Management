@@ -24,7 +24,7 @@
                 </div>
                 <div class="col-sm-4 pl-0 pr-0 pt-4">
                   <label class="d-block">Bill No:</label>
-                  <input type="text" class="form-control" style="height:40px;" v-model="enteredBillNo" />
+                  <input type="text" class="form-control" style="height:40px;" v-model.number="enteredBillNo" />
                 </div>
                 <div class="col-sm-12 pl-0 pr-0 pt-5">
                   <label>Select User:</label>
@@ -93,6 +93,7 @@
                   </table>
                 </div>
               </div>
+              <div class="snacks" :class="{ error: errr, success:succss }">{{textToShow}}</div>
               <div class="fab fab-fixed">
                 <a class="btn btn-primary btn-outline mr-5 text-dark" @click="postNewItemsEntry">Submit</a>
               </div>
@@ -187,101 +188,77 @@
   export default {
   name: 'ItemEntry',
   components: {
-    Autocomplete
+    Autocomplete    
   },
   data() {
     return {
-      vendors: [/* 
-        {name:"Aggarwal",quantity:""},
-        {name:"Horizon Computers",quantity:""},
-        {name:"Cafe Coffee",quantity:""},
-       */],
-      items: [
-          /* {name:"Stapler",quantity:""},
-          {name:"Stapler pin",quantity:""},
-          {name:"Milk",quantity:""},
-          {name:"Green Tea",quantity:""}
-         */],
-      users: [
-          /* {name:"Sanjeev",quantity:""},
-          {name:"Kumar",quantity:""},
-          {name:"Halke Ram",quantity:""},
-          {name:"Ram Chand",quantity:""}
-         */],
-      boards: [
-        /* {name:"NABH",quantity:""},
-        {name:"ZED",quantity:""},
-        {name:"IAEA Office",quantity:""},
-        {name:"NABET",quantity:""}
-       */],
-      receivers :[
-         /*  {name:"Sanjeev",quantity:""},
-          {name:"Kumar",quantity:""},
-          {name:"Halke Ram",quantity:""},
-          {name:"Ram Chand",quantity:""}
-       */],
+      textToShow:'',
+      errr:false,
+      succss:false,
+      vendors:[],
+      items:[],
+      users:[],
+      boards:[],
+      receivers:[],
 
-      enteredDate : "",
-      enteredBillNo : "",
-      selectedVendor : "",
-      selectedUser : "",
-      selectedItem : "",
-      noBoxes : '0',
-      quantity : '0',
-      price : '0',
-      addedItems : [],
+      enteredDate:"",
+      enteredBillNo:"",
+      selectedVendor:"",
+      selectedUser:"",
+      selectedItem:"",
+      noBoxes:'0',
+      quantity:'0',
+      price:'0',
+      addedItems:[],
 
-      selectedReceiver : "",
-      selectedBoard : "",
-      enteredDate_Collect : "",
-      selectedItem_Collect : "",
-      quantity_Collect : '0',
-      addedItems_Collect : [],
+      selectedReceiver:"",
+      selectedBoard:"",
+      enteredDate_Collect:"",
+      selectedItem_Collect:"",
+      quantity_Collect:'0',
+      addedItems_Collect:[],
 
-      pickerOptions1: {
-          // disabledDate(time) {
-          //   return time.getTime() > Date.now();
-          // },
-          shortcuts: [{
-            text: 'Today',
-            onClick(picker) {
-              picker.$emit('pick', new Date());
-            }
-          }, {
-            text: 'Yesterday',
-            onClick(picker) {
-              const date = new Date();
-              date.setTime(date.getTime() - 3600 * 1000 * 24);
-              picker.$emit('pick', date);
-            }
-          }, {
-            text: 'Tomorrow',
-            onClick(picker) {
-              const date = new Date();
-              date.setTime(date.getTime() + 3600 * 1000 * 24);
-              picker.$emit('pick', date);
-            }
-          },{
-            text: 'A week ago',
-            onClick(picker) {
-              const date = new Date();
-              date.setTime(date.getTime() - 3600 * 1000 * 24 * 7);
-              picker.$emit('pick', date);
-            }
-          }]
-        },
+      pickerOptions1:{
+        shortcuts:[{
+          text:'Today',
+          onClick(picker) {
+            picker.$emit('pick', new Date());
+          }
+        }, {
+          text:'Yesterday',
+          onClick( picker ){
+            const date = new Date();
+            date.setTime(date.getTime() - 3600 * 1000 * 24);
+            picker.$emit('pick', date);
+          }
+        }, {
+          text: 'Tomorrow',
+          onClick(picker) {
+            const date = new Date();
+            date.setTime(date.getTime() + 3600 * 1000 * 24);
+            picker.$emit('pick', date);
+          }
+        },{
+          text: 'A week ago',
+          onClick(picker) {
+            const date = new Date();
+            date.setTime(date.getTime() - 3600 * 1000 * 24 * 7);
+            picker.$emit('pick', date);
+          }
+        }]
+      },
     }
   },
-  methods : {
-    deleteItem: function(index,e){
+  methods:{
+    deleteItem:function(index,e){
       this.addedItems.splice(index, 1)
     },
-    addItem: function(e) {
+    addItem:function(e){
       e.preventDefault();
       var i
       var found = false
-      if (this.selectedItem && this.noBoxes && parseInt(this.quantity)){
-        for (i = 0; i < this.addedItems.length; i++) { 
+      if( this.selectedItem && this.noBoxes && parseInt(this.quantity) ) {
+        for(i = 0; i < this.addedItems.length; i++){ 
             if (this.selectedItem == this.addedItems[i].name){
               found = true
               this.addedItems[i].boxes = parseInt(this.addedItems[i].boxes) + parseInt(this.noBoxes)
@@ -312,56 +289,71 @@
         .then(function (data) {
           console.log(data.body);
           if (data.body.success){
-            alert("Entry saved")
-            this.selectedVendor="" 
-            this.selectedUser=""
-            this.enteredBillNo=""
-            this.enteredDate=""
-            this.selectedItem=""            
-            this.noBoxes  = '0'
+            this.errr = true
+            this.textToShow = "Details Successfully Entered"
+            setTimeout(() => {
+              this.errr = false
+              this.textToShow = ""
+            }, 2200 );
+            this.selectedVendor = ""
+            this.selectedUser = ""
+            this.enteredBillNo = ""
+            this.enteredDate = ""
+            this.selectedItem = ""
+            this.noBoxes = '0'
             this.quantity = '0'
             this.price = '0'
-            this.addedItems=[]
+            this.addedItems = []
           }else{
-            alert("Some error occured")          
+            this.errr = true
+            this.textToShow = "Kindly Try again...Some Error Occured"
+            setTimeout(() => {
+              this.errr = false
+              this.textToShow = ""
+            }, 3500 );
           }
         }.bind(this),function(data){
           console.log(data.body);
           alert("Some error occured")
         })
-      }else{
-        alert("Fill all the details as Vendor, User, Date ,Billno and atleast one item in items")
+      }else {
+        this.errr = true
+        this.textToShow = "Kindly Try again...Some Error Occured"
+        setTimeout(() => {
+          this.errr = false
+          this.textToShow = ""
+        }, 3500 );
       }
     },
     postNewItemsEntry_Collect:function(){
-      if (this.selectedReceiver!="" && this.selectedBoard!="" && this.enteredDate_Collect!="" && this.addedItems_Collect.length){
-        console.log("Here");      
+      if ( this.selectedReceiver!="" && this.selectedBoard!="" && this.enteredDate_Collect!="" && this.addedItems_Collect.length ) {
+        console.log("Here");
         var datatosend = {
-          collector : this.selectedReceiver,
-          board : this.selectedBoard,
-          date : this.enteredDate_Collect,
-          items: this.addedItems_Collect
+          collector:this.selectedReceiver,
+          board:this.selectedBoard,
+          date:this.enteredDate_Collect,
+          items:this.addedItems_Collect
         };
-        this.$http.post( this.$hostname + 'output',JSON.stringify(datatosend))
-        .then(function (data) {
+        this.$http.post(this.$hostname + 'output',JSON.stringify(datatosend))
+        .then(function(data){
           console.log(data.body);
           if (data.body.success){
             alert("Entry saved")
-            this.selectedReceiver=""
-            this.selectedBoard=""
-            this.enteredDate_Collect=""
-            this.selectedItem_Collect=""            
-            this.noBoxes  = '0'
+            this.selectedReceiver = ""
+            this.selectedBoard = ""
+            this.enteredDate_Collect = ""
+            this.selectedItem_Collect = ""
+            this.noBoxes = '0'
             this.quantity_Collect = '0'
-            this.addedItems_Collect=[]
+            this.addedItems_Collect = []
           }else{
-            alert("Some error occured")          
+            alert("Some error occured")
           }
         }.bind(this),function(data){
           console.log(data.body);
           alert("Some error occured")
         })
-      }else{
+      } else {
         alert("Fill all the details as Item Collector, Board, Date and atleast one item in items")
       }
     },
@@ -369,27 +361,27 @@
       e.preventDefault();
       var selectedInItemsAndValidQuantity = false
       
-      for (i = 0; i < this.items.length; i++) { 
-          if (this.selectedItem_Collect == this.items[i].name){
-            if (parseInt(this.quantity_Collect) <= this.items[i].remaining_quantity){
-              selectedInItemsAndValidQuantity = true
-              break
-            }
+      for (i = 0; i < this.items.length; i++) {
+        if (this.selectedItem_Collect == this.items[i].name){
+          if (parseInt(this.quantity_Collect) <= this.items[i].remaining_quantity){
+            selectedInItemsAndValidQuantity = true
+            break
           }
+        }
       }
       if (selectedInItemsAndValidQuantity){
         var i
         var found = false
         if (this.selectedItem_Collect && parseInt(this.quantity_Collect)){
-          for (i = 0; i < this.addedItems_Collect.length; i++) {
-              if (this.selectedItem_Collect == this.addedItems_Collect[i].name){
-                found = true
-                if (parseInt(this.quantity_Collect) + parseInt(this.addedItems_Collect[i].quantity) <= this.items[i].remaining_quantity){
-                  this.addedItems_Collect[i].quantity = parseInt(this.addedItems_Collect[i].quantity) + parseInt(this.quantity_Collect)
-                  this.items[i].remaining_quantity=this.items[i].remaining_quantity - parseInt(this.quantity_Collect)
-                }
-                break
+          for (i = 0; i < this.addedItems_Collect.length; i++){
+            if (this.selectedItem_Collect == this.addedItems_Collect[i].name){
+              found = true
+              if (parseInt(this.quantity_Collect) + parseInt(this.addedItems_Collect[i].quantity) <= this.items[i].remaining_quantity){
+                this.addedItems_Collect[i].quantity = parseInt(this.addedItems_Collect[i].quantity) + parseInt(this.quantity_Collect)
+                this.items[i].remaining_quantity=this.items[i].remaining_quantity - parseInt(this.quantity_Collect)
               }
+              break
+            }
           }
           if (!found){
             this.addedItems_Collect.push({name:this.selectedItem_Collect,quantity:this.quantity_Collect})
@@ -398,26 +390,26 @@
         }
       }
     },
-    deleteItem_Collect: function(index,e){
+    deleteItem_Collect:function(index,e){
       var itemname = this.addedItems_Collect[index].name
       var itemquantity = this.addedItems_Collect[index].quantity
       this.addedItems_Collect.splice(index, 1)
       var i
-      for (i = 0; i < this.items.length; i++) { 
-          if (itemname == this.items[i].name){
-              this.items[i].remaining_quantity = this.items[i].remaining_quantity + parseInt(itemquantity)
-              break
-            }
-          }
+      for ( i = 0; i < this.items.length; i++ ) { 
+        if (itemname == this.items[i].name){
+          this.items[i].remaining_quantity = this.items[i].remaining_quantity + parseInt(itemquantity)
+          break
+        }
+      }
     }
   },
   computed: {
     itemRemainingQuantity(){
       var i
       for (i = 0; i < this.items.length; i++) { 
-          if (this.selectedItem_Collect == this.items[i].name){
-              return this.items[i].remaining_quantity
-          }
+        if (this.selectedItem_Collect == this.items[i].name){
+            return this.items[i].remaining_quantity
+        }
       }
       return false
     },

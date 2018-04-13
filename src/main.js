@@ -5,6 +5,13 @@ import Resource from 'vue-resource';
 import Element from "element-ui";
 import en from "element-ui/lib/locale/lang/en";
 
+/* import Vuetify from 'vuetify'
+import 'vuetify/dist/vuetify.min.css' */
+
+//@import '~vuetify/src/stylus/main' /*Where to put this line ??????*/
+
+//Vue.use(Vuetify)
+
 Vue.use(Element, { locale: en });
 Vue.use(Resource)
 Vue.config.productionTip = false

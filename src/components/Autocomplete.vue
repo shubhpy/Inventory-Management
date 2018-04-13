@@ -7,10 +7,7 @@
           v-on:focus="setFocus"
         >
         <ul class="dropdown-menu">
-            <li v-for="(suggestion, index) in matches"
-                v-bind:class="{'active': isActive(index)}"
-                @click="suggestionClick(index)"
-            >
+            <li v-for="(suggestion, index) in matches" v-bind:class="{'active': isActive(index)}" @click="suggestionClick(index)" >
               <a href="#">{{ suggestion.name }}<!--  - <span class="text-primary">{{ suggestion.remaining_quantity}} --></span>
               </a>
             </li>
@@ -35,13 +32,13 @@ export default {
       required: true
     }
   },
-  data () {
+  data (){
     return {
-      open: false,
+      open:false,
       current: 0,
     }
   },
-  computed: {
+  computed:{
     // Filtering the suggestion based on the input
     matches () {
       return this.suggestions.filter((obj) => {
@@ -117,7 +114,7 @@ export default {
   // },
   directives: {
     clickoutside: {
-      bind: function (el, binding, vnode) {
+      bind:function(el, binding, vnode){
       el.event = function (event) {
         if (!(el == event.target || el.contains(event.target))) {
           vnode.context[binding.expression](event);

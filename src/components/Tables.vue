@@ -235,7 +235,7 @@
       ritemId2: function (index) {
         return "ritems" + index.toString();
       },
-      getInputDetails: function(){
+      getInputDetails: function() {
           fetch( this.$hostname + 'inputdetails' )
           .then( response => response.json() )
           .then( json => {
@@ -279,28 +279,28 @@
         return this.vendorList1_.filter(row => {
           if (this.searchVendorKey){
             var VK = row.Vendor_Name.toLowerCase().includes(this.searchVendorKey.toLowerCase())
-          }else{
+          } else {
             var VK = true
           }
 
           if (this.searchVendorDates){
             var DK = (row.epoch_of_date*1000 >= this.searchVendorDates[0] &&  row.epoch_of_date*1000 <= this.searchVendorDates[1] ) 
-          }else{
+          } else {
             var DK = true
           }
-            return (VK && DK)
+            return ( VK && DK )
           })
       },
       vendorList2 (){
        return this.vendorList2_.filter(row => {
-          if (this.searchVendorKey){
+          if ( this.searchVendorKey ) {
             var VK = row.Vendor_Name.toLowerCase().includes(this.searchVendorKey.toLowerCase())
-          }else{
+          } else {
             var VK = true
           } 
-          if (this.searchVendorDates){
-            var DK = (row.epoch_of_date*1000 >= this.searchVendorDates[0] &&  row.epoch_of_date*1000 <= this.searchVendorDates[1] ) 
-          }else{
+          if ( this.searchVendorDates ) {
+            var DK = ( row.epoch_of_date*1000 >= this.searchVendorDates[0] &&  row.epoch_of_date*1000 <= this.searchVendorDates[1] )
+          } else {
             var DK = true
           }
             return (VK && DK)
@@ -308,46 +308,43 @@
       },
       boardList1 (){
         return this.boardList1_.filter(row => {
-          if (this.searchReceiverKey){
-            var RK = row.Receiver_Name.toLowerCase().includes(this.searchReceiverKey.toLowerCase())
-          }else{
+          if ( this.searchReceiverKey ) {
+            var RK = row.Receiver_Name.toLowerCase().includes( this.searchReceiverKey.toLowerCase() )
+          } else {
             var RK = true
           }
-
-          if (this.searchBoardKey){
-            var BK = row.Board_Name.toLowerCase().includes(this.searchBoardKey.toLowerCase())
-          }else{
+          if ( this.searchBoardKey ) {
+            var BK = row.Board_Name.toLowerCase().includes( this.searchBoardKey.toLowerCase() )
+          } else {
             var BK = true
           }
-
-          if (this.searchBoardDates){
-            var DK = (row.epoch_of_date*1000 >= this.searchBoardDates[0] &&  row.epoch_of_date*1000 <= this.searchBoardDates[1] ) 
-          }else{
+          if ( this.searchBoardDates ) {
+            var DK = ( row.epoch_of_date*1000 >= this.searchBoardDates[0] &&  row.epoch_of_date*1000 <= this.searchBoardDates[1] ) 
+          } else {
             var DK = true
           }
-          
-          return (RK && BK && DK)
+          return ( RK && BK && DK )
         })
       },
       boardList2 (){
         return this.boardList2_.filter(row => {
-          if (this.searchReceiverKey){
-            var RK = row.Receiver_Name.toLowerCase().includes(this.searchReceiverKey.toLowerCase())
-          }else{
+          if ( this.searchReceiverKey ){
+            var RK = row.Receiver_Name.toLowerCase().includes( this.searchReceiverKey.toLowerCase() )
+          } else {
             var RK = true
           }
 
           if (this.searchBoardKey){
-            var BK = row.Board_Name.toLowerCase().includes(this.searchBoardKey.toLowerCase())
-          }else{
+            var BK = row.Board_Name.toLowerCase().includes( this.searchBoardKey.toLowerCase() )
+          } else {
             var BK = true
           }
-          if (this.searchBoardDates){
-            var DK = (row.epoch_of_date*1000 >= this.searchBoardDates[0] &&  row.epoch_of_date*1000 <= this.searchBoardDates[1] ) 
-          }else{
+          if ( this.searchBoardDates ){
+            var DK = ( row.epoch_of_date*1000 >= this.searchBoardDates[0] &&  row.epoch_of_date*1000 <= this.searchBoardDates[1] ) 
+          } else {
             var DK = true
           }
-          return (RK && BK && DK)
+          return ( RK && BK && DK )
         })
       }
     },
@@ -371,33 +368,28 @@
   //   this.headers.append( 'Authorization', this.token );
   //   return this.http.get( this.URL+'/inventory/users', {headers:this.headers}).map( response => response.json() );    
 </script>
-
 <style>
-  @import url("//unpkg.com/element-ui@2.3.3/lib/theme-chalk/index.css");
-.accordion{
-    display: inline-block;
-    width:100%;
-}
-.accordion .card {
+@import url("//unpkg.com/element-ui@2.3.3/lib/theme-chalk/index.css");
+.accordion {
+  display: inline-block;
+  width:100%;
+} .accordion .card {
   height:auto;
   background-color:#fff;
   margin-bottom:10px;
   display:inline-block;
   width:100%;
-  box-shadow: 5px 5px 5px -5px #eee;
-  border: 1px solid #eee;
-}
-.accordion .card-title{
+  box-shadow:5px 5px 5px -5px #eee;
+  border:1px solid #eee;
+} .accordion .card-title {
   background-color:#fcfcfc;
-  /* border-bottom:1px solid rgba(77,82,89,0.2);
-   */margin:0
-}
-.card-body .cs12{
+  margin:0
+} .card-body .cs12 {
   box-shadow:5px 5px 10px 0px #efefef;
   padding-bottom:10px;
-}.ovf{
-    height:66vh;
-    overflow:hidden;
-    overflow-y:auto;
+} .ovf {
+  height:66vh;
+  overflow:hidden;
+  overflow-y:auto;
 }
 </style>
