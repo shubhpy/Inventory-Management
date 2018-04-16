@@ -1,5 +1,6 @@
 <template>
 <div class="main-content p-0" id="inner-remaining">
+    <div class="snacks" :class="{ grown: grown, sunk:sunk }">{{textToShow}}</div>
     <div class="card h-fullscreen pt-5 mb-0 pl-3 pr-3">
       <div class="card">
         <div class="card-body">
@@ -171,9 +172,9 @@
     name : "Users",
     data () {
       return {
-        errr:false,
-        succss:false, 
         textToShow:'',
+        grown:false,
+        sunk:false,
         userOpen:null,
         vendorOpen:null,
         receiverOpen:null,
@@ -192,6 +193,16 @@
       }
     },
     methods:{
+      snackMsg(msg,timeout){
+        this.sunk = false
+        this.grown = true
+        this.textToShow = msg
+        setTimeout(() => {
+          this.grown = false
+          this.sunk = true
+          this.textToShow = ""
+        }, timeout );
+      },
       edit_user(user) {
         this.userOpen = user
       },
@@ -230,29 +241,14 @@
         this.$http.post( this.$hostname + 'edit' , JSON.stringify(datatosend))
         .then( function ( data ) {
           if (data.body.status){
-            this.succss = true
-            this.textToShow = "Data Saved..."
-            setTimeout(() => {
-              this.succss = false
-              this.textToShow = ""
-            }, 2500 );
+            this.snackMsg("Deta saved...",3500)
             //console.log("saved")
           }else{
-            this.errr = true
-            this.textToShow = "Please try again..."
-            setTimeout(() => {
-              this.errr = false
-              this.textToShow = ""
-            }, 3500 );
+            this.snackMsg("Please try again...",3500)
             //alert("Some else error occured")          
           }
         }.bind(this),function(data){
-            this.errr = true
-            this.textToShow = "Please try again..."
-            setTimeout(() => {
-              this.errr = false
-              this.textToShow = ""
-            }, 3500 );
+            this.snackMsg("Please try again...",3500)
           //alert("Some error occured")
         })
       }
@@ -315,12 +311,7 @@
             this.users_ = json.users
             this.boards_ = json.boards
           } else {
-            this.errr = true
-            this.textToShow = "API is working..."
-            setTimeout(() => {
-              this.errr = false
-              this.textToShow = ""
-            }, 3500 );
+            this.snackMsg("API is working...",3500)
             //alert("API is working")
         }
       })

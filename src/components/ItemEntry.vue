@@ -1,5 +1,6 @@
 <template>
   <div class="main-content p-0">
+    <div class="snacks" :class="{ grown: grown, sunk:sunk }">{{textToShow}}</div>
     <div class="card h-fullscreen pt-5 mb-0 pl-3">
       <div class="card">
         <div class="card-body">
@@ -93,7 +94,6 @@
                   </table>
                 </div>
               </div>
-              <div class="snacks" :class="{ grown: grown, sunk:sunk }">{{textToShow}}</div>
               <div class="fab fab-fixed">
                 <a class="btn btn-primary btn-outline mr-5 text-dark" @click="postNewItemsEntry">Submit</a>
               </div>
@@ -167,6 +167,7 @@
                   </table>
                 </div>
               </div>
+
               <div class="fab fab-fixed">
                 <a class="btn btn-primary btn-outline mr-5 text-dark" @click="postNewItemsEntry_Collect">Submit</a>
               </div>
@@ -440,12 +441,7 @@
           this.users = json.users
           this.boards = json.boards
         } else{
-        this.errr = true
-        this.textToShow = "API is working..."
-        setTimeout(() => {
-          this.errr = false
-          this.textToShow = ""
-        }, 3500 );
+        this.snackMsg("API is working...",3500)
         //alert("API is working")
       }
     })

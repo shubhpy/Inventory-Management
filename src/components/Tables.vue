@@ -1,5 +1,6 @@
 <template>
   <div class="main-content p-0">
+    <div class="snacks" :class="{ grown: grown, sunk:sunk }">{{textToShow}}</div>
     <div class="card h-fullscreen pt-5 mb-0">
       <div class="card">
         <div class="card-body">
@@ -194,9 +195,9 @@
     name: 'Users',
     data () {
       return {
-        errr:false,
-        succss:false,
         textToShow:'',
+        grown:false,
+        sunk:false,
         searchBoardKey:null,
         searchVendorKey:null,
         searchReceiverKey:null,
@@ -214,6 +215,16 @@
     },
  
     methods : {
+      snackMsg(msg,timeout){
+        this.sunk = false
+        this.grown = true
+        this.textToShow = msg
+        setTimeout(() => {
+          this.grown = false
+          this.sunk = true
+          this.textToShow = ""
+        }, timeout );
+      },
       itemHref: function (index) {
         return "#item" + index.toString();
         },
@@ -247,12 +258,7 @@
               this.vendorList1_ = json.result1
               this.vendorList2_ = json.result2
             } else {
-              this.errr = true
-              this.textToShow = "API is working..."
-              setTimeout(() => {
-                this.errr = false
-                this.textToShow = ""
-              }, 3500 );
+              this.snackMsg("API is working...",3500)
               //alert("API is working")
           }
         })
@@ -266,12 +272,7 @@
               this.boardList1_ = json.result1
               this.boardList2_ = json.result2
             } else {
-              this.errr = true
-              this.textToShow = "API is working..."
-              setTimeout(() => {
-                this.errr = false
-                this.textToShow = ""
-              }, 3500 );
+              this.snackMsg("API is working...",3500)
               //alert("API is working")
           }
         })
@@ -372,12 +373,7 @@
           this.rows_ = json.details
           this.header_ = json.headers
         } else {
-          this.errr = true
-          this.textToShow = "API is working..."
-          setTimeout(() => {
-            this.errr = false
-            this.textToShow = ""
-          }, 3500 );
+          this.snackMsg("API is working...",3500)
           //alert("API is working")
         }
       })
