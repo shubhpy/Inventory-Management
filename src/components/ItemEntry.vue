@@ -75,7 +75,7 @@
                       </tr>
                       <tr style="position:relative;">
                         <div class="poAbs mt-5">
-                          <div class="col-sm-12 p-0" v-for="(ai,index) in addedItems">
+                          <div class="col-sm-12 p-0" v-for="(ai,index) in addedItems" :key="ai.index">
                             <div class="col-sm-1 pt-1 pb-1">{{index+1}}.</div>
                             <div class="col-sm-3 pt-1 pb-1">{{ai.name}}</div>
                             <div class="col-sm-2 pt-1 pb-1">{{ai.boxes}}</div>
@@ -93,7 +93,7 @@
                   </table>
                 </div>
               </div>
-              <div class="snacks" :class="{ error: errr, success:succss }">{{textToShow}}</div>
+              <div class="snacks" :class="{ grown: grown, sunk:sunk }">{{textToShow}}</div>
               <div class="fab fab-fixed">
                 <a class="btn btn-primary btn-outline mr-5 text-dark" @click="postNewItemsEntry">Submit</a>
               </div>
@@ -155,7 +155,7 @@
                       </tr>
                       <tr style="position:relative;">
                         <div class="poAbs mt-5">
-                          <div class="col-sm-12 p-0" v-for="(ai,index) in addedItems_Collect">
+                          <div class="col-sm-12 p-0" v-for="(ai,index) in addedItems_Collect" :key="ai.index">
                             <div class="col-sm-2 pt-1 pb-1">{{index+1}}.</div>
                             <div class="col-sm-3 pt-1 pb-1">{{ai.name}}</div>
                             <div class="col-sm-2 pt-1 pb-1">{{ai.quantity}}</div>
@@ -193,8 +193,8 @@
   data() {
     return {
       textToShow:'',
-      errr:false,
-      succss:false,
+      grown:false,
+      sunk:false,
       vendors:[],
       items:[],
       users:[],
@@ -250,6 +250,16 @@
     }
   },
   methods:{
+    snackMsg(msg,timeout){
+        this.sunk = false
+        this.grown = true
+        this.textToShow = msg
+        setTimeout(() => {
+          this.grown = false
+          this.sunk = true
+          this.textToShow = ""
+        }, timeout );
+      },
     deleteItem:function(index,e){
       this.addedItems.splice(index, 1)
     },
@@ -270,12 +280,12 @@
           this.addedItems.push({name:this.selectedItem,boxes:this.noBoxes,quantity:this.quantity,price:this.price})
         }
       }else{
-        console.log("Details can not be zero")
+        this.snackMsg("Details can not be zero...",3500)
       }
     },
     postNewItemsEntry: function() {
       if (this.selectedVendor!="" && this.selectedUser!="" && this.enteredBillNo!="" && this.enteredDate!="" && this.addedItems.length){
-        console.log("Here");      
+        //console.log("Here");      
         var datatosend = {
           vendor : this.selectedVendor,
           user : this.selectedUser,
@@ -284,17 +294,12 @@
           price : this.totalPrice,
           items: this.addedItems
         };
-        console.log(datatosend)
+        //console.log(datatosend)
         this.$http.post( this.$hostname + 'input',JSON.stringify(datatosend))
         .then(function (data) {
           console.log(data.body);
           if (data.body.success){
-            this.errr = true
-            this.textToShow = "Details Successfully Entered"
-            setTimeout(() => {
-              this.errr = false
-              this.textToShow = ""
-            }, 2200 );
+            this.snackMsg("Details successfuly saved...",2200)
             this.selectedVendor = ""
             this.selectedUser = ""
             this.enteredBillNo = ""
@@ -305,29 +310,20 @@
             this.price = '0'
             this.addedItems = []
           }else{
-            this.errr = true
-            this.textToShow = "Kindly Try again...Some Error Occured"
-            setTimeout(() => {
-              this.errr = false
-              this.textToShow = ""
-            }, 3500 );
+            this.snackMsg("Kindly Try again...Some Error Occured",3500)
           }
         }.bind(this),function(data){
-          console.log(data.body);
-          alert("Some error occured")
+            this.snackMsg("Kindly Try again...Some Error Occured",3500)
+          // console.log(data.body);
+          // alert("Some error occured")
         })
       }else {
-        this.errr = true
-        this.textToShow = "Kindly Try again...Some Error Occured"
-        setTimeout(() => {
-          this.errr = false
-          this.textToShow = ""
-        }, 3500 );
+        this.snackMsg("Kindly Try again...Some Error Occured",3500)
       }
     },
     postNewItemsEntry_Collect:function(){
       if ( this.selectedReceiver!="" && this.selectedBoard!="" && this.enteredDate_Collect!="" && this.addedItems_Collect.length ) {
-        console.log("Here");
+        //console.log("Here");
         var datatosend = {
           collector:this.selectedReceiver,
           board:this.selectedBoard,
@@ -336,9 +332,11 @@
         };
         this.$http.post(this.$hostname + 'output',JSON.stringify(datatosend))
         .then(function(data){
-          console.log(data.body);
+          //console.log(data.body);
           if (data.body.success){
-            alert("Entry saved")
+
+            this.snackMsg("Details Successfully saved",2200)
+            //alert("Entry saved")
             this.selectedReceiver = ""
             this.selectedBoard = ""
             this.enteredDate_Collect = ""
@@ -347,14 +345,15 @@
             this.quantity_Collect = '0'
             this.addedItems_Collect = []
           }else{
-            alert("Some error occured")
+            this.snackMsg("Kindly Try again...Some Error Occured",3500)
+            //alert("Some error occured")
           }
         }.bind(this),function(data){
-          console.log(data.body);
-          alert("Some error occured")
+            this.snackMsg("Kindly Try again...Some Error Occured",3500)
         })
       } else {
-        alert("Fill all the details as Item Collector, Board, Date and atleast one item in items")
+            this.snackMsg("Kindly fill all the missing details",3500)
+        // alert("Fill all the details as Item Collector, Board, Date and atleast one item in items")
       }
     },
     addItem_Collect: function(e) {
@@ -433,7 +432,7 @@
     fetch(this.$hostname + 'getnames' )
       .then(response => response.json())
       .then(json => {
-        console.log(json)
+        //console.log(json)
         if(json.success){
           this.vendors = json.vendors
           this.items = json.item_names
@@ -441,7 +440,13 @@
           this.users = json.users
           this.boards = json.boards
         } else{
-          alert("API is working")
+        this.errr = true
+        this.textToShow = "API is working..."
+        setTimeout(() => {
+          this.errr = false
+          this.textToShow = ""
+        }, 3500 );
+        //alert("API is working")
       }
     })
   }}

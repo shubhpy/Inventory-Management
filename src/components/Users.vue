@@ -5,7 +5,7 @@
         <div class="card-body">
           <ul class="nav nav-tabs">
             <li class="nav-item col-sm-1 float-left p-0 mr-4">
-              <a class="nav-link active" data-toggle="tab" href="#Users">Users</a>
+              <a class="nav-link active" data-toggle="tab" href="#Items">Items</a>
             </li>
             <li class="nav-item col-sm-1 float-left p-0 mr-4">
               <a class="nav-link" data-toggle="tab" href="#Vendors">Vendors</a>
@@ -14,7 +14,7 @@
               <a class="nav-link" data-toggle="tab" href="#Receivers">Receivers</a>
             </li>
             <li class="nav-item col-sm-1 float-left p-0 mr-4">
-              <a class="nav-link" data-toggle="tab" href="#Items">Items</a>
+              <a class="nav-link" data-toggle="tab" href="#Users">Users</a>
             </li>
             <li class="nav-item col-sm-1 float-left p-0">
               <a class="nav-link" data-toggle="tab" href="#Boards">Boards</a>
@@ -33,7 +33,7 @@
                     </tr>
                   </thead>
                   <tbody>
-                    <tr role="row" class="odd" v-for="(user,index) in users" :class="{open: user == userOpen}">
+                    <tr role="row" class="odd" v-for="(user,index) in users" :class="{open: user == userOpen}" :key="user.index">
                       <td class="col-sm-1 sorting_1">{{index+1}}</td>
                       <td class="col-sm-9">
                         <span class="hid pl-2">{{user.name}}</span>
@@ -61,7 +61,7 @@
                     </tr>
                   </thead>
                   <tbody>
-                    <tr role="row" class="odd" v-for="(vendor,index) in vendors" :class="{open: vendor == vendorOpen}">
+                    <tr role="row" class="odd" v-for="(vendor,index) in vendors" :class="{open: vendor == vendorOpen}" :key="vendor.index">
                       <td class="sorting_1">{{index+1}}</td>
                       <td>
                         <span class="hid pl-2">{{vendor.name}}</span>
@@ -88,7 +88,7 @@
                     </tr>
                   </thead>
                   <tbody>
-                    <tr role="row" class="odd" v-for="(receiver,index) in receivers" :class="{open: receiver == receiverOpen}">
+                    <tr role="row" class="odd" v-for="(receiver,index) in receivers" :class="{open: receiver == receiverOpen}" :key="receiver.index">
                       <td class="sorting_1">{{index+1}}</td>
                       <td>
                         <span class="hid pl-2">{{receiver.name}}</span>
@@ -116,7 +116,7 @@
                     </tr>
                   </thead>
                   <tbody>
-                    <tr role="row" class="odd" v-for="(itemname,index) in itemnames" :class="{open: itemname == itemOpen}">
+                    <tr role="row" class="odd" v-for="(itemname,index) in itemnames" :class="{open: itemname == itemOpen}" :key="itemname.index">
                       <td class="sorting_1">{{index+1}}</td>
                       <td>
                         <span class="hid pl-2">{{itemname.name}}</span>
@@ -144,7 +144,7 @@
                     </tr>
                   </thead>
                   <tbody>
-                    <tr role="row" class="odd" v-for="(board,index) in boards" :class="{open: board == boardOpen}">
+                    <tr role="row" class="odd" v-for="(board,index) in boards" :class="{open: board == boardOpen}" :key="board.index">
                       <td class="sorting_1">{{index+1}}</td>
                       <td>
                         <span class="hid pl-2">{{board.name}}</span>
@@ -171,6 +171,9 @@
     name : "Users",
     data () {
       return {
+        errr:false,
+        succss:false, 
+        textToShow:'',
         userOpen:null,
         vendorOpen:null,
         receiverOpen:null,
@@ -227,12 +230,30 @@
         this.$http.post( this.$hostname + 'edit' , JSON.stringify(datatosend))
         .then( function ( data ) {
           if (data.body.status){
-            console.log("saved")
+            this.succss = true
+            this.textToShow = "Data Saved..."
+            setTimeout(() => {
+              this.succss = false
+              this.textToShow = ""
+            }, 2500 );
+            //console.log("saved")
           }else{
+            this.errr = true
+            this.textToShow = "Please try again..."
+            setTimeout(() => {
+              this.errr = false
+              this.textToShow = ""
+            }, 3500 );
             //alert("Some else error occured")          
           }
         }.bind(this),function(data){
-          alert("Some error occured")
+            this.errr = true
+            this.textToShow = "Please try again..."
+            setTimeout(() => {
+              this.errr = false
+              this.textToShow = ""
+            }, 3500 );
+          //alert("Some error occured")
         })
       }
     },
@@ -294,7 +315,13 @@
             this.users_ = json.users
             this.boards_ = json.boards
           } else {
-            alert("API is working")
+            this.errr = true
+            this.textToShow = "API is working..."
+            setTimeout(() => {
+              this.errr = false
+              this.textToShow = ""
+            }, 3500 );
+            //alert("API is working")
         }
       })
     }

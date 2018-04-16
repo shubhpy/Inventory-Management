@@ -22,12 +22,12 @@
                   <table id="user" class="table table-striped table-bordered dataTable display pt-4" cellspacing="0" cellpadding="0">
                     <thead>
                       <tr role="row">
-                        <th class="sorting" tabindex="0" aria-controls="DataTables_Table_0" rowspan="1" colspan="1" v-for="headr in header">{{headr}}</th>
+                        <th class="sorting" tabindex="0" aria-controls="DataTables_Table_0" rowspan="1" colspan="1" v-for="(headr,indexh) in header" :key="headr.indexh">{{headr}}</th>
                       </tr>
                     </thead>
                     <tbody>
-                      <tr role="row" class="odd" v-for="row in rows">
-                        <td v-for="val in row">{{val}}</td>
+                      <tr role="row" class="odd" v-for="(row,index) in rows" :key="row.index">
+                        <td v-for="(val,indexs) in row" :key="val.indexs">{{val}}</td>
                       </tr>
                     </tbody>
                   </table>
@@ -47,7 +47,7 @@
               <br /><br />
               <div class="ovf col-sm-12 p-0">
                 <div class="col-xl-6 float-left pt-3" >
-                  <div class="accordion accordion-connected" id="accordion-2" v-for="(vendor,index) in vendorList1">
+                  <div class="accordion accordion-connected" id="accordion-2" v-for="(vendor,index) in vendorList1" :key="vendor.index">
                     <div class="card">
                       <h5 class="card-title">
                         <a data-toggle="collapse" data-parent="#accordion-2" :href="itemHref(index)" aria-expanded="false" class="text-dark collapsed d-block pt-3 pb-3 pl-4">
@@ -67,7 +67,7 @@
                             <div class="col-sm-3 p-0"><strong>Quantity</strong> </div>
                             <div class="col-sm-3 p-0"><strong>Price</strong></div>
 
-                            <div v-for="item in vendor.items_details" >
+                            <div v-for="(item,indx) in vendor.items_details" :key="item.indx">
                               <div class="col-sm-3 p-0"><span>{{item.name}}</span></div>
                               <div class="col-sm-3 p-0"><span>{{item.boxes}}</span></div>
                               <div class="col-sm-3 p-0"><span>{{item.quantity}}</span></div>
@@ -83,7 +83,7 @@
                   </div>
                 </div>
                 <div class="col-xl-6 float-left pt-3">
-                  <div class="accordion accordion-connected" id="accordion-2" v-for="(vendor,index) in vendorList2">
+                  <div class="accordion accordion-connected" id="accordion-2" v-for="(vendor,index) in vendorList2" :key="vendor.index">
                     <div class="card">
                       <h5 class="card-title">
                         <a data-toggle="collapse" data-parent="#accordion-2" :href="itemHref2(index)" aria-expanded="false" class="text-dark collapsed d-block pt-3 pb-3 pl-4">
@@ -103,7 +103,7 @@
                             <div class="col-sm-3 p-0"><strong>Quantity</strong> </div>
                             <div class="col-sm-3 p-0"><strong>Price</strong></div>
 
-                            <div v-for="item in vendor.items_details" >
+                            <div v-for="(item,indx) in vendor.items_details" :key="item.indx" >
                               <div class="col-sm-3 p-0"><span>{{item.name}}</span></div>
                               <div class="col-sm-3 p-0"><span>{{item.boxes}}</span></div>
                               <div class="col-sm-3 p-0"><span>{{item.quantity}}</span></div>
@@ -134,7 +134,7 @@
               <br /><br />
               <div class="ovf">
                 <div class="col-xl-6 float-left pt-3" >
-                  <div class="accordion accordion-connected" id="accordion-2" v-for="(board,index) in boardList1">
+                  <div class="accordion accordion-connected" id="accordion-2" v-for="(board,index) in boardList1" :key="board.index">
                     <div class="card">
                       <h5 class="card-title">
                         <a data-toggle="collapse" data-parent="#accordion-2" :href="ritemHref1(index)" aria-expanded="false" class="text-dark collapsed d-block pt-3 pb-3 pl-4">
@@ -147,7 +147,7 @@
                           <div class="col-sm-12 cs12"><br />
                             <div class="col-sm-6 p-0"><strong>Item Name</strong></div>
                             <div class="col-sm-6 p-0"><strong>Quantity</strong></div>
-                            <div v-for="board in board.items_details" >
+                            <div v-for="board in board.items_details"  :key="board">
                               <div class="col-sm-6 p-0"><span>{{board.name}}</span></div>
                               <div class="col-sm-6 p-0"><span>{{board.quantity}}</span></div>
                             </div>
@@ -158,7 +158,7 @@
                   </div>
                 </div>
                 <div class="col-xl-6 float-left pt-3" >
-                  <div class="accordion accordion-connected" id="accordion-2" v-for="(board,index) in boardList2">
+                  <div class="accordion accordion-connected" id="accordion-2" v-for="(board,index) in boardList2" :key="board.index">
                     <div class="card">
                       <h5 class="card-title">
                         <a data-toggle="collapse" data-parent="#accordion-2" :href="ritemHref2(index)" aria-expanded="false" class="text-dark collapsed d-block pt-3 pb-3 pl-4">
@@ -171,7 +171,7 @@
                           <div class="col-sm-12 cs12"><br />
                             <div class="col-sm-6 p-0"><strong>Item Name</strong></div>
                             <div class="col-sm-6 p-0"><strong>Quantity</strong></div>
-                            <div v-for="board in board.items_details" >
+                            <div v-for="board in board.items_details" :key="board">
                               <div class="col-sm-6 p-0"><span>{{board.name}}</span></div>
                               <div class="col-sm-6 p-0"><span>{{board.quantity}}</span></div>
                             </div>
@@ -194,6 +194,9 @@
     name: 'Users',
     data () {
       return {
+        errr:false,
+        succss:false,
+        textToShow:'',
         searchBoardKey:null,
         searchVendorKey:null,
         searchReceiverKey:null,
@@ -239,12 +242,18 @@
           fetch( this.$hostname + 'inputdetails' )
           .then( response => response.json() )
           .then( json => {
-            console.log( json )
+            //console.log( json )
             if ( json.success ) {
               this.vendorList1_ = json.result1
               this.vendorList2_ = json.result2
             } else {
-              alert("API is working")
+              this.errr = true
+              this.textToShow = "API is working..."
+              setTimeout(() => {
+                this.errr = false
+                this.textToShow = ""
+              }, 3500 );
+              //alert("API is working")
           }
         })
       },
@@ -252,12 +261,18 @@
           fetch( this.$hostname + 'outputdetails' )
           .then( response => response.json() )
           .then( json => {
-            console.log( json )
+            //console.log( json )
             if ( json.success ) {
               this.boardList1_ = json.result1
               this.boardList2_ = json.result2
             } else {
-              alert("API is working")
+              this.errr = true
+              this.textToShow = "API is working..."
+              setTimeout(() => {
+                this.errr = false
+                this.textToShow = ""
+              }, 3500 );
+              //alert("API is working")
           }
         })
       }
@@ -352,12 +367,18 @@
       fetch( this.$hostname + 'tabledetails' )
       .then( response => response.json() )
       .then( json => {
-        console.log( json )
+        //console.log( json )
         if ( json.success ) {
           this.rows_ = json.details
           this.header_ = json.headers
         } else {
-          alert("API is working")
+          this.errr = true
+          this.textToShow = "API is working..."
+          setTimeout(() => {
+            this.errr = false
+            this.textToShow = ""
+          }, 3500 );
+          //alert("API is working")
         }
       })
     }

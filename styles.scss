@@ -904,7 +904,6 @@ ins, .dropdown-menu a, table tr td, .card-body div span, input, label.col-sm-12.
 }.el-range-separator{
     width: 7% !important;
 }.snacks{
-    display:none;
     position:fixed;
     -webkit-box-align:center;
     -ms-flex-align:center;
@@ -925,10 +924,34 @@ ins, .dropdown-menu a, table tr td, .card-body div span, input, label.col-sm-12.
     box-shadow:0px 10px 10px -8px #555;
     color:white;
     margin:0 auto;
+    // @include transition(all 0.5s linear 150ms);
+    // animation:sink 0.6s 1;
+    display:none;
+}.grown{
     @include transition(all 0.5s linear 150ms);
-}.error, .success{
     display:inline;
+    animation:grow 0.6s 1;
+}.sunk{
     @include transition(all 0.5s linear 150ms);
-}.col-sm-3.brdr{
+    animation:sink 0.6s 1;
+    display:none;
+}
+.col-sm-3.brdr{
     height:70vh;
+}
+@-webkit-keyframes grow {
+    from {transform:scale(0);}
+    to {transform:scale(1);}
+}
+@keyframes grow {
+    from {transform:scale(0);}
+    to {transform:scale(1);}
+}
+@-webkit-keyframes sink {
+    from {transform:scale(1);}
+    to {transform:scale(0);}
+}
+@keyframes sink {
+    from {transform:scale(1);}
+    to {transform:scale(0);}
 }

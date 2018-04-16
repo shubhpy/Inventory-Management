@@ -7,9 +7,8 @@
           v-on:focus="setFocus"
         >
         <ul class="dropdown-menu">
-            <li v-for="(suggestion, index) in matches" v-bind:class="{'active': isActive(index)}" @click="suggestionClick(index)" >
-              <a href="#">{{ suggestion.name }}<!--  - <span class="text-primary">{{ suggestion.remaining_quantity}} --></span>
-              </a>
+            <li v-for="(suggestion, index) in matches" v-bind:class="{'active': isActive(index)}" @click="suggestionClick(index)" :key="suggestion.index">
+              <a href="#">{{ suggestion.name }}<!-- <span class="text-primary"> {{ suggestion.remaining_quantity}}</span>--></a>
             </li>
         </ul>
     </div>

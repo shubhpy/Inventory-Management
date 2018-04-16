@@ -1,6 +1,5 @@
 <template>
   <div id="inner_remaining">
-
     <!-- <h2>{{ Notifications }}</h2> 
     <ul>
       <li v-for="item in items"> {{item}} </li>
@@ -9,7 +8,6 @@
     -->
     <Autocomplete :suggestions="suggestions" v-model="selection"></Autocomplete>
     <h2>{{selection}}</h2>
-
   </div>
 </template>
 
@@ -87,28 +85,20 @@ export default {
     methods: {
       addBoardPerson: function() {
         console.log("Here");
-        // console.log($http.get);
-        // console.log($http.post);      
         var datatosend = {
           newPerson : this.newPerson
-          // dict : {heelo:"Helllo"},
-          // list : ["Heeyy","heyyy"]
         };
 
-        console.log(datatosend);
+        //console.log(datatosend);
 
-        // var formData = new FormData();
-        // formData.append('newPerson', this.newPerson);
-        // formData.append('dict', {heelo:"Helllo"});
-        // formData.append('list', ["Heeyy","heyyy"]);
         
         this.$http.post('http://localhost:8000/addBoardPerson',datatosend)
         .then(function (data) {
-          console.log(data.body);
+          //console.log(data.body);
           this.boardPersons.push(this.newPerson);
           this.suggestions.push({item:this.newPerson,quantity:''});
         }.bind(this),function(data){
-          console.log(data);
+          //console.log(data);
         })
       },
       getBoardPerson: function() {
@@ -150,7 +140,7 @@ export default {
   a {
     color: #42b983;
   }
-  #inner_remaining {
+  #inner_remaining{
       background-color: #fff;
       position: absolute;
       top: 0px;

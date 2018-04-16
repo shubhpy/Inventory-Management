@@ -39,6 +39,9 @@ export default {
   name: 'LoginComponent',
   data() {
       return {
+        errr:false,
+        succss:false, 
+        textToShow:'',
         email : '',
         pwd : ''
       }
@@ -46,30 +49,42 @@ export default {
   methods: {
       loginMethod: function(e) {
         e.preventDefault();
-        console.log("Logging Here");
+        // console.log("Logging Here");
         var datatosend = {
           email : this.email,
           password : this.pwd
         };
-        console.log(datatosend);
+        //console.log(datatosend);
 
          this.$http.post(this.$hostname+"login" , JSON.stringify(datatosend) )
         .then(function (data) {
-          console.log(data.body);
+          //console.log(data.body);
           if (data.body.success){
             localStorage.setItem('token',data.body.token);
             router.push({ name: "Tables" });
           } else {
-            alert("not found")
+            this.errr = true
+            this.textToShow = "Not found..."
+            setTimeout(() => {
+              this.succss = false
+              this.textToShow = ""
+            }, 3500 );
+            //alert("not found")
           }
         }.bind(this),function(data){
-          alert("API not working");
+          this.errr = true
+          this.textToShow = "API not working..."
+          setTimeout(() => {
+            this.succss = false
+            this.textToShow = ""
+          }, 3500 );
+          //alert("API not working");
         })
        }
     },
   created () {
     if(localStorage.getItem('token')){
-      console.log("Token Found");
+      //console.log("Token Found");
       router.push({ name: "Tables"});      
     }else{
       router.push({ name: "Login"});
