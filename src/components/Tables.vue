@@ -23,7 +23,7 @@
                   <table id="user" class="table table-striped table-bordered dataTable display pt-4" cellspacing="0" cellpadding="0">
                     <thead>
                       <tr role="row">
-                        <th class="sorting" tabindex="0" aria-controls="DataTables_Table_0" rowspan="1" colspan="1" v-for="(headr,indexh) in header" :key="headr.indexh">{{headr}}</th>
+                        <th v-for="(headr,indexh) in header" :key="headr.indexh">{{headr}}</th>
                       </tr>
                     </thead>
                     <tbody>
@@ -63,19 +63,19 @@
                             <div class="col-sm-5 float-right p-0"><strong>User Name</strong> <span class="float-right">{{vendor.User_Name}}</span></div>
                             <br />
                             <hr />
-                            <div class="col-sm-3 p-0"><strong>Item Name</strong></div>
-                            <div class="col-sm-3 p-0"><strong>Boxes</strong></div>
+                            <div class="col-sm-4 p-0"><strong>Item Name</strong></div>
+                            <div class="col-sm-2 p-0"><strong>Boxes</strong></div>
                             <div class="col-sm-3 p-0"><strong>Quantity</strong> </div>
                             <div class="col-sm-3 p-0"><strong>Price</strong></div>
 
                             <div v-for="(item,indx) in vendor.items_details" :key="item.indx">
-                              <div class="col-sm-3 p-0"><span>{{item.name}}</span></div>
-                              <div class="col-sm-3 p-0"><span>{{item.boxes}}</span></div>
+                              <div class="col-sm-4 p-0"><span>{{item.name}}</span></div>
+                              <div class="col-sm-2 p-0"><span>{{item.boxes}}</span></div>
                               <div class="col-sm-3 p-0"><span>{{item.quantity}}</span></div>
                               <div class="col-sm-3 p-0"><span>{{item.price}}</span></div>
                             </div>
                             <div class="col-sm-12">
-                              <br /><br />
+                              <br />
                             </div>
                           </div>
                         </div>
@@ -99,19 +99,19 @@
                             <div class="col-sm-5 float-right p-0"><strong>User Name</strong> <span class="float-right">{{vendor.User_Name}}</span></div>
                             <br />
                             <hr />
-                            <div class="col-sm-3 p-0"><strong>Item Name</strong></div>
-                            <div class="col-sm-3 p-0"><strong>Boxes</strong></div>
+                            <div class="col-sm-4 p-0"><strong>Item Name</strong></div>
+                            <div class="col-sm-2 p-0"><strong>Boxes</strong></div>
                             <div class="col-sm-3 p-0"><strong>Quantity</strong> </div>
                             <div class="col-sm-3 p-0"><strong>Price</strong></div>
 
                             <div v-for="(item,indx) in vendor.items_details" :key="item.indx" >
-                              <div class="col-sm-3 p-0"><span>{{item.name}}</span></div>
-                              <div class="col-sm-3 p-0"><span>{{item.boxes}}</span></div>
+                              <div class="col-sm-4 p-0"><span>{{item.name}}</span></div>
+                              <div class="col-sm-2 p-0"><span>{{item.boxes}}</span></div>
                               <div class="col-sm-3 p-0"><span>{{item.quantity}}</span></div>
                               <div class="col-sm-3 p-0"><span>{{item.price}}</span></div>
                             </div>
                             <div class="col-sm-12">
-                              <br /><br />
+                              <br />
                             </div>
                           </div>
                         </div>
@@ -405,7 +405,7 @@
   box-shadow:5px 5px 10px 0px #efefef;
   padding-bottom:10px;
 } .ovf {
-  height:66vh;
+  height:64vh;
   overflow:hidden;
   overflow-y:auto;
 }

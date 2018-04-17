@@ -1,171 +1,168 @@
 <template>
 <div class="main-content p-0" id="inner-remaining">
-    <div class="snacks" :class="{ grown: grown, sunk:sunk }">{{textToShow}}</div>
-    <div class="card h-fullscreen pt-5 mb-0 pl-3 pr-3">
-      <div class="card">
-        <div class="card-body">
-          <ul class="nav nav-tabs">
-            <li class="nav-item col-sm-1 float-left p-0 mr-4">
-              <a class="nav-link active" data-toggle="tab" href="#Items">Items</a>
-            </li>
-            <li class="nav-item col-sm-1 float-left p-0 mr-4">
-              <a class="nav-link" data-toggle="tab" href="#Vendors">Vendors</a>
-            </li>
-            <li class="nav-item col-sm-1 float-left p-0 mr-4">
-              <a class="nav-link" data-toggle="tab" href="#Receivers">Receivers</a>
-            </li>
-            <li class="nav-item col-sm-1 float-left p-0 mr-4">
-              <a class="nav-link" data-toggle="tab" href="#Users">Users</a>
-            </li>
-            <li class="nav-item col-sm-1 float-left p-0">
-              <a class="nav-link" data-toggle="tab" href="#Boards">Boards</a>
-            </li>
-          </ul>
-          <div class="tab-content">
-            <div class="tab-pane fade active show" id="Users">
-              <input type="text" v-model="searchUserkey" class="form-control col-sm-3 mt-3 ml-2" placeholder="Search Users" title="Type a name" />
-              <div class="ovf col-sm-12 p-0">
-                <table id="User" class="table table-striped table-bordered dataTable display pt-4" cellspacing="0" cellpadding="0">
-                  <thead>
-                    <tr role="row">
-                      <th class="th-1 sorting_asc" tabindex="0" aria-controls="DataTables_Table_0" rowspan="1" colspan="1" aria-sort="ascending">Sr. No.</th>
-                      <th class="sorting" tabindex="0" aria-controls="DataTables_Table_0" rowspan="1" colspan="1">Users name</th>
-                      <th class="th-modify">Modify</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    <tr role="row" class="odd" v-for="(user,index) in users" :class="{open: user == userOpen}" :key="user.index">
-                      <td class="col-sm-1 sorting_1">{{index+1}}</td>
-                      <td class="col-sm-9">
-                        <span class="hid pl-2">{{user.name}}</span>
-                        <input type="text" class="form-control col-sm-7 shw" v-model="user.name" />
-                      </td>            
-                      <td class="col-sm-2 text-left pt-4">
-                        <a class="col-sm-5 btn btn-w-md btn-primary btn-outline nav-action shw mr-2" @click="save(index,'users')">Save</a>
-                        <a class="col-sm-5 btn btn-w-md btn-primary btn-outline nav-action hid mr-2" @click="edit_user(user)">Edit</a>
-                        <!-- <a class="col-sm-5 btn btn-w-md btn-danger nav-action d-inline text-white" @click="delete_name(index,'users')">Delete</a> -->
-                      </td>
-                    </tr>
-                  </tbody>
-                </table>
-              </div>
+  <div class="snacks" :class="{ grown: grown, sunk:sunk }">{{textToShow}}</div>
+  <div class="card h-fullscreen pt-5 mb-0 pl-3 pr-3">
+    <div class="card">
+      <div class="card-body">
+        <ul class="nav nav-tabs">
+          <li class="nav-item col-sm-1 float-left p-0 mr-4">
+            <a class="nav-link active" data-toggle="tab" href="#Items">Items</a>
+          </li>
+          <li class="nav-item col-sm-1 float-left p-0 mr-4">
+            <a class="nav-link" data-toggle="tab" href="#Vendors">Vendors</a>
+          </li>
+          <li class="nav-item col-sm-1 float-left p-0 mr-4">
+            <a class="nav-link" data-toggle="tab" href="#Receivers">Receivers</a>
+          </li>
+          <li class="nav-item col-sm-1 float-left p-0 mr-4">
+            <a class="nav-link" data-toggle="tab" href="#Users">Users</a>
+          </li>
+          <li class="nav-item col-sm-1 float-left p-0">
+            <a class="nav-link" data-toggle="tab" href="#Boards">Boards</a>
+          </li>
+        </ul>
+        <div class="tab-content">
+          <div class="tab-pane fade" id="Users">
+            <input type="text" v-model="searchUserkey" class="form-control col-sm-3 mt-3 ml-2" placeholder="Search Users" title="Type a name" />
+            <div class="ovf col-sm-12 p-0">
+              <table id="User" class="table table-striped table-bordered dataTable display pt-4" cellspacing="0" cellpadding="0">
+                <thead>
+                  <tr role="row">
+                    <th class="th-1">Sr. No.</th>
+                    <th>Users name</th>
+                    <th class="th-modify">Modify</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr role="row" class="odd" v-for="(user,index) in users" :class="{open: user == userOpen}" :key="user.index">
+                    <td class="col-sm-1 sorting_1">{{index+1}}</td>
+                    <td class="col-sm-9">
+                      <span class="hid pl-2">{{user.name}}</span>
+                      <input type="text" class="form-control col-sm-7 shw" v-model="user.name" />
+                    </td>            
+                    <td class="col-sm-2 text-left pt-4">
+                      <a class="col-sm-5 btn btn-w-md btn-primary btn-outline nav-action shw mr-2" @click="save(index,'users')">Save</a>
+                      <a class="col-sm-5 btn btn-w-md btn-primary btn-outline nav-action hid mr-2" @click="edit_user(user)">Edit</a>
+                      <!-- <a class="col-sm-5 btn btn-w-md btn-danger nav-action d-inline text-white" @click="delete_name(index,'users')">Delete</a> -->
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
             </div>
-            <div class="tab-pane fade" id="Vendors">
-              <input type="text" v-model="searchVendorkey" class="form-control col-sm-3 mt-3 ml-2" placeholder="Search Vendors" title="Type a name" />
-              <div class="ovf col-sm-12 p-0">
-                <table id="vendor" class="table table-striped table-bordered dataTable display pt-4" cellspacing="0" cellpadding="0">
-                  <thead>
-                    <tr role="row">
-                      <th class="th-1 sorting_asc" tabindex="0" aria-controls="DataTables_Table_0" rowspan="1" colspan="1" aria-sort="ascending">Sr. No.</th>
-                      <th class="sorting" tabindex="0" aria-controls="DataTables_Table_0" rowspan="1" colspan="1">Vendors name</th>
-                      <th class="th-modify">Modify</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    <tr role="row" class="odd" v-for="(vendor,index) in vendors" :class="{open: vendor == vendorOpen}" :key="vendor.index">
-                      <td class="sorting_1">{{index+1}}</td>
-                      <td>
-                        <span class="hid pl-2">{{vendor.name}}</span>
-                        <input type="text" class="form-control col-sm-7 shw" v-model="vendor.name" />
-                      </td>
-                      <td class="text-left pt-4">
-                        <a class="col-sm-5 btn btn-w-md btn-primary btn-outline nav-action shw mr-2" @click="save(index,'vendors')">Save</a>
-                        <a class="col-sm-5 btn btn-w-md btn-primary btn-outline nav-action hid mr-2" @click="edit_vendor(vendor)">Edit</a>
-                      </td>
-                    </tr>
-                  </tbody>
-                </table>
-              </div>
+          </div>
+          <div class="tab-pane fade" id="Vendors">
+            <input type="text" v-model="searchVendorkey" class="form-control col-sm-3 mt-3 ml-2" placeholder="Search Vendors" title="Type a name" />
+            <div class="ovf col-sm-12 p-0">
+              <table id="vendor" class="table table-striped table-bordered dataTable display pt-4" cellspacing="0" cellpadding="0">
+                <thead>
+                  <tr role="row">
+                    <th class="th-1">Sr. No.</th>
+                    <th>Vendors name</th>
+                    <th class="th-modify">Modify</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr role="row" class="odd" v-for="(vendor,index) in vendors" :class="{open: vendor == vendorOpen}" :key="vendor.index">
+                    <td class="sorting_1">{{index+1}}</td>
+                    <td>
+                      <span class="hid pl-2">{{vendor.name}}</span>
+                      <input type="text" class="form-control col-sm-7 shw" v-model="vendor.name" />
+                    </td>
+                    <td class="text-left pt-4">
+                      <a class="col-sm-5 btn btn-w-md btn-primary btn-outline nav-action shw mr-2" @click="save(index,'vendors')">Save</a>
+                      <a class="col-sm-5 btn btn-w-md btn-primary btn-outline nav-action hid mr-2" @click="edit_vendor(vendor)">Edit</a>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
             </div>
-            <div class="tab-pane fade" id="Receivers">
-              <input type="text" v-model="searchReceiverkey" class="form-control col-sm-3 mt-3 ml-2" placeholder="Search Receivers" title="Type a name" />
-              <div class="ovf col-sm-12 p-0">
-                <table id="receiver" class="table table-striped table-bordered dataTable display pt-4" cellspacing="0" cellpadding="0">
-                  <thead>
-                    <tr role="row">
-                      <th class="th-1 sorting_asc" tabindex="0" aria-controls="DataTables_Table_0" rowspan="1" colspan="1" aria-sort="ascending">Sr. No.</th>
-                      <th class="sorting" tabindex="0" aria-controls="DataTables_Table_0" rowspan="1" colspan="1">Receivers name</th>
-                      <th class="th-modify">Modify</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    <tr role="row" class="odd" v-for="(receiver,index) in receivers" :class="{open: receiver == receiverOpen}" :key="receiver.index">
-                      <td class="sorting_1">{{index+1}}</td>
-                      <td>
-                        <span class="hid pl-2">{{receiver.name}}</span>
-                        <input type="text" class="form-control col-sm-7 shw" v-model="receiver.name" />
-                      </td>            
-                      <td class="text-left pt-4">
-                        <a class="col-sm-5 btn btn-w-md btn-primary btn-outline nav-action shw mr-2" @click="save(index,'receivers')">Save</a>
-                        <a class="col-sm-5 btn btn-w-md btn-primary btn-outline nav-action hid mr-2" @click="edit_receiver(receiver)">Edit</a>
-                        <!--<a class="col-sm-5 btn btn-w-md btn-danger nav-action d-inline text-white" @click="del_receiver(receiver)">Delete</a>-->
-                      </td>
-                    </tr>
-                  </tbody>
-                </table>
-              </div>
+          </div>
+          <div class="tab-pane fade" id="Receivers">
+            <input type="text" v-model="searchReceiverkey" class="form-control col-sm-3 mt-3 ml-2" placeholder="Search Receivers" title="Type a name" />
+            <div class="ovf col-sm-12 p-0">
+              <table id="receiver" class="table table-striped table-bordered dataTable display pt-4" cellspacing="0" cellpadding="0">
+                <thead>
+                  <tr role="row">
+                    <th class="th-1">Sr. No.</th>
+                    <th>Receivers name</th>
+                    <th class="th-modify">Modify</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr role="row" class="odd" v-for="(receiver,index) in receivers" :class="{open: receiver == receiverOpen}" :key="receiver.index">
+                    <td class="sorting_1">{{index+1}}</td>
+                    <td>
+                      <span class="hid pl-2">{{receiver.name}}</span>
+                      <input type="text" class="form-control col-sm-7 shw" v-model="receiver.name" />
+                    </td>            
+                    <td class="text-left pt-4">
+                      <a class="col-sm-5 btn btn-w-md btn-primary btn-outline nav-action shw mr-2" @click="save(index,'receivers')">Save</a>
+                      <a class="col-sm-5 btn btn-w-md btn-primary btn-outline nav-action hid mr-2" @click="edit_receiver(receiver)">Edit</a>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
             </div>
-            <div class="tab-pane fade" id="Items">
-              <input type="text" v-model="searchItemkey" class="form-control col-sm-3 mt-3 ml-2" placeholder="Search Items" title="Type a name" />
-              <div class="ovf col-sm-12 p-0">
-                <table id="item" class="table table-striped table-bordered dataTable display pt-4" cellspacing="0" cellpadding="0">
-                  <thead>
-                    <tr role="row">
-                      <th class="th-1 sorting_asc" tabindex="0" aria-controls="DataTables_Table_0" rowspan="1" colspan="1" aria-sort="ascending">Sr. No.</th>
-                      <th class="sorting" tabindex="0" aria-controls="DataTables_Table_0" rowspan="1" colspan="1">items name</th>
-                      <th class="th-modify">Modify</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    <tr role="row" class="odd" v-for="(itemname,index) in itemnames" :class="{open: itemname == itemOpen}" :key="itemname.index">
-                      <td class="sorting_1">{{index+1}}</td>
-                      <td>
-                        <span class="hid pl-2">{{itemname.name}}</span>
-                        <input type="text" class="form-control col-sm-7 shw" v-model="itemname.name" />
-                      </td>
-                      <td class="text-left pt-4">
-                        <a class="col-sm-5 btn btn-w-md btn-primary btn-outline nav-action shw mr-2" @click="save(index,'itemnames')">Save</a>
-                        <a class="col-sm-5 btn btn-w-md btn-primary btn-outline nav-action hid mr-2" @click="edit_item(itemname)">Edit</a>
-                        <!-- <a class="col-sm-5 btn btn-w-md btn-danger nav-action d-inline text-white" @click="del_item(itemname)">Delete</a> -->
-                      </td>
-                    </tr>
-                  </tbody>
-                </table>
-              </div>
+          </div>
+          <div class="tab-pane fade active show" id="Items">
+            <input type="text" v-model="searchItemkey" class="form-control col-sm-3 mt-3 ml-2" placeholder="Search Items" title="Type a name" />
+            <div class="ovf col-sm-12 p-0">
+              <table id="item" class="table table-striped table-bordered dataTable display pt-4" cellspacing="0" cellpadding="0">
+                <thead>
+                  <tr role="row">
+                    <th class="th-1">Sr. No.</th>
+                    <th>Items name</th>
+                    <th class="th-modify">Modify</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr role="row" class="odd" v-for="(itemname,index) in itemnames" :class="{open: itemname == itemOpen}" :key="itemname.index">
+                    <td class="sorting_1">{{index+1}}</td>
+                    <td>
+                      <span class="hid pl-2">{{itemname.name}}</span>
+                      <input type="text" class="form-control col-sm-7 shw" v-model="itemname.name" />
+                    </td>
+                    <td class="text-left pt-4">
+                      <a class="col-sm-5 btn btn-w-md btn-primary btn-outline nav-action shw mr-2" @click="save(index,'itemnames')">Save</a>
+                      <a class="col-sm-5 btn btn-w-md btn-primary btn-outline nav-action hid mr-2" @click="edit_item(itemname)">Edit</a>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
             </div>
-            <div class="tab-pane fade" id="Boards">
-              <input type="text" v-model="searchBoardkey" class="form-control col-sm-3 mt-3 ml-2" placeholder="Search Boards" title="Type a name" />
-              <div class="ovf col-sm-12 p-0">
-                <table id="board" class="table table-striped table-bordered dataTable display pt-4" cellspacing="0" cellpadding="0">
-                  <thead>
-                    <tr role="row">
-                      <th class="th-1 sorting_asc" tabindex="0" aria-controls="DataTables_Table_0" rowspan="1" colspan="1" aria-sort="ascending">Sr. No.</th>
-                      <th class="sorting" tabindex="0" aria-controls="DataTables_Table_0" rowspan="1" colspan="1">Board(s) name</th>
-                      <th class="th-modify">Modify</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    <tr role="row" class="odd" v-for="(board,index) in boards" :class="{open: board == boardOpen}" :key="board.index">
-                      <td class="sorting_1">{{index+1}}</td>
-                      <td>
-                        <span class="hid pl-2">{{board.name}}</span>
-                        <input type="text" class="form-control col-sm-7 shw" v-model="board.name" />
-                      </td>
-                      <td class="text-left pt-4">
-                        <a class="col-sm-5 btn btn-w-md btn-primary btn-outline nav-action shw mr-2" @click="save(index,'boards')">Save</a>
-                        <a class="col-sm-5 btn btn-w-md btn-primary btn-outline nav-action hid mr-2" @click="edit_board(board)">Edit</a>
-                        <!-- <a class="col-sm-5 btn btn-w-md btn-danger nav-action d-inline text-white" @click="del_board(board)">Delete</a> -->
-                      </td>
-                    </tr>
-                  </tbody>
-                </table>
-              </div>
+          </div>
+          <div class="tab-pane fade" id="Boards">
+            <input type="text" v-model="searchBoardkey" class="form-control col-sm-3 mt-3 ml-2" placeholder="Search Boards" title="Type a name" />
+            <div class="ovf col-sm-12 p-0">
+              <table id="board" class="table table-striped table-bordered dataTable display pt-4" cellspacing="0" cellpadding="0">
+                <thead>
+                  <tr role="row">
+                    <th class="th-1">Sr. No.</th>
+                    <th>Board(s) name</th>
+                    <th class="th-modify">Modify</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr role="row" class="odd" v-for="(board,index) in boards" :class="{open: board == boardOpen}" :key="board.index">
+                    <td class="sorting_1">{{index+1}}</td>
+                    <td>
+                      <span class="hid pl-2">{{board.name}}</span>
+                      <input type="text" class="form-control col-sm-7 shw" v-model="board.name" />
+                    </td>
+                    <td class="text-left pt-4">
+                      <a class="col-sm-5 btn btn-w-md btn-primary btn-outline nav-action shw mr-2" @click="save(index,'boards')">Save</a>
+                      <a class="col-sm-5 btn btn-w-md btn-primary btn-outline nav-action hid mr-2" @click="edit_board(board)">Edit</a>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
             </div>
           </div>
         </div>
       </div>
     </div>
   </div>
+</div>
 </template>
 <script>
   export default {

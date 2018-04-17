@@ -281,7 +281,7 @@
           this.addedItems.push({name:this.selectedItem,boxes:this.noBoxes,quantity:this.quantity,price:this.price})
         }
       }else{
-        this.snackMsg("Details can not be zero...",3500)
+        this.snackMsg("Details can not be zero..." , 3500 )
       }
     },
     postNewItemsEntry: function() {
@@ -298,7 +298,7 @@
         .then(function (data) {
           // console.log(data.body);
           if (data.body.success){
-            this.snackMsg("Details successfuly saved...",2200)
+            this.snackMsg("Details successfuly saved..." , 2200 )
             this.selectedVendor = ""
             this.selectedUser = ""
             this.enteredBillNo = ""
@@ -309,13 +309,13 @@
             this.price = '0'
             this.addedItems = []
           }else{
-            this.snackMsg("Kindly Try again...Some Error Occured",3500)
+            this.snackMsg("Kindly Try again...Some Error Occured" , 3500 )
           }
         }.bind(this),function(data){
-          this.snackMsg("Kindly Try again...Some Error Occured",3500)
+          this.snackMsg("Kindly Try again...Some Error Occured" , 3500 )
         })
       }else {
-        this.snackMsg("Kindly Try again...Some Error Occured",3500)
+        this.snackMsg("Kindly Try again...Some Error Occured" , 3500 )
       }
     },
     postNewItemsEntry_Collect:function(){
@@ -329,8 +329,8 @@
         };
         this.$http.post(this.$hostname + 'output',JSON.stringify(datatosend))
         .then(function(data){
-          if (data.body.success){
-            this.snackMsg("Details Successfully saved",2200)
+          if ( data.body.success ){
+            this.snackMsg("Details Successfully saved", 2200 )
             this.selectedReceiver = ""
             this.selectedBoard = ""
             this.enteredDate_Collect = ""
@@ -339,13 +339,13 @@
             this.quantity_Collect = '0'
             this.addedItems_Collect = []
           }else{
-            this.snackMsg("Kindly Try again...Some Error Occured",3500)
+            this.snackMsg("Kindly Try again...Some Error Occured", 3500 )
           }
         }.bind(this),function(data){
-          this.snackMsg("Kindly Try again...Some Error Occured",3500)
+          this.snackMsg("Kindly Try again...Some Error Occured", 3500 )
         })
       } else {
-        this.snackMsg("Kindly fill all the missing details",3500)
+        this.snackMsg("Kindly fill all the missing details", 3500 )
       }
     },
     addItem_Collect: function(e) {
@@ -358,6 +358,8 @@
             selectedInItemsAndValidQuantity = true
             break
           }
+        } else {
+          this.snackMsg("Details can not be empty...", 3500 )
         }
       }
       if (selectedInItemsAndValidQuantity){
@@ -397,7 +399,7 @@
   computed: {
     itemRemainingQuantity(){
       var i
-      for (i = 0; i < this.items.length; i++) { 
+      for ( i = 0; i < this.items.length; i++ ) { 
         if (this.selectedItem_Collect == this.items[i].name){
           return this.items[i].remaining_quantity
         }
@@ -421,9 +423,9 @@
     },
   },
   created () {
-    fetch(this.$hostname + 'getnames' )
-    .then(response => response.json())
-    .then(json => {
+    fetch( this.$hostname + 'getnames' )
+    .then( response => response.json() )
+    .then( json => {
       if(json.success){
         this.vendors = json.vendors
         this.items = json.item_names
@@ -431,7 +433,7 @@
         this.users = json.users
         this.boards = json.boards
       } else{
-        this.snackMsg("API is working...",3500)
+        this.snackMsg( "API is working..." , 3500 )
       }
     })
   }}
