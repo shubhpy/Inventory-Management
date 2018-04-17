@@ -148,7 +148,7 @@
                           <div class="col-sm-12 cs12"><br />
                             <div class="col-sm-6 p-0"><strong>Item Name</strong></div>
                             <div class="col-sm-6 p-0"><strong>Quantity</strong></div>
-                            <div v-for="board in board.items_details"  :key="board">
+                            <div v-for="board in board.items_details">
                               <div class="col-sm-6 p-0"><span>{{board.name}}</span></div>
                               <div class="col-sm-6 p-0"><span>{{board.quantity}}</span></div>
                             </div>
@@ -172,7 +172,7 @@
                           <div class="col-sm-12 cs12"><br />
                             <div class="col-sm-6 p-0"><strong>Item Name</strong></div>
                             <div class="col-sm-6 p-0"><strong>Quantity</strong></div>
-                            <div v-for="board in board.items_details" :key="board">
+                            <div v-for="board in board.items_details">
                               <div class="col-sm-6 p-0"><span>{{board.name}}</span></div>
                               <div class="col-sm-6 p-0"><span>{{board.quantity}}</span></div>
                             </div>
@@ -191,7 +191,12 @@
   </div>
 </template>
 <script>
+  import { store } from '../Store/store'
+
   export default {
+    beforeRouteEnter(to, from, next) {
+      store.dispatch('fetchItemTable').then(next,next)
+    },
     name: 'Users',
     data () {
       return {
@@ -205,12 +210,12 @@
         tablOpen:null,
         searchBoardDates:null,
         searchVendorDates : null,
-        rows_:[],
-        header_:[],
-        vendorList1_:[],
-        vendorList2_:[],
-        boardList1_:[],
-        boardList2_:[]
+        // rows_:[],
+        // header_:[],
+        // vendorList1_:[],
+        // vendorList2_:[],
+        // boardList1_:[],
+        // boardList2_:[]
       }
     },
  
@@ -250,163 +255,152 @@
         return "ritems" + index.toString();
       },
       getInputDetails: function() {
-          fetch( this.$hostname + 'inputdetails' )
-          .then( response => response.json() )
-          .then( json => {
-            //console.log( json )
-            if ( json.success ) {
-              this.vendorList1_ = json.result1
-              this.vendorList2_ = json.result2
-            } else {
-              this.snackMsg("API is working...",3500)
-              //alert("API is working")
-          }
-        })
+          this.$store.dispatch('fetchInputDetails')
       },
       getOutputDetails: function(){
-          fetch( this.$hostname + 'outputdetails' )
-          .then( response => response.json() )
-          .then( json => {
-            //console.log( json )
-            if ( json.success ) {
-              this.boardList1_ = json.result1
-              this.boardList2_ = json.result2
-            } else {
-              this.snackMsg("API is working...",3500)
-              //alert("API is working")
-          }
-        })
+          this.$store.dispatch('fetchOutputDetails')
       }
     },
     computed:{
       rows (){
-       if (this.searchItemkey){
-          return this.rows_.filter(row => {
-            return row[1].toLowerCase().includes(this.searchItemkey.toLowerCase())
-          })
+        if (this.$store.getters.getItemsTableRows.length){
+          if (this.searchItemkey){
+              return this.$store.getters.getItemsTableRows.filter(row => {
+                return row[1].toLowerCase().includes(this.searchItemkey.toLowerCase())
+              })
+            }else{
+              return this.$store.getters.getItemsTableRows
+            }
         }else{
-          return this.rows_
+          return []
         }
       },
       header (){
-        return this.header_
+        if (this.$store.getters.getItemsTableHeader.length){
+          return this.$store.getters.getItemsTableHeader
+        }else{
+          return []
+        }
       },
       vendorList1 (){
-        return this.vendorList1_.filter(row => {
-          if (this.searchVendorKey){
-            var VK = row.Vendor_Name.toLowerCase().includes(this.searchVendorKey.toLowerCase())
-          } else {
-            var VK = true
-          }
+        if (this.$store.getters.getVendorDetails1.length){
+          return this.$store.getters.getVendorDetails1.filter(row => {
+            if (this.searchVendorKey){
+              var VK = row.Vendor_Name.toLowerCase().includes(this.searchVendorKey.toLowerCase())
+            } else {
+              var VK = true
+            }
 
-          if (this.searchVendorDates){
-            var DK = (row.epoch_of_date*1000 >= this.searchVendorDates[0] &&  row.epoch_of_date*1000 <= this.searchVendorDates[1] ) 
-          } else {
-            var DK = true
-          }
-            return ( VK && DK )
-          })
+            if (this.searchVendorDates){
+              var DK = (row.epoch_of_date*1000 >= this.searchVendorDates[0] &&  row.epoch_of_date*1000 <= this.searchVendorDates[1] ) 
+            } else {
+              var DK = true
+            }
+              return ( VK && DK )
+            })
+        }
+        else{
+          return []
+        }
       },
       vendorList2 (){
-       return this.vendorList2_.filter(row => {
-          if ( this.searchVendorKey ) {
-            var VK = row.Vendor_Name.toLowerCase().includes(this.searchVendorKey.toLowerCase())
-          } else {
-            var VK = true
-          } 
-          if ( this.searchVendorDates ) {
-            var DK = ( row.epoch_of_date*1000 >= this.searchVendorDates[0] &&  row.epoch_of_date*1000 <= this.searchVendorDates[1] )
-          } else {
-            var DK = true
-          }
-            return (VK && DK)
-          })
+        if (this.$store.getters.getVendorDetails2.length){
+          return this.$store.getters.getVendorDetails2.filter(row => {
+              if ( this.searchVendorKey ) {
+                var VK = row.Vendor_Name.toLowerCase().includes(this.searchVendorKey.toLowerCase())
+              } else {
+                var VK = true
+              } 
+              if ( this.searchVendorDates ) {
+                var DK = ( row.epoch_of_date*1000 >= this.searchVendorDates[0] &&  row.epoch_of_date*1000 <= this.searchVendorDates[1] )
+              } else {
+                var DK = true
+              }
+                return (VK && DK)
+              })
+        }else{
+          return []
+        }
       },
       boardList1 (){
-        return this.boardList1_.filter(row => {
-          if ( this.searchReceiverKey ) {
-            var RK = row.Receiver_Name.toLowerCase().includes( this.searchReceiverKey.toLowerCase() )
-          } else {
-            var RK = true
-          }
-          if ( this.searchBoardKey ) {
-            var BK = row.Board_Name.toLowerCase().includes( this.searchBoardKey.toLowerCase() )
-          } else {
-            var BK = true
-          }
-          if ( this.searchBoardDates ) {
-            var DK = ( row.epoch_of_date*1000 >= this.searchBoardDates[0] &&  row.epoch_of_date*1000 <= this.searchBoardDates[1] ) 
-          } else {
-            var DK = true
-          }
-          return ( RK && BK && DK )
-        })
+        if (this.$store.getters.getBoardDetails1.length){
+            return this.$store.getters.getBoardDetails1.filter(row => {
+              if ( this.searchReceiverKey ) {
+                var RK = row.Receiver_Name.toLowerCase().includes( this.searchReceiverKey.toLowerCase() )
+              } else {
+                var RK = true
+              }
+              if ( this.searchBoardKey ) {
+                var BK = row.Board_Name.toLowerCase().includes( this.searchBoardKey.toLowerCase() )
+              } else {
+                var BK = true
+              }
+              if ( this.searchBoardDates ) {
+                var DK = ( row.epoch_of_date*1000 >= this.searchBoardDates[0] &&  row.epoch_of_date*1000 <= this.searchBoardDates[1] ) 
+              } else {
+                var DK = true
+              }
+              return ( RK && BK && DK )
+            })
+        }else{
+          return []
+        }
       },
       boardList2 (){
-        return this.boardList2_.filter(row => {
-          if ( this.searchReceiverKey ){
-            var RK = row.Receiver_Name.toLowerCase().includes( this.searchReceiverKey.toLowerCase() )
-          } else {
-            var RK = true
-          }
+        if (this.$store.getters.getBoardDetails1.length){   
+            return this.$store.getters.getBoardDetails2.filter(row => {
+              if ( this.searchReceiverKey ){
+                var RK = row.Receiver_Name.toLowerCase().includes( this.searchReceiverKey.toLowerCase() )
+              } else {
+                var RK = true
+              }
 
-          if (this.searchBoardKey){
-            var BK = row.Board_Name.toLowerCase().includes( this.searchBoardKey.toLowerCase() )
-          } else {
-            var BK = true
-          }
-          if ( this.searchBoardDates ){
-            var DK = ( row.epoch_of_date*1000 >= this.searchBoardDates[0] &&  row.epoch_of_date*1000 <= this.searchBoardDates[1] ) 
-          } else {
-            var DK = true
-          }
-          return ( RK && BK && DK )
-        })
-      }
-    },
-    created(){
-      fetch( this.$hostname + 'tabledetails' )
-      .then( response => response.json() )
-      .then( json => {
-        //console.log( json )
-        if ( json.success ) {
-          this.rows_ = json.details
-          this.header_ = json.headers
-        } else {
-          this.snackMsg("API is working...",3500)
-          //alert("API is working")
+              if (this.searchBoardKey){
+                var BK = row.Board_Name.toLowerCase().includes( this.searchBoardKey.toLowerCase() )
+              } else {
+                var BK = true
+              }
+              if ( this.searchBoardDates ){
+                var DK = ( row.epoch_of_date*1000 >= this.searchBoardDates[0] &&  row.epoch_of_date*1000 <= this.searchBoardDates[1] ) 
+              } else {
+                var DK = true
+              }
+              return ( RK && BK && DK )
+            })
+        }else{
+          return []
         }
-      })
+      }
     }
   }
-  
+
   // this.token = localStorage.getItem('token');
   //   this.headers =  new Headers();
   //   this.headers.append( 'Authorization', this.token );
   //   return this.http.get( this.URL+'/inventory/users', {headers:this.headers}).map( response => response.json() );    
 </script>
 <style>
-@import url("//unpkg.com/element-ui@2.3.3/lib/theme-chalk/index.css");
-.accordion {
-  display: inline-block;
-  width:100%;
-} .accordion .card {
-  height:auto;
-  background-color:#fff;
-  margin-bottom:10px;
-  display:inline-block;
-  width:100%;
-  box-shadow:5px 5px 5px -5px #eee;
-  border:1px solid #eee;
-} .accordion .card-title {
-  background-color:#fcfcfc;
-  margin:0
-} .card-body .cs12 {
-  box-shadow:5px 5px 10px 0px #efefef;
-  padding-bottom:10px;
-} .ovf {
-  height:64vh;
-  overflow:hidden;
-  overflow-y:auto;
-}
+  @import url("//unpkg.com/element-ui@2.3.3/lib/theme-chalk/index.css");
+  .accordion {
+    display: inline-block;
+    width:100%;
+  } .accordion .card {
+    height:auto;
+    background-color:#fff;
+    margin-bottom:10px;
+    display:inline-block;
+    width:100%;
+    box-shadow:5px 5px 5px -5px #eee;
+    border:1px solid #eee;
+  } .accordion .card-title {
+    background-color:#fcfcfc;
+    margin:0
+  } .card-body .cs12 {
+    box-shadow:5px 5px 10px 0px #efefef;
+    padding-bottom:10px;
+  } .ovf {
+    height:64vh;
+    overflow:hidden;
+    overflow-y:auto;
+  }
 </style>

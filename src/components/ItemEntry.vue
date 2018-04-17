@@ -185,22 +185,26 @@
 <script>
   import router from '../router'
   import Autocomplete from './Autocomplete'  
-  
+  import { store } from '../Store/store'
+
   export default {
-  name: 'ItemEntry',
-  components: {
-    Autocomplete    
+    beforeRouteEnter(to, from, next) {
+      store.dispatch('fetchNames').then(next,next)
+    },
+    name: 'ItemEntry',
+    components: {
+      Autocomplete    
   },
   data() {
     return {
       textToShow:'',
       grown:false,
       sunk:false,
-      vendors:[],
-      items:[],
-      users:[],
-      boards:[],
-      receivers:[],
+      // vendors:[],
+      // items:[],
+      // users:[],
+      // boards:[],
+      // receivers:[],
 
       enteredDate:"",
       enteredBillNo:"",
@@ -397,6 +401,21 @@
     }
   },
   computed: {
+    vendors(){
+      return this.$store.getters.getVendorNames
+      },
+    items(){
+      return this.$store.getters.getItemNames
+    },
+    users(){
+      return this.$store.getters.getUserNames
+    },
+    boards(){
+      return this.$store.getters.getBoardNames
+    },
+    receivers(){
+      return this.$store.getters.getReceiverNames
+    },
     itemRemainingQuantity(){
       var i
       for ( i = 0; i < this.items.length; i++ ) { 
@@ -422,21 +441,10 @@
       }, 0)
     },
   },
-  created () {
-    fetch( this.$hostname + 'getnames' )
-    .then( response => response.json() )
-    .then( json => {
-      if(json.success){
-        this.vendors = json.vendors
-        this.items = json.item_names
-        this.receivers = json.receivers
-        this.users = json.users
-        this.boards = json.boards
-      } else{
-        this.snackMsg( "API is working..." , 3500 )
-      }
-    })
-  }}
+  // created(){
+  //   this.$store.dispatch('fetchNames')
+  // }
+}
 </script>
 <style>
   @import url("//unpkg.com/element-ui@2.3.3/lib/theme-chalk/index.css");

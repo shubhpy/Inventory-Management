@@ -165,7 +165,11 @@
 </div>
 </template>
 <script>
+  import { store } from '../Store/store'
   export default {
+    beforeRouteEnter(to, from, next) {
+      store.dispatch('fetchNames').then(next,next)
+    },
     name : "Users",
     data () {
       return {
@@ -182,11 +186,11 @@
         searchItemkey:null,
         searchBoardkey:null,
         boardOpen:null,
-        users_:[],
-        vendors_:[],
-        receivers_:[],
-        itemnames_:[],
-        boards_:[]
+        // users_:[],
+        // vendors_:[],
+        // receivers_:[],
+        // itemnames_:[],
+        // boards_:[]
       }
     },
     methods:{
@@ -252,66 +256,70 @@
     },
     computed:{
       users (){
-        if (this.searchUserkey){
-          return this.users_.filter(user => {
-            return user.name.toLowerCase().includes(this.searchUserkey.toLowerCase())
-          })
+        if (this.$store.getters.getUserNames.length){
+          if (this.searchUserkey){
+            return this.$store.getters.getUserNames.filter(user => {
+              return user.name.toLowerCase().includes(this.searchUserkey.toLowerCase())
+            })
+          }else{
+            return this.$store.getters.getUserNames
+          }
         }else{
-          return this.users_
+          return {}
         }
       },
       vendors (){
-        if (this.searchVendorkey){
-          return this.vendors_.filter(vendor => {
-            return vendor.name.toLowerCase().includes(this.searchVendorkey.toLowerCase())
-          })
+        if (this.$store.getters.getVendorNames.length){
+          if (this.searchVendorkey){
+            return this.$store.getters.getVendorNames.filter(vendor => {
+              return vendor.name.toLowerCase().includes(this.searchVendorkey.toLowerCase())
+            })
+          }else{
+            return this.$store.getters.getVendorNames
+          }
         }else{
-          return this.vendors_
+          return {}
         }
       },
       receivers (){
-        if (this.searchReceiverkey){
-          return this.receivers_.filter(receiver => {
-            return receiver.name.toLowerCase().includes(this.searchReceiverkey.toLowerCase())
-          })
+        if (this.$store.getters.getReceiverNames.length){        
+          if (this.searchReceiverkey){
+            return this.$store.getters.getReceiverNames.filter(receiver => {
+              return receiver.name.toLowerCase().includes(this.searchReceiverkey.toLowerCase())
+            })
+          }else{
+            return this.$store.getters.getReceiverNames
+          }
         }else{
-          return this.receivers_
+          return {}
         }
       },
       itemnames (){
-        if (this.searchItemkey){
-          return this.itemnames_.filter(itemname => {
-            return itemname.name.toLowerCase().includes(this.searchItemkey.toLowerCase())
-          })
+        if (this.$store.getters.getItemNames.length){
+          if (this.searchItemkey){
+            return this.$store.getters.getItemNames.filter(itemname => {
+              return itemname.name.toLowerCase().includes(this.searchItemkey.toLowerCase())
+            })
+          }else{
+            return this.$store.getters.getItemNames
+          }
         }else{
-          return this.itemnames_
+          return {}
         }
       },
       boards (){
-        if (this.searchBoardkey){
-          return this.boards_.filter(board => {
-            return board.name.toLowerCase().includes(this.searchBoardkey.toLowerCase())
-          })
+        if (this.$store.getters.getBoardNames.length){
+          if (this.searchBoardkey){
+            return this.$store.getters.getBoardNames.filter(board => {
+              return board.name.toLowerCase().includes(this.searchBoardkey.toLowerCase())
+            })
+          }else{
+            return this.$store.getters.getBoardNames
+          }
         }else{
-          return this.boards_
+          return {}
         }
       }
-    },
-    created(){
-      fetch(this.$hostname + 'getnames' )
-        .then(response => response.json())
-        .then(json => {
-          if ( json.success ) {
-            this.vendors_ = json.vendors
-            this.itemnames_ = json.item_names
-            this.receivers_ = json.receivers
-            this.users_ = json.users
-            this.boards_ = json.boards
-          } else {
-            this.snackMsg("API is working...",3500)
-            //alert("API is working")
-        }
-      })
     }
   }
 </script>
