@@ -1,40 +1,34 @@
 <template>
     <div style="position:relative" v-bind:class="{'open':openSuggestion}" v-clickoutside="clickedOutside">
-        <input class="form-control"  type="text" :value="value" @input="updateValue($event.target.value)"
-          @keydown.enter = 'enter'
-          @keydown.down = 'down'
-          @keydown.up = 'up'
-          v-on:focus="setFocus"
-        >
-        <ul class="dropdown-menu">
-            <li v-for="(suggestion, index) in matches" v-bind:class="{'active': isActive(index)}" @click="suggestionClick(index)" :key="suggestion.index">
-              <a href="#">{{ suggestion.name }}<!-- <span class="text-primary"> {{ suggestion.remaining_quantity}}</span>--></a>
-            </li>
-        </ul>
+      <input class="form-control"  type="text" :value="value" @input="updateValue($event.target.value)" @keydown.enter = 'enter' @keydown.down = 'down' @keydown.up = 'up' v-on:focus="setFocus">
+      <ul class="dropdown-menu">
+        <li v-for="(suggestion, index) in matches" v-bind:class="{'active': isActive(index)}" @click="suggestionClick(index)" :key="suggestion.index">
+          <a href="#">{{ suggestion.name }}<!-- <span class="text-primary"> {{ suggestion.remaining_quantity}}</span>--></a>
+        </li>
+      </ul>
     </div>
 </template>
-
 <script>
 export default {
-  props: {
-    clickout : {
-      type: Boolean,
-      required: false,
-      value : true
+  props:{
+    clickout:{
+      type:Boolean,
+      required:false,
+      value:true
     },
-    value: {
-      type: String,
-      required: true
+    value:{
+      type:String,
+      required:true
     },
-    suggestions: {
-      type: Array,
-      required: true
+    suggestions:{
+      type:Array,
+      required:true
     }
   },
   data (){
     return {
       open:false,
-      current: 0,
+      current:0,
     }
   },
   computed:{

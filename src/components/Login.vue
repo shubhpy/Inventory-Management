@@ -1,5 +1,6 @@
 <template>
   <div class="row no-gutters min-h-fullscreen bg-white">
+    <div class="snacks" :class="{ grown: grown, sunk:sunk }">{{textToShow}}</div>
     <div class="col-md-6 col-lg-7 col-xl-8 d-none d-md-block bg-img" data-overlay="5">
       <div class="row h-100 pl-50">
         <div class="col-md-10 col-lg-8 align-self-end">
@@ -34,11 +35,13 @@
 
 <script>
   import router from '../router'
-
-export default {
-  name: 'LoginComponent',
-  data() {
+  export default {
+    name: 'LoginComponent',
+    data() {
       return {
+        textToShow:'',
+        grown:false,
+        sunk:false,
         errr:false,
         succss:false, 
         textToShow:'',
@@ -46,53 +49,46 @@ export default {
         pwd : ''
       }
     },
-  methods: {
+    methods: {
+      snackMsg(msg,timeout){
+        this.sunk = false
+        this.grown = true
+        this.textToShow = msg
+        setTimeout(() => {
+          this.grown = false
+          this.sunk = true
+          this.textToShow = ""
+        }, timeout );
+      },
       loginMethod: function(e) {
         e.preventDefault();
-        // console.log("Logging Here");
         var datatosend = {
-          email : this.email,
-          password : this.pwd
+          email:this.email,
+          password:this.pwd
         };
-        //console.log(datatosend);
-
-         this.$http.post(this.$hostname+"login" , JSON.stringify(datatosend) )
+        this.$http.post( this.$hostname+"login" , JSON.stringify(datatosend) )
         .then(function (data) {
-          //console.log(data.body);
           if (data.body.success){
-            localStorage.setItem('token',data.body.token);
+            localStorage.setItem( 'token' , data.body.token );
             router.push({ name: "Tables" });
           } else {
-            this.errr = true
-            this.textToShow = "Not found..."
-            setTimeout(() => {
-              this.succss = false
-              this.textToShow = ""
-            }, 3500 );
-            //alert("not found")
+            this.snackMsg( "Not found...", 3500 )
           }
         }.bind(this),function(data){
-          this.errr = true
-          this.textToShow = "API not working..."
-          setTimeout(() => {
-            this.succss = false
-            this.textToShow = ""
-          }, 3500 );
-          //alert("API not working");
+          this.snackMsg( "API not working...", 3500 )
         })
-       }
+      }
     },
   created () {
     if(localStorage.getItem('token')){
-      //console.log("Token Found");
-      router.push({ name: "Tables"});      
-    }else{
-      router.push({ name: "Login"});
+      router.push({ name: "Tables" });
+    } else {
+      router.push({ name: "Login" });
     }
   }
 }
 </script>
 
 <style>
-input{text-transform:inherit;}
+  input { text-transform:inherit; }
 </style>

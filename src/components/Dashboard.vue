@@ -16,9 +16,9 @@
     </nav>
     </aside>
     <header class="topbar">
-    <div class="topbar-right">
-        <a class="topbar-btn text-white" data-toggle="quickview" @click="logout">Logout<i class="ti-power-off"></i></a>
-    </div>
+        <div class="topbar-right">
+            <a class="topbar-btn text-white" data-toggle="quickview" @click="logout">Logout<i class="ti-power-off"></i></a>
+        </div>
     </header>
     <main class="main-container">
         <router-view></router-view>
@@ -38,14 +38,11 @@
     }
 }
 </script>
-
 <style>
-    .menu-category::after
-    {
-        top: 60%;
-    }
-    .dataTables_wrapper .dataTables_paginate .paginate_button:hover{
-        background-color:transparent;
-        background:transparent;
-    }
+.menu-category::after{
+    top:60%;
+} .dataTables_wrapper .dataTables_paginate .paginate_button:hover{
+    background-color:transparent;
+    background:transparent;
+}
 </style>

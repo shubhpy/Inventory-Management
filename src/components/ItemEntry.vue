@@ -229,22 +229,22 @@
           text:'Yesterday',
           onClick( picker ){
             const date = new Date();
-            date.setTime(date.getTime() - 3600 * 1000 * 24);
-            picker.$emit('pick', date);
+            date.setTime( date.getTime() - 3600 * 1000 * 24 );
+            picker.$emit( 'pick', date );
           }
         }, {
-          text: 'Tomorrow',
+          text:'Tomorrow',
           onClick(picker) {
             const date = new Date();
-            date.setTime(date.getTime() + 3600 * 1000 * 24);
-            picker.$emit('pick', date);
+            date.setTime( date.getTime() + 3600 * 1000 * 24 );
+            picker.$emit( 'pick', date );
           }
-        },{
-          text: 'A week ago',
+        }, {
+          text:'A week ago',
           onClick(picker) {
             const date = new Date();
-            date.setTime(date.getTime() - 3600 * 1000 * 24 * 7);
-            picker.$emit('pick', date);
+            date.setTime( date.getTime() - 3600 * 1000 * 24 * 7 );
+            picker.$emit( 'pick', date );
           }
         }]
       },
@@ -252,15 +252,15 @@
   },
   methods:{
     snackMsg(msg,timeout){
-        this.sunk = false
-        this.grown = true
-        this.textToShow = msg
-        setTimeout(() => {
-          this.grown = false
-          this.sunk = true
-          this.textToShow = ""
-        }, timeout );
-      },
+      this.sunk = false
+      this.grown = true
+      this.textToShow = msg
+      setTimeout(() => {
+        this.grown = false
+        this.sunk = true
+        this.textToShow = ""
+      }, timeout );
+    },
     deleteItem:function(index,e){
       this.addedItems.splice(index, 1)
     },
@@ -270,12 +270,12 @@
       var found = false
       if( this.selectedItem && this.noBoxes && parseInt(this.quantity) ) {
         for(i = 0; i < this.addedItems.length; i++){ 
-            if (this.selectedItem == this.addedItems[i].name){
-              found = true
-              this.addedItems[i].boxes = parseInt(this.addedItems[i].boxes) + parseInt(this.noBoxes)
-              this.addedItems[i].quantity = parseInt(this.addedItems[i].quantity) + parseInt(this.quantity)
-              this.addedItems[i].price = parseInt(this.addedItems[i].price) + parseInt(this.price)
-            }
+          if (this.selectedItem == this.addedItems[i].name){
+            found = true
+            this.addedItems[i].boxes = parseInt(this.addedItems[i].boxes) + parseInt(this.noBoxes)
+            this.addedItems[i].quantity = parseInt(this.addedItems[i].quantity) + parseInt(this.quantity)
+            this.addedItems[i].price = parseInt(this.addedItems[i].price) + parseInt(this.price)
+          }
         }
         if (!found){
           this.addedItems.push({name:this.selectedItem,boxes:this.noBoxes,quantity:this.quantity,price:this.price})
@@ -286,7 +286,6 @@
     },
     postNewItemsEntry: function() {
       if (this.selectedVendor!="" && this.selectedUser!="" && this.enteredBillNo!="" && this.enteredDate!="" && this.addedItems.length){
-        //console.log("Here");      
         var datatosend = {
           vendor : this.selectedVendor,
           user : this.selectedUser,
@@ -295,10 +294,9 @@
           price : this.totalPrice,
           items: this.addedItems
         };
-        //console.log(datatosend)
         this.$http.post( this.$hostname + 'input',JSON.stringify(datatosend))
         .then(function (data) {
-          console.log(data.body);
+          // console.log(data.body);
           if (data.body.success){
             this.snackMsg("Details successfuly saved...",2200)
             this.selectedVendor = ""
@@ -314,9 +312,7 @@
             this.snackMsg("Kindly Try again...Some Error Occured",3500)
           }
         }.bind(this),function(data){
-            this.snackMsg("Kindly Try again...Some Error Occured",3500)
-          // console.log(data.body);
-          // alert("Some error occured")
+          this.snackMsg("Kindly Try again...Some Error Occured",3500)
         })
       }else {
         this.snackMsg("Kindly Try again...Some Error Occured",3500)
@@ -333,11 +329,8 @@
         };
         this.$http.post(this.$hostname + 'output',JSON.stringify(datatosend))
         .then(function(data){
-          //console.log(data.body);
           if (data.body.success){
-
             this.snackMsg("Details Successfully saved",2200)
-            //alert("Entry saved")
             this.selectedReceiver = ""
             this.selectedBoard = ""
             this.enteredDate_Collect = ""
@@ -347,14 +340,12 @@
             this.addedItems_Collect = []
           }else{
             this.snackMsg("Kindly Try again...Some Error Occured",3500)
-            //alert("Some error occured")
           }
         }.bind(this),function(data){
-            this.snackMsg("Kindly Try again...Some Error Occured",3500)
+          this.snackMsg("Kindly Try again...Some Error Occured",3500)
         })
       } else {
-            this.snackMsg("Kindly fill all the missing details",3500)
-        // alert("Fill all the details as Item Collector, Board, Date and atleast one item in items")
+        this.snackMsg("Kindly fill all the missing details",3500)
       }
     },
     addItem_Collect: function(e) {
@@ -408,7 +399,7 @@
       var i
       for (i = 0; i < this.items.length; i++) { 
         if (this.selectedItem_Collect == this.items[i].name){
-            return this.items[i].remaining_quantity
+          return this.items[i].remaining_quantity
         }
       }
       return false
@@ -431,18 +422,16 @@
   },
   created () {
     fetch(this.$hostname + 'getnames' )
-      .then(response => response.json())
-      .then(json => {
-        //console.log(json)
-        if(json.success){
-          this.vendors = json.vendors
-          this.items = json.item_names
-          this.receivers = json.receivers
-          this.users = json.users
-          this.boards = json.boards
-        } else{
+    .then(response => response.json())
+    .then(json => {
+      if(json.success){
+        this.vendors = json.vendors
+        this.items = json.item_names
+        this.receivers = json.receivers
+        this.users = json.users
+        this.boards = json.boards
+      } else{
         this.snackMsg("API is working...",3500)
-        //alert("API is working")
       }
     })
   }}
