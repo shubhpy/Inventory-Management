@@ -194,9 +194,9 @@
   import { store } from '../Store/store'
 
   export default {
-    beforeRouteEnter(to, from, next) {
-      store.dispatch('fetchItemTable').then(next,next)
-    },
+    // beforeRouteEnter(to, from, next) {
+    //   store.dispatch('fetchItemTable').then(next,next)
+    // },
     name: 'Users',
     data () {
       return {
@@ -371,6 +371,9 @@
           return []
         }
       }
+    },
+    created(){
+      store.dispatch('fetchItemTable')
     }
   }
 
