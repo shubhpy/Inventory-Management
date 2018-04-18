@@ -189,7 +189,9 @@
 
   export default {
     beforeRouteEnter(to, from, next) {
-      store.dispatch('fetchNames').then(next,next)
+      store.dispatch('fetchNames').then(response => {
+            next()
+        })
     },
     name: 'ItemEntry',
     components: {

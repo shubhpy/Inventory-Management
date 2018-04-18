@@ -60,14 +60,17 @@ export const store = new Vuex.Store({
   },
   actions: {
     fetchNames({ commit,state }) {
-        fetch(hostname + 'getnames' )
-        .then(response => response.json())
-        .then(json => {
-            // if (JSON.stringify(state.users) != JSON.stringify(json.users)){
-            commit('gotNames', json);
-            // }
-            })
-        },
+        return new Promise((resolve, reject) => {        
+            fetch(hostname + 'getnames' )
+            .then(response => response.json())
+            .then(json => {
+                // if (JSON.stringify(state.users) != JSON.stringify(json.users)){
+                commit('gotNames', json);
+                resolve("response");                
+                // }
+                })
+        })
+    },
     fetchItemTable({commit,state}){
         return new Promise((resolve, reject) => {
             fetch( hostname + 'tabledetails' )
@@ -84,30 +87,30 @@ export const store = new Vuex.Store({
     },
     fetchInputDetails({commit,state}){
         return new Promise((resolve, reject) => {        
-        fetch( hostname + 'inputdetails' )
-        .then( response => response.json() )
-        .then( json => {
-            if ( json.success ) {
-                commit("gotInputDetails", json);
-                resolve("response");
-            } else {
-                console.log("Some Error")
-            }
-          })
+            fetch( hostname + 'inputdetails' )
+            .then( response => response.json() )
+            .then( json => {
+                if ( json.success ) {
+                    commit("gotInputDetails", json);
+                    resolve("response");
+                } else {
+                    console.log("Some Error")
+                }
+            })
         })
     },
     fetchOutputDetails({commit,state}){
-        return new Promise((resolve, reject) => {        
-        fetch( hostname + 'outputdetails' )
-        .then( response => response.json() )
-        .then( json => {
-            if ( json.success ) {
-                commit("gotOutputDetails", json);
-                resolve("response");
-            } else {
-                console.log("Some Error")
-            }
-          })
+        return new Promise((resolve, reject) => {   
+            fetch( hostname + 'outputdetails' )
+            .then( response => response.json() )
+            .then( json => {
+                if ( json.success ) {
+                    commit("gotOutputDetails", json);
+                    resolve("response");
+                } else {
+                    console.log("Some Error")
+                }
+            })
         })
     }
   },
