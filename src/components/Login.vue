@@ -2,7 +2,7 @@
   <div class="row no-gutters min-h-fullscreen bg-white">
     <div class="snacks" :class="{ grown: grown, sunk:sunk }">{{textToShow}}</div>
     <div class="col-md-6 col-lg-7 col-xl-8 d-none d-md-block bg-img" data-overlay="5">
-      <div class="row h-100 pl-50">
+      <div class="row h-100 pl-50 h-fullscreen">
         <div class="col-md-10 col-lg-8 align-self-end">
           <h1 class="text-white">Inventory Management</h1>
           <p class="text-white">Quality Council Of India</p>

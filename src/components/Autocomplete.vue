@@ -35,7 +35,7 @@ export default {
     // Filtering the suggestion based on the input
     matches () {
       return this.suggestions.filter((obj) => {
-        return obj.name.indexOf(this.value) >= 0
+        return obj.name.toLowerCase().indexOf(this.value.toLowerCase()) >= 0
       })
     },
     openSuggestion () {
@@ -98,13 +98,6 @@ export default {
       }
     }
   },
-  // events :{
-  //   clickedOutside: function (event) {
-  //     console.log("Outside")
-  //     this.open = false
-  //     this.$emit('input', value)
-  //   }
-  // },
   directives: {
     clickoutside: {
       bind:function(el, binding, vnode){

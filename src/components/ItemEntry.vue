@@ -128,7 +128,7 @@
                           <label class="d-block">Select Item Name</label>
                           <Autocomplete :suggestions="items" :clickout="true" v-model="selectedItem_Collect"  ></Autocomplete>            
                         </th>
-                        <th class="thrd" v-if="itemRemainingQuantity">
+                        <th class="thrd" v-if="selectedItem_Collect">
                           <label class="d-block">Remaining</label>
                           {{itemRemainingQuantity}}
                         </th>
@@ -355,40 +355,42 @@
       }
     },
     addItem_Collect: function(e) {
-      e.preventDefault();
-      var selectedInItemsAndValidQuantity = false
-      
+      e.preventDefault()
+      var j
+      var found = false
+      var itemFound = false
+      var i
+
+      if (!parseInt(this.quantity_Collect)){
+        this.snackMsg("Enter quantity" , 3500 )
+        return
+      }
+
       for (i = 0; i < this.items.length; i++) {
         if (this.selectedItem_Collect == this.items[i].name){
-          if (parseInt(this.quantity_Collect) <= this.items[i].remaining_quantity){
-            selectedInItemsAndValidQuantity = true
-            break
+          itemFound = true
+           if (parseInt(this.quantity_Collect) <= this.items[i].remaining_quantity){
+               for (j = 0; j < this.addedItems_Collect.length; j++){
+                  if (this.selectedItem_Collect == this.addedItems_Collect[j].name){
+                    found = true
+                    this.addedItems_Collect[j].quantity = parseInt(this.addedItems_Collect[j].quantity) + parseInt(this.quantity_Collect)
+                    this.items[i].remaining_quantity = this.items[i].remaining_quantity - parseInt(this.quantity_Collect)
+                    break
+                  }
+              }
+              if (!found){
+                this.addedItems_Collect.push({name:this.selectedItem_Collect,quantity:this.quantity_Collect})
+                this.items[i].remaining_quantity = this.items[i].remaining_quantity - parseInt(this.quantity_Collect)
+                break        
+              }
+           break  
           }else{
-            this.snackMsg("Total Quantity can not be greater than remaining", 3500)          
+            this.snackMsg("Quantity is greater than remaining quantity" , 3500 )            
           }
         }
       }
-      if (selectedInItemsAndValidQuantity){
-        var i
-        var found = false
-        if (this.selectedItem_Collect && parseInt(this.quantity_Collect)){
-          for (i = 0; i < this.addedItems_Collect.length; i++){
-            if (this.selectedItem_Collect == this.addedItems_Collect[i].name){
-              found = true
-              if (parseInt(this.quantity_Collect) + parseInt(this.addedItems_Collect[i].quantity) <= this.items[i].remaining_quantity){
-                this.addedItems_Collect[i].quantity = parseInt(this.addedItems_Collect[i].quantity) + parseInt(this.quantity_Collect)
-                this.items[i].remaining_quantity=this.items[i].remaining_quantity - parseInt(this.quantity_Collect)
-              }
-              break
-            }
-          }
-          if (!found){
-            this.addedItems_Collect.push({name:this.selectedItem_Collect,quantity:this.quantity_Collect})
-            this.items[i].remaining_quantity=this.items[i].remaining_quantity - parseInt(this.quantity_Collect)
-          }
-        }
-      }else{
-            this.snackMsg("Can not enter new item", 3500)     
+      if (!itemFound){
+        this.snackMsg("New item name not valid" , 3500 )
       }
     },
     deleteItem_Collect:function(index,e){
