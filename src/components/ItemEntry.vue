@@ -440,10 +440,7 @@
         return sum + 1
       }, 0)
     },
-  },
-  // created(){
-  //   this.$store.dispatch('fetchNames')
-  // }
+  }
 }
 </script>
 <style>

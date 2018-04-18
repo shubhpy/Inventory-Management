@@ -36,7 +36,7 @@
 <script>
   import router from '../router'
   export default {
-    name: 'LoginComponent',
+    name: 'Login',
     data() {
       return {
         textToShow:'',
@@ -81,8 +81,10 @@
     },
   created () {
     if(localStorage.getItem('token')){
+      console.log("to Table")
       router.push({ name: "Tables" });
     } else {
+      console.log("to Login")      
       router.push({ name: "Login" });
     }
   }
