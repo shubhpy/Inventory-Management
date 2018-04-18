@@ -71,6 +71,7 @@
           if (data.body.success){
             localStorage.setItem( 'token' , data.body.token );
             router.push({ name: "Tables" });
+            return
           } else {
             this.snackMsg( "Not found...", 3500 )
           }
@@ -84,7 +85,7 @@
       console.log("to Table")
       router.push({ name: "Tables" });
     } else {
-      console.log("to Login")      
+      console.log("to Login")
       router.push({ name: "Login" });
     }
   }

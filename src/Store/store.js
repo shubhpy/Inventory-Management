@@ -69,40 +69,46 @@ export const store = new Vuex.Store({
             })
         },
     fetchItemTable({commit,state}){
-        fetch( hostname + 'tabledetails' )
-        .then( response => response.json() )
-        .then( json => {
-        if ( json.success ) {
-            commit("gotItemsTable", json);
-        } else {
-            // this.snackMsg("API is working...",3500)
-            console.log("Some Error")
-        }
-      })
+        return new Promise((resolve, reject) => {
+            fetch( hostname + 'tabledetails' )
+            .then( response => response.json() )
+            .then( json => {
+            if ( json.success ) {
+                commit("gotItemsTable", json);
+                resolve("response");
+            } else {
+                console.log("Some Error")
+            }
+          })
+        })
     },
     fetchInputDetails({commit,state}){
+        return new Promise((resolve, reject) => {        
         fetch( hostname + 'inputdetails' )
         .then( response => response.json() )
         .then( json => {
             if ( json.success ) {
                 commit("gotInputDetails", json);
+                resolve("response");
             } else {
-                // this.snackMsg("API is working...",3500)
                 console.log("Some Error")
             }
           })
+        })
     },
     fetchOutputDetails({commit,state}){
+        return new Promise((resolve, reject) => {        
         fetch( hostname + 'outputdetails' )
         .then( response => response.json() )
         .then( json => {
             if ( json.success ) {
                 commit("gotOutputDetails", json);
+                resolve("response");
             } else {
-                // this.snackMsg("API is working...",3500)
                 console.log("Some Error")
             }
           })
+        })
     }
   },
   mutations: {

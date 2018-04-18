@@ -28,7 +28,9 @@
                     </thead>
                     <tbody>
                       <tr role="row" class="odd" v-for="(row,index) in rows" :key="row.index">
-                        <td v-for="(val,indexs) in row" :key="val.indexs">{{val}}</td>
+                        <td v-for="(val,indexs) in row" :key="val.indexs">
+                        {{val}}
+                        </td>
                       </tr>
                     </tbody>
                   </table>
@@ -194,9 +196,13 @@
   import { store } from '../Store/store'
 
   export default {
-    // beforeRouteEnter(to, from, next) {
-    //   store.dispatch('fetchItemTable').then(next,next)
-    // },
+    beforeRouteEnter(to, from, next) {
+      store.dispatch('fetchItemTable').then(response => {})
+      store.dispatch('fetchInputDetails').then(response => {})
+      store.dispatch('fetchOutputDetails').then(response => {
+            next()
+        })
+    },
     name: 'Users',
     data () {
       return {
@@ -255,10 +261,10 @@
         return "ritems" + index.toString();
       },
       getInputDetails: function() {
-          this.$store.dispatch('fetchInputDetails')
+          // this.$store.dispatch('fetchInputDetails')
       },
       getOutputDetails: function(){
-          this.$store.dispatch('fetchOutputDetails')
+          // this.$store.dispatch('fetchOutputDetails')
       }
     },
     computed:{
@@ -371,9 +377,6 @@
           return []
         }
       }
-    },
-    created(){
-      store.dispatch('fetchItemTable')
     }
   }
 

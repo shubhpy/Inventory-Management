@@ -33,6 +33,7 @@
         logout: function(e) {
         e.preventDefault();
         localStorage.removeItem('token');
+        localStorage.removeItem('vuex');        
         router.push({ name:"Login"});
         }
     }
