@@ -363,9 +363,9 @@
           if (parseInt(this.quantity_Collect) <= this.items[i].remaining_quantity){
             selectedInItemsAndValidQuantity = true
             break
+          }else{
+            this.snackMsg("Total Quantity can not be greater than remaining", 3500)          
           }
-        } else {
-          this.snackMsg("Details can not be empty...", 3500 )
         }
       }
       if (selectedInItemsAndValidQuantity){
@@ -387,6 +387,8 @@
             this.items[i].remaining_quantity=this.items[i].remaining_quantity - parseInt(this.quantity_Collect)
           }
         }
+      }else{
+            this.snackMsg("Can not enter new item", 3500)     
       }
     },
     deleteItem_Collect:function(index,e){
