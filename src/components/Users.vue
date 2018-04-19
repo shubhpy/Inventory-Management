@@ -35,12 +35,12 @@
                 </thead>
                 <tbody>
                   <tr role="row" class="odd" v-for="(user,index) in users" :class="{open: user == userOpen}" :key="user.index">
-                    <td class="col-sm-1 sorting_1">{{index+1}}</td>
+                    <td class="col-sm-1">{{index+1}}</td>
                     <td class="col-sm-9">
                       <span class="hid pl-2">{{user.name}}</span>
                       <input type="text" class="form-control col-sm-7 shw" v-model="user.name" />
                     </td>            
-                    <td class="col-sm-2 text-left pt-4">
+                    <td class="col-sm-2 text-left">
                       <a class="col-sm-5 btn btn-w-md btn-primary btn-outline nav-action shw mr-2" @click="save(index,'users')">Save</a>
                       <a class="col-sm-5 btn btn-w-md btn-primary btn-outline nav-action hid mr-2" @click="edit_user(user)">Edit</a>
                       <!-- <a class="col-sm-5 btn btn-w-md btn-danger nav-action d-inline text-white" @click="delete_name(index,'users')">Delete</a> -->
@@ -63,7 +63,7 @@
                 </thead>
                 <tbody>
                   <tr role="row" class="odd" v-for="(vendor,index) in vendors" :class="{open: vendor == vendorOpen}" :key="vendor.index">
-                    <td class="sorting_1">{{index+1}}</td>
+                    <td class="">{{index+1}}</td>
                     <td>
                       <span class="hid pl-2">{{vendor.name}}</span>
                       <input type="text" class="form-control col-sm-7 shw" v-model="vendor.name" />
@@ -90,7 +90,7 @@
                 </thead>
                 <tbody>
                   <tr role="row" class="odd" v-for="(receiver,index) in receivers" :class="{open: receiver == receiverOpen}" :key="receiver.index">
-                    <td class="sorting_1">{{index+1}}</td>
+                    <td class="">{{index+1}}</td>
                     <td>
                       <span class="hid pl-2">{{receiver.name}}</span>
                       <input type="text" class="form-control col-sm-7 shw" v-model="receiver.name" />
@@ -117,7 +117,7 @@
                 </thead>
                 <tbody>
                   <tr role="row" class="odd" v-for="(itemname,index) in itemnames" :class="{open: itemname == itemOpen}" :key="itemname.index">
-                    <td class="sorting_1">{{index+1}}</td>
+                    <td class="">{{index+1}}</td>
                     <td>
                       <span class="hid pl-2">{{itemname.name}}</span>
                       <input type="text" class="form-control col-sm-7 shw" v-model="itemname.name" />
@@ -144,7 +144,7 @@
                 </thead>
                 <tbody>
                   <tr role="row" class="odd" v-for="(board,index) in boards" :class="{open: board == boardOpen}" :key="board.index">
-                    <td class="sorting_1">{{index+1}}</td>
+                    <td class="">{{index+1}}</td>
                     <td>
                       <span class="hid pl-2">{{board.name}}</span>
                       <input type="text" class="form-control col-sm-7 shw" v-model="board.name" />
@@ -325,3 +325,6 @@
     }
   }
 </script>
+<style>
+table.dataTable tbody th, table.dataTable tbody td { padding:6px 10px; }
+</style>
