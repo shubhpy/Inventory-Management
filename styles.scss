@@ -34,6 +34,7 @@ $default-font-weight:300;
 }
     //transition
 @mixin transition($args...){ -webkit-transition:$args;-moz-transition:$args;-ms-transition:$args;-o-transition:$args;transition:$args; }
+
 body {
     font-family:$default-font;
     font-weight:$default-font-weight;
@@ -82,7 +83,7 @@ body > main {
     border-radius:10px;
 }
 ::-webkit-scrollbar-track{
-    background-color:dark-theme($default-bg);
+    background:linear-gradient(to right, $white, $default-bg, $white) ;
     border-radius:10px;
 }
 a{
@@ -99,11 +100,10 @@ a{
         text-decoration:none;
     }
 }
-.ps-container {
+.ps-container{
     position:relative;
 }
-
-.brdr-clr {
+.brdr-clr{
     position:relative;
 }
 //Navigation ?
@@ -176,7 +176,7 @@ a{
         border-top-color:$primary;
     }
 }
-.topbar-right {
+.topbar-right{
     display:-webkit-box;
     display:flex;
 
@@ -186,7 +186,7 @@ a{
     -webkit-box-orient:horizontal;
     -webkit-box-direction:reverse;
     flex-direction:row-reverse;
-    
+    //is position can be SCSS theme
     top:10px;
     right:0;
     position:fixed;
@@ -197,6 +197,7 @@ a{
     height:45px;
     
     border-radius:8px 0 0 8px;
+    
     box-shadow:0px 2px 2px -1px #555;
 }
 .topbar-left {
@@ -260,12 +261,13 @@ label{
 [data-overlay]::before {
     position:absolute;
     content:'';
-    
+
+    //Why margin 0 auto is not used ??? 
     top:0;
     left:0;
     right:0;
     bottom:0;
-    
+
     background:#191919;
     z-index:-1;
     border-radius:inherit;
@@ -281,6 +283,7 @@ label{
 .min-h-fullscreen {
     min-height:100vh !important;
 }
+// these padding classes ???
 .py-30 {
     padding-top:30px !important;
     padding-bottom:30px !important;
@@ -303,6 +306,8 @@ button, input, select {
   font-family:$default-font;
   font-weight:$default-font-weight;
 }
+
+// heading attributes and no scss yet !
 h1, h4, h5, h6 {
   font-family:$default-font;
   font-weight:$default-font-weight;
@@ -327,7 +332,13 @@ h6 { font-size:14px; font-weight:$default-font-weight; }
   h1 { font-size:24px; }
   h4 { font-size:16px; }
 }
+
+
+
 //tables
+table.dataTable{
+    width:100% !important;//we can also use col-sm-12 here with p-0
+}
 .table th{
     border-top:0;
     font-weight:$default-font-weight;
@@ -341,6 +352,8 @@ h6 { font-size:14px; font-weight:$default-font-weight; }
 .table-bordered{
     border:1px solid transparent !important;
 }
+
+// Where is scss ??
 //modals
 .modal-content{
     border-radius:3px;
@@ -382,6 +395,7 @@ h6 { font-size:14px; font-weight:$default-font-weight; }
     -webkit-transform:translate(-50%, 50%) !important;
     transform:translate(-50%, 50%) !important;
 }
+
 //buttons
 .btn{
     font-size:13px;
@@ -394,21 +408,21 @@ h6 { font-size:14px; font-weight:$default-font-weight; }
     border-color:#ebebeb;
     outline:none !important;
     @include transition(all 0.2s linear);
-}
-.btn:hover{
-    cursor:pointer;
+    &:hover{
+        cursor:pointer;
+    }
 }
 .btn:focus,
 .btn:active{
-    @include box-shadow(none);
+    @include box-shadow(none);// the mixin thing of box shadow
 }
-.btn-bold{
+.btn-bold {
     font-family:$default-font;
     text-transform:uppercase;
     font-weight:500;
     font-size:13px;
 }
-.btn-w-md{
+.btn-w-md {
     width:120px;
 }
 
@@ -440,7 +454,8 @@ $buttonConfig:'primary' $primary, 'info' $info, 'danger' $danger, 'secondary' $s
   }
 }
 
-.btn-float{
+// reduce these buttons ??
+.btn-float {
     display:-webkit-inline-box;
     display:inline-flex;
     -webkit-box-align:center;
@@ -459,7 +474,7 @@ $buttonConfig:'primary' $primary, 'info' $info, 'danger' $danger, 'secondary' $s
         @include box-shadow(none);
     }
 }
-.btn-pure{
+.btn-pure {
     background-color:transparent !important;
     border-color:transparent !important;
 }
@@ -479,25 +494,31 @@ $buttonConfig:'primary' $primary, 'info' $info, 'danger' $danger, 'secondary' $s
     color:#c7ced4;
     @include box-shadow(none);
 }
-.fab{
-  position:relative;
-  display:inline-block;
-  z-index:9;
-  &>.btn{
+
+
+.fab {
     position:relative;
-    z-index:1;
-  }
-  &-fixed{
-    position:fixed;
-    right:20px;
-    bottom:20px;
-  }
+    display:inline-block;
+    z-index:9;
+    &>.btn {
+        position:relative;
+        z-index:1;    
+        box-shadow: 0px 5px 10px -5px #aaa; // Use Box Shadow mixins here !
+    }
+    &-fixed {
+        position:fixed;
+        right:20px;
+        bottom:20px;
+    }
 }
+
+// where is close used ??
 .close{
     font-weight:$default-font-weight;
     outline:none !important;
     @include transition(all 0.2s linear);
 }
+
 .nav-action{
     color:#8b95a5;
     font-size:14px;
@@ -507,9 +528,7 @@ $buttonConfig:'primary' $primary, 'info' $info, 'danger' $danger, 'secondary' $s
         color:#4d5259;
     }
 }
-table.dataTable{
-    width:100% !important;
-}
+
 //form-control
 .form-control{
     background-color:$white;
@@ -879,24 +898,13 @@ thead th{
     top:-32px;
 }
 
-.tab-pane.fade.active.show .row {
-    margin: 0;
-}
-.clearfix > .btn-group.pull-right{
-    display: none   ;
-}
+.tab-pane.fade.active.show .row { margin: 0; }
+.clearfix > .btn-group.pull-right{ display:none; }
 
-.shw{
-    display: none;
-}
-.hid{
-    display: inline;
-}.open .hid{
-    display:none;
-}
-.open .shw{
-    display: inline;
-}
+.shw{ display:none; }
+.hid{ display:inline; }
+.open .hid{ display:none; }
+.open .shw{ display:inline; }
 
 ins, .dropdown-menu a, table tr td, .card-body div span, input, label.col-sm-12.float-left.text-primary.p-0 { text-transform: capitalize}
 .el-range-editor.el-input__inner {

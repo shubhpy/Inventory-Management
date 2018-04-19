@@ -10,7 +10,7 @@
         </div>
       </div>
     </div>
-    <div class="col-md-6 col-lg-5 col-xl-4 align-self-center">
+    <div class="col-md-6 col-lg-5 col-xl-4 align-self-center h-fullscreen">
       <div class="px-80 py-30">
         <h4>Login</h4>
         <p><small>Sign into your account</small></p>
@@ -18,11 +18,11 @@
         <form>
           <div class="form-group do-float">
             <label>Username</label>
-            <input type="text" class="form-control" name="email" v-model="email" />
+            <input type="text" placeholder="Enter your username..." class="form-control" name="email" v-model="email" />
           </div>
           <div class="form-group do-float">
             <label>Password</label>
-            <input type="password" class="form-control" name="pwd" v-model="pwd" />
+            <input type="password" placeholder="Enter your password..." class="form-control" name="pwd" v-model="pwd" />
           </div>
           <div class="form-group">
             <button class="btn btn-bold btn-block btn-primary" type="submit" @click="loginMethod">Login</button>
@@ -91,7 +91,12 @@
   }
 }
 </script>
-
 <style>
-  input { text-transform:inherit; }
+  .align-self-center.h-fullscreen {
+    background:#f8f8f8;
+  } input {
+    text-transform:inherit;
+  } h1.text-white {
+    text-shadow:3px 3px 2px rgba(0, 121, 116, 1);
+  }
 </style>

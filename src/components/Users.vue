@@ -24,8 +24,8 @@
         <div class="tab-content">
           <div class="tab-pane fade" id="Users">
             <input type="text" v-model="searchUserkey" class="form-control col-sm-3 mt-3 ml-2" placeholder="Search Users" title="Type a name" />
-            <div class="ovf col-sm-12 p-0">
-              <table id="User" class="table table-striped table-bordered dataTable display pt-4" cellspacing="0" cellpadding="0">
+            <div class="ovf col-sm-12 p-0 mt-4">
+              <table id="User" class="table table-striped table-bordered dataTable display" cellspacing="0" cellpadding="0">
                 <thead>
                   <tr role="row">
                     <th class="th-1">Sr. No.</th>
@@ -41,8 +41,8 @@
                       <input type="text" class="form-control col-sm-7 shw" v-model="user.name" />
                     </td>            
                     <td class="col-sm-2 text-left">
-                      <a class="col-sm-5 btn btn-w-md btn-primary btn-outline nav-action shw mr-2" @click="save(index,'users')">Save</a>
-                      <a class="col-sm-5 btn btn-w-md btn-primary btn-outline nav-action hid mr-2" @click="edit_user(user)">Edit</a>
+                      <a class="col-sm-5 btn btn-w-md btn-primary btn-outline nav-action shw mr-2 bg-white" @click="save(index,'users')">Save</a>
+                      <a class="col-sm-5 btn btn-w-md btn-primary btn-outline nav-action hid mr-2 bg-white" @click="edit_user(user)">Edit</a>
                       <!-- <a class="col-sm-5 btn btn-w-md btn-danger nav-action d-inline text-white" @click="delete_name(index,'users')">Delete</a> -->
                     </td>
                   </tr>
@@ -52,8 +52,8 @@
           </div>
           <div class="tab-pane fade" id="Vendors">
             <input type="text" v-model="searchVendorkey" class="form-control col-sm-3 mt-3 ml-2" placeholder="Search Vendors" title="Type a name" />
-            <div class="ovf col-sm-12 p-0">
-              <table id="vendor" class="table table-striped table-bordered dataTable display pt-4" cellspacing="0" cellpadding="0">
+            <div class="ovf col-sm-12 p-0 mt-4">
+              <table id="vendor" class="table table-striped table-bordered dataTable display" cellspacing="0" cellpadding="0">
                 <thead>
                   <tr role="row">
                     <th class="th-1">Sr. No.</th>
@@ -69,8 +69,8 @@
                       <input type="text" class="form-control col-sm-7 shw" v-model="vendor.name" />
                     </td>
                     <td class="text-left">
-                      <a class="col-sm-5 btn btn-w-md btn-primary btn-outline nav-action shw mr-2" @click="save(index,'vendors')">Save</a>
-                      <a class="col-sm-5 btn btn-w-md btn-primary btn-outline nav-action hid mr-2" @click="edit_vendor(vendor)">Edit</a>
+                      <a class="col-sm-5 btn btn-w-md btn-primary btn-outline nav-action shw mr-2 bg-white" @click="save(index,'vendors')">Save</a>
+                      <a class="col-sm-5 btn btn-w-md btn-primary btn-outline nav-action hid mr-2 bg-white" @click="edit_vendor(vendor)">Edit</a>
                     </td>
                   </tr>
                 </tbody>
@@ -79,8 +79,8 @@
           </div>
           <div class="tab-pane fade" id="Receivers">
             <input type="text" v-model="searchReceiverkey" class="form-control col-sm-3 mt-3 ml-2" placeholder="Search Receivers" title="Type a name" />
-            <div class="ovf col-sm-12 p-0">
-              <table id="receiver" class="table table-striped table-bordered dataTable display pt-4" cellspacing="0" cellpadding="0">
+            <div class="ovf col-sm-12 p-0 mt-4">
+              <table id="receiver" class="table table-striped table-bordered dataTable display" cellspacing="0" cellpadding="0">
                 <thead>
                   <tr role="row">
                     <th class="th-1">Sr. No.</th>
@@ -96,8 +96,8 @@
                       <input type="text" class="form-control col-sm-7 shw" v-model="receiver.name" />
                     </td>            
                     <td class="text-left">
-                      <a class="col-sm-5 btn btn-w-md btn-primary btn-outline nav-action shw mr-2" @click="save(index,'receivers')">Save</a>
-                      <a class="col-sm-5 btn btn-w-md btn-primary btn-outline nav-action hid mr-2" @click="edit_receiver(receiver)">Edit</a>
+                      <a class="col-sm-5 btn btn-w-md btn-primary btn-outline nav-action shw mr-2 bg-white" @click="save(index,'receivers')">Save</a>
+                      <a class="col-sm-5 btn btn-w-md btn-primary btn-outline nav-action hid mr-2 bg-white" @click="edit_receiver(receiver)">Edit</a>
                     </td>
                   </tr>
                 </tbody>
@@ -106,8 +106,8 @@
           </div>
           <div class="tab-pane fade active show" id="Items">
             <input type="text" v-model="searchItemkey" class="form-control col-sm-3 mt-3 ml-2" placeholder="Search Items" title="Type a name" />
-            <div class="ovf col-sm-12 p-0">
-              <table id="item" class="table table-striped table-bordered dataTable display pt-4" cellspacing="0" cellpadding="0">
+            <div class="ovf col-sm-12 p-0 mt-4">
+              <table id="item" class="table table-striped table-bordered dataTable display" cellspacing="0" cellpadding="0">
                 <thead>
                   <tr role="row">
                     <th class="th-1">Sr. No.</th>
@@ -123,8 +123,8 @@
                       <input type="text" class="form-control col-sm-7 shw" v-model="itemname.name" />
                     </td>
                     <td class="text-left">
-                      <a class="col-sm-5 btn btn-w-md btn-primary btn-outline nav-action shw mr-2" @click="save(index,'itemnames')">Save</a>
-                      <a class="col-sm-5 btn btn-w-md btn-primary btn-outline nav-action hid mr-2" @click="edit_item(itemname)">Edit</a>
+                      <a class="col-sm-5 btn btn-w-md btn-primary btn-outline nav-action shw mr-2 bg-white" @click="save(index,'itemnames')">Save</a>
+                      <a class="col-sm-5 btn btn-w-md btn-primary btn-outline nav-action hid mr-2 bg-white" @click="edit_item(itemname)">Edit</a>
                     </td>
                   </tr>
                 </tbody>
@@ -133,8 +133,8 @@
           </div>
           <div class="tab-pane fade" id="Boards">
             <input type="text" v-model="searchBoardkey" class="form-control col-sm-3 mt-3 ml-2" placeholder="Search Boards" title="Type a name" />
-            <div class="ovf col-sm-12 p-0">
-              <table id="board" class="table table-striped table-bordered dataTable display pt-4" cellspacing="0" cellpadding="0">
+            <div class="ovf col-sm-12 p-0 mt-4">
+              <table id="board" class="table table-striped table-bordered dataTable display" cellspacing="0" cellpadding="0">
                 <thead>
                   <tr role="row">
                     <th class="th-1">Sr. No.</th>
@@ -150,8 +150,8 @@
                       <input type="text" class="form-control col-sm-7 shw" v-model="board.name" />
                     </td>
                     <td class="text-left">
-                      <a class="col-sm-5 btn btn-w-md btn-primary btn-outline nav-action shw mr-2" @click="save(index,'boards')">Save</a>
-                      <a class="col-sm-5 btn btn-w-md btn-primary btn-outline nav-action hid mr-2" @click="edit_board(board)">Edit</a>
+                      <a class="col-sm-5 btn btn-w-md btn-primary btn-outline nav-action shw mr-2 bg-white" @click="save(index,'boards')">Save</a>
+                      <a class="col-sm-5 btn btn-w-md btn-primary btn-outline nav-action hid mr-2 bg-white" @click="edit_board(board)">Edit</a>
                     </td>
                   </tr>
                 </tbody>
