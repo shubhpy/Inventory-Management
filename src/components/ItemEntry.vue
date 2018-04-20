@@ -286,6 +286,10 @@
         if (!found){
           this.addedItems.push({name:this.selectedItem,boxes:this.noBoxes,quantity:this.quantity,price:this.price})
         }
+        this.selectedItem = ""
+        this.noBoxes = '0'
+        this.quantity = '0'
+        this.price = '0'
       }else{
         this.snackMsg("Details can not be zero..." , 3500 )
       }
@@ -381,9 +385,11 @@
               if (!found){
                 this.addedItems_Collect.push({name:this.selectedItem_Collect,quantity:this.quantity_Collect})
                 this.items[i].remaining_quantity = this.items[i].remaining_quantity - parseInt(this.quantity_Collect)
-                break        
               }
-           break  
+              this.selectedItem_Collect = ""
+              this.noBoxes = '0'
+              this.quantity_Collect = '0'
+              break
           }else{
             this.snackMsg("Quantity is greater than remaining quantity" , 3500 )            
           }
