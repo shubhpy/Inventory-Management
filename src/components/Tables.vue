@@ -63,7 +63,11 @@
                           <div class="col-sm-12 cs12">
                             <div class="col-sm-4 float-left p-0"><strong>Bill No.</strong> <span class="float-right">{{vendor.Bill_No}}</span></div>
                             <div class="col-sm-5 float-right p-0"><strong>User Name</strong> <span class="float-right">{{vendor.User_Name}}</span></div>
-                            <br />
+                            <div class="col-sm-4 float-left p-0"><strong>Total Items</strong> <span class="float-right">{{vendor.Total_Items}}</span></div>
+                            <div class="col-sm-5 float-right p-0"><strong>Total Price</strong> <span class="float-right">&#x20B9; {{vendor.price}}</span></div>
+                            <div class="col-sm-4 float-left p-0"><strong>Tax</strong> <span class="float-right">&#x20B9; {{vendor.tax}}</span></div>
+                            <div class="col-sm-5 float-right p-0"><strong>Grand Total</strong> <span class="float-right">&#x20B9; {{vendor.Grand_Total}}</span></div>
+                            <br /><br /><br />
                             <hr />
                             <div class="col-sm-4 p-0"><strong>Item Name</strong></div>
                             <div class="col-sm-2 p-0"><strong>Boxes</strong></div>
@@ -99,7 +103,11 @@
                           <div class="col-sm-12 cs12">
                             <div class="col-sm-4 float-left p-0"><strong>Bill No.</strong> <span class="float-right">{{vendor.Bill_No}}</span></div>
                             <div class="col-sm-5 float-right p-0"><strong>User Name</strong> <span class="float-right">{{vendor.User_Name}}</span></div>
-                            <br />
+                            <div class="col-sm-4 float-left p-0"><strong>Total Items</strong> <span class="float-right">{{vendor.Total_Items}}</span></div>
+                            <div class="col-sm-5 float-right p-0"><strong>Total Price</strong> <span class="float-right">&#x20B9; {{vendor.price}}</span></div>
+                            <div class="col-sm-4 float-left p-0"><strong>Tax</strong> <span class="float-right">&#x20B9; {{vendor.tax}}</span></div>
+                            <div class="col-sm-5 float-right p-0"><strong>Grand Total</strong> <span class="float-right">&#x20B9; {{vendor.Grand_Total}}</span></div>
+                            <br /><br /><br />
                             <hr />
                             <div class="col-sm-4 p-0"><strong>Item Name</strong></div>
                             <div class="col-sm-2 p-0"><strong>Boxes</strong></div>

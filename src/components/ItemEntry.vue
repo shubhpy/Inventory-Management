@@ -97,9 +97,17 @@
               <div class="fab fab-fixed">
                 <a class="btn btn-primary btn-outline mr-5 text-dark" @click="postNewItemsEntry">Submit</a>
               </div>
-              <div class="fab-fixed col-sm-6">
-                <div class="col-sm-7">Total Items : {{totalItems}}</div>
-                <div class="col-sm-5">Total Price : &#x20B9; {{totalPrice}}</div>
+              <div class="fab-fixed col-sm-8">
+                <div class="col-sm-2 pt-2">Total Items : {{totalItems}}</div>
+                <div class="col-sm-3 pt-2">Total Price : &#x20B9; {{totalPrice}}</div>
+                <div class="col-sm-2 p-0">
+                  <div class="col-sm-4 pl-0 pr-0 pt-2"> &#x20B9; Tax</div>
+                  <div class="col-sm-8 p-0">
+                    <input type="text" class="form-control" placeholder="Tax" v-model="tax" />
+                  </div>
+                </div>
+                <div class="col-sm-3 text-center pt-2">Grand Total : &#x20B9; {{grandTotal}}</div>                
+
               </div>
             </div>
             <div class="tab-pane fade" id="Out">
@@ -216,6 +224,7 @@
       noBoxes:'0',
       quantity:'0',
       price:'0',
+      tax : '0',
       addedItems:[],
 
       selectedReceiver:"",
@@ -302,7 +311,10 @@
           bill : this.enteredBillNo,
           date : this.enteredDate,
           price : this.totalPrice,
-          items: this.addedItems
+          items: this.addedItems,
+          grandtotal : this.grandTotal,
+          tax : this.tax,
+          totalitems:this.totalItems
         };
         this.$http.post( this.$hostname + 'input',JSON.stringify(datatosend))
         .then(function (data) {
@@ -446,6 +458,13 @@
       return this.addedItems.reduce((sum,item) => {
         return parseInt(sum) + parseInt(item.price)
       }, 0)
+    },
+    grandTotal(){
+      if (this.tax){
+        return parseInt(this.totalPrice) + parseInt(this.tax)      
+      }else{
+        return parseInt(this.totalPrice)
+      }
     },
     totalItems_Collect(){
       return this.addedItems_Collect.reduce((sum) => {

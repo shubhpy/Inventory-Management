@@ -5,6 +5,7 @@ Vue.use(Vuex)
 import createPersistedState from 'vuex-persistedstate';
 
 var hostname = "https://qcitech.org:8082/inventory/";
+// var hostname = "http://192.168.15.153:5000/inventory/";
 
 export const store = new Vuex.Store({
   state: {
