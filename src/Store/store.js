@@ -1,11 +1,17 @@
 import Vue from 'vue'
 import Vuex from 'vuex';
+import router from '../router'
 
 Vue.use(Vuex)
+
 import createPersistedState from 'vuex-persistedstate';
 
 var hostname = "https://qcitech.org:8082/inventory/";
 // var hostname = "http://192.168.15.153:5000/inventory/";
+
+var token = localStorage.getItem('token');
+var headers =  new Headers();
+headers.append('Authorization',token);
 
 export const store = new Vuex.Store({
   state: {
@@ -61,56 +67,63 @@ export const store = new Vuex.Store({
   },
   actions: {
     fetchNames({ commit,state }) {
-        return new Promise((resolve, reject) => {        
-            fetch(hostname + 'getnames' )
+        return new Promise((resolve, reject) => {
+            fetch(hostname + 'getnames' , {headers:headers})
             .then(response => response.json())
             .then(json => {
-                // if (JSON.stringify(state.users) != JSON.stringify(json.users)){
-                commit('gotNames', json);
-                resolve("response");                
-                // }
-                })
+                if ( json.success ) {
+                    commit('gotNames', json)
+                    resolve("response")
+                }else{
+                    console.log("Some Error")
+                }
+            })
         })
     },
     fetchItemTable({commit,state}){
         return new Promise((resolve, reject) => {
-            fetch( hostname + 'tabledetails' )
+            fetch( hostname + 'tabledetails', {headers:headers} )
             .then( response => response.json() )
             .then( json => {
             if ( json.success ) {
                 commit("gotItemsTable", json);
                 resolve("response");
-            } else {
+            }else{
                 console.log("Some Error")
             }
           })
         })
     },
     fetchInputDetails({commit,state}){
-        return new Promise((resolve, reject) => {        
-            fetch( hostname + 'inputdetails' )
+        return new Promise((resolve, reject) => {
+            fetch( hostname + 'inputdetails', {headers:headers})
             .then( response => response.json() )
             .then( json => {
                 if ( json.success ) {
                     commit("gotInputDetails", json);
                     resolve("response");
-                } else {
+                }else{
                     console.log("Some Error")
                 }
             })
         })
     },
     fetchOutputDetails({commit,state}){
-        return new Promise((resolve, reject) => {   
-            fetch( hostname + 'outputdetails' )
+        return new Promise((resolve, reject) => {
+            fetch( hostname + 'outputdetails' ,{headers:headers} )
             .then( response => response.json() )
             .then( json => {
                 if ( json.success ) {
                     commit("gotOutputDetails", json);
                     resolve("response");
-                } else {
+                }else{
                     console.log("Some Error")
                 }
+                // else if (json.response == "Headers required") {
+                //     localStorage.removeItem('token');
+                //     localStorage.removeItem('vuex');        
+                //     router.push({ name:"Login"});
+                // }
             })
         })
     }

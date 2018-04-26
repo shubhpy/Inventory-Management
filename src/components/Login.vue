@@ -65,7 +65,7 @@
         var datatosend = {
           email:this.email,
           password:this.pwd
-        };
+        }
         this.$http.post( this.$hostname+"login" , JSON.stringify(datatosend) )
         .then(function (data) {
           if (data.body.success){

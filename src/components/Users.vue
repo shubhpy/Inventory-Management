@@ -243,16 +243,13 @@
         }
         this.$http.post( this.$hostname + 'edit' , JSON.stringify(datatosend))
         .then( function ( data ) {
-          if (data.body.status){
-            this.snackMsg("Deta saved...",3500)
+          if (data.body.success){
+            this.snackMsg("Data saved...",3500)
             //console.log("saved")
           }else{
             this.snackMsg("Please try again...",3500)
             //alert("Some else error occured")          
           }
-        }.bind(this),function(data){
-            this.snackMsg("Please try again...",3500)
-          //alert("Some error occured")
         })
       }
     },

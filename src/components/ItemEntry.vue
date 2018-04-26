@@ -316,9 +316,9 @@
           tax : this.tax,
           totalitems:this.totalItems
         };
+
         this.$http.post( this.$hostname + 'input',JSON.stringify(datatosend))
         .then(function (data) {
-          // console.log(data.body);
           if (data.body.success){
             this.snackMsg("Details successfuly saved..." , 2200 )
             this.selectedVendor = ""
@@ -330,6 +330,10 @@
             this.quantity = '0'
             this.price = '0'
             this.addedItems = []
+          }else if (data.body.response == "Headers required") {
+            localStorage.removeItem('token');
+            localStorage.removeItem('vuex');        
+            router.push({ name:"Login"});
           }else{
             this.snackMsg("Kindly Try again...Some Error Occured" , 3500 )
           }
@@ -349,6 +353,7 @@
           date:this.enteredDate_Collect,
           items:this.addedItems_Collect
         };
+
         this.$http.post(this.$hostname + 'output',JSON.stringify(datatosend))
         .then(function(data){
           if ( data.body.success ){
@@ -360,6 +365,10 @@
             this.noBoxes = '0'
             this.quantity_Collect = '0'
             this.addedItems_Collect = []
+          }else if (data.body.response == "Headers required") {
+            localStorage.removeItem('token');
+            localStorage.removeItem('vuex');        
+            router.push({ name:"Login"});      
           }else{
             this.snackMsg("Kindly Try again...Some Error Occured", 3500 )
           }

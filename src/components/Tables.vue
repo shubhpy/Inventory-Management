@@ -277,16 +277,18 @@
     },
     computed:{
       rows (){
-        if (this.$store.getters.getItemsTableRows.length){
-          if (this.searchItemkey){
-              return this.$store.getters.getItemsTableRows.filter(row => {
-                return row[1].toLowerCase().includes(this.searchItemkey.toLowerCase())
-              })
-            }else{
-              return this.$store.getters.getItemsTableRows
-            }
-        }else{
-          return []
+        if (this.$store.getters.getItemsTableRows){
+          if (this.$store.getters.getItemsTableRows.length){
+            if (this.searchItemkey){
+                return this.$store.getters.getItemsTableRows.filter(row => {
+                  return row[1].toLowerCase().includes(this.searchItemkey.toLowerCase())
+                })
+              }else{
+                return this.$store.getters.getItemsTableRows
+              }
+          }else{
+            return []
+          }
         }
       },
       header (){
@@ -388,10 +390,7 @@
     }
   }
 
-  // this.token = localStorage.getItem('token');
-  //   this.headers =  new Headers();
-  //   this.headers.append( 'Authorization', this.token );
-  //   return this.http.get( this.URL+'/inventory/users', {headers:this.headers}).map( response => response.json() );    
+
 </script>
 <style>
   @import url("//unpkg.com/element-ui@2.3.3/lib/theme-chalk/index.css");

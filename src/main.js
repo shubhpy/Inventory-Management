@@ -11,6 +11,10 @@ Vue.use(Resource)
 Vue.config.productionTip = false
 Vue.http.options.emulateJSON = true;
 
+var token = localStorage.getItem('token');
+console.log(token)
+Vue.http.headers.common['Authorization'] = token
+
 Vue.prototype.$hostname = "https://qcitech.org:8082/inventory/";
 // Vue.prototype.$hostname = "http://192.168.15.153:5000/inventory/";
 
