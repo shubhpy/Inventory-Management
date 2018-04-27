@@ -9,9 +9,9 @@ import createPersistedState from 'vuex-persistedstate';
 var hostname = "https://qcitech.org:8082/inventory/";
 // var hostname = "http://192.168.15.153:5000/inventory/";
 
-var token = localStorage.getItem('token');
-var headers =  new Headers();
-headers.append('Authorization',token);
+// var token = localStorage.getItem('token');
+// var headers =  new Headers();
+// headers.append('Authorization',token);
 
 export const store = new Vuex.Store({
   state: {
@@ -68,6 +68,10 @@ export const store = new Vuex.Store({
   actions: {
     fetchNames({ commit,state }) {
         return new Promise((resolve, reject) => {
+            var token = localStorage.getItem('token');
+            var headers =  new Headers();
+            headers.append('Authorization',token);
+
             fetch(hostname + 'getnames' , {headers:headers})
             .then(response => response.json())
             .then(json => {
@@ -82,12 +86,17 @@ export const store = new Vuex.Store({
     },
     fetchItemTable({commit,state}){
         return new Promise((resolve, reject) => {
+            var token = localStorage.getItem('token');
+            var headers =  new Headers();
+            headers.append('Authorization',token);
+
             fetch( hostname + 'tabledetails', {headers:headers} )
             .then( response => response.json() )
             .then( json => {
             if ( json.success ) {
                 commit("gotItemsTable", json);
                 resolve("response");
+                console.log("resolved")
             }else{
                 console.log("Some Error")
             }
@@ -96,6 +105,10 @@ export const store = new Vuex.Store({
     },
     fetchInputDetails({commit,state}){
         return new Promise((resolve, reject) => {
+            var token = localStorage.getItem('token');
+            var headers =  new Headers();
+            headers.append('Authorization',token);
+
             fetch( hostname + 'inputdetails', {headers:headers})
             .then( response => response.json() )
             .then( json => {
@@ -110,6 +123,10 @@ export const store = new Vuex.Store({
     },
     fetchOutputDetails({commit,state}){
         return new Promise((resolve, reject) => {
+            var token = localStorage.getItem('token');
+            var headers =  new Headers();
+            headers.append('Authorization',token);
+
             fetch( hostname + 'outputdetails' ,{headers:headers} )
             .then( response => response.json() )
             .then( json => {
@@ -119,11 +136,6 @@ export const store = new Vuex.Store({
                 }else{
                     console.log("Some Error")
                 }
-                // else if (json.response == "Headers required") {
-                //     localStorage.removeItem('token');
-                //     localStorage.removeItem('vuex');        
-                //     router.push({ name:"Login"});
-                // }
             })
         })
     }
@@ -137,8 +149,10 @@ export const store = new Vuex.Store({
         state.boards = json.boards
     },
     gotItemsTable(state,json){
+        console.log("getting")        
         state.itemsTableRows = json.details
-        state.itemsTableHeader = json.headers        
+        state.itemsTableHeader = json.headers
+        console.log("got")
     },
     gotInputDetails(state,json){
         state.inputDetails1 = json.result1

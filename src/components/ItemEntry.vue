@@ -48,7 +48,7 @@
                           <input type="text" class="form-control col-sm-6" placeholder="Boxes" v-model="noBoxes">
                         </th>
                         <th class="frth">
-                          <label class="d-block">Qty. in each box</label>
+                          <label class="d-block">Total Quantity</label>
                           <input type="text" class="form-control col-sm-6" placeholder="Quantity" v-model="quantity">
                         </th>
                         <th class="ffth">
@@ -141,7 +141,7 @@
                           {{itemRemainingQuantity}}
                         </th>
                         <th class="frth">
-                          <label class="d-block">Qty. in each box</label>
+                          <label class="d-block">Total Quantity</label>
                           <input type="text" class="form-control col-sm-4" placeholder="Quantity" v-model="quantity_Collect">
                         </th>
                         <th class="ffth">
@@ -316,8 +316,8 @@
           tax : this.tax,
           totalitems:this.totalItems
         };
-
-        this.$http.post( this.$hostname + 'input',JSON.stringify(datatosend))
+        var token = localStorage.getItem('token')
+        this.$http.post( this.$hostname + 'input',JSON.stringify(datatosend),{headers: {Authorization: token}})
         .then(function (data) {
           if (data.body.success){
             this.snackMsg("Details successfuly saved..." , 2200 )
@@ -330,9 +330,10 @@
             this.quantity = '0'
             this.price = '0'
             this.addedItems = []
+            this.$store.dispatch('fetchItemTable')
           }else if (data.body.response == "Headers required") {
             localStorage.removeItem('token');
-            localStorage.removeItem('vuex');        
+            localStorage.removeItem('vuex');       
             router.push({ name:"Login"});
           }else{
             this.snackMsg("Kindly Try again...Some Error Occured" , 3500 )
@@ -353,8 +354,8 @@
           date:this.enteredDate_Collect,
           items:this.addedItems_Collect
         };
-
-        this.$http.post(this.$hostname + 'output',JSON.stringify(datatosend))
+        var token = localStorage.getItem('token')
+        this.$http.post(this.$hostname + 'output',JSON.stringify(datatosend),{headers: {Authorization: token}})
         .then(function(data){
           if ( data.body.success ){
             this.snackMsg("Details Successfully saved", 2200 )
@@ -365,10 +366,11 @@
             this.noBoxes = '0'
             this.quantity_Collect = '0'
             this.addedItems_Collect = []
+            this.$store.dispatch('fetchItemTable')            
           }else if (data.body.response == "Headers required") {
             localStorage.removeItem('token');
-            localStorage.removeItem('vuex');        
-            router.push({ name:"Login"});      
+            localStorage.removeItem('vuex');
+            router.push({ name:"Login"});
           }else{
             this.snackMsg("Kindly Try again...Some Error Occured", 3500 )
           }

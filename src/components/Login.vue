@@ -70,6 +70,7 @@
         .then(function (data) {
           if (data.body.success){
             localStorage.setItem( 'token' , data.body.token );
+            
             router.push({ name: "Tables" });
             return
           } else {

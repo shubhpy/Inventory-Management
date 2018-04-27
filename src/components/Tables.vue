@@ -202,14 +202,17 @@
 </template>
 <script>
   import { store } from '../Store/store'
+  import router from '../router'
 
   export default {
     beforeRouteEnter(to, from, next) {
+      // // router.go({path: router.path})
+      // console.log(router.currentRoute)
       store.dispatch('fetchItemTable').then(response => {})
       store.dispatch('fetchInputDetails').then(response => {})
       store.dispatch('fetchOutputDetails').then(response => {
             next()
-        })
+        })      
     },
     name: 'Users',
     data () {
