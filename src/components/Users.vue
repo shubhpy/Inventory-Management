@@ -241,7 +241,8 @@
           this.boardOpen = null
           datatosend['element'] = this.boards[index]
         }
-        this.$http.post( this.$hostname + 'edit' , JSON.stringify(datatosend))
+        var token = localStorage.getItem('token')
+        this.$http.post( this.$hostname + 'edit' , JSON.stringify(datatosend),{headers: {Authorization: token}})
         .then( function ( data ) {
           if (data.body.success){
             this.snackMsg("Data saved...",3500)

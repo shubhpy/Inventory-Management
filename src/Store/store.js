@@ -95,8 +95,8 @@ export const store = new Vuex.Store({
             .then( json => {
             if ( json.success ) {
                 commit("gotItemsTable", json);
-                resolve("response");
                 console.log("resolved")
+                resolve("response");
             }else{
                 console.log("Some Error")
             }
