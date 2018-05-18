@@ -422,4 +422,10 @@
   .ovf-exc {
     overflow:auto;
   }
+  table.dataTable thead th p.sm, table.dataTable tbody tr td p.sm{
+    max-height:18px;
+    -webkit-line-clamp: 1;
+    max-width:180px;
+    min-width:90px    
+}
 </style>
