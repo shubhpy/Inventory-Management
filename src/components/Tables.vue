@@ -19,17 +19,17 @@
             <div class="tab-pane fade active show" id="Items">
               <div class="card-body ml-3 mr-3">
                 <input type="text" v-model="searchItemkey" class="form-control col-sm-3 mt-3 ml-2" placeholder="Search Items" title="Type a name" />
-                <div class="ovf col-sm-12 p-0">
+                <div class="ovf col-sm-12 p-0 ovf-exc">
                   <table id="user" class="table table-striped table-bordered dataTable display pt-4" cellspacing="0" cellpadding="0">
                     <thead>
                       <tr role="row">
-                        <th v-for="(headr,indexh) in header" :key="headr.indexh">{{headr}}</th>
+                        <th v-for="(headr,indexh) in header" :key="headr.indexh"><p class="p-0 m-0 sm">{{headr}}</p></th>
                       </tr>
                     </thead>
                     <tbody>
                       <tr role="row" class="odd" v-for="(row,index) in rows" :key="row.index">
                         <td v-for="(val,indexs) in row" :key="val.indexs">
-                        {{val}}
+                          <p class="p-0 m-0 sm">{{val}}</p>
                         </td>
                       </tr>
                     </tbody>
@@ -418,5 +418,8 @@
     height:64vh;
     overflow:hidden;
     overflow-y:auto;
+  }
+  .ovf-exc {
+    overflow:auto;
   }
 </style>

@@ -29,7 +29,7 @@
                 <thead>
                   <tr role="row">
                     <th class="th-1">Sr. No.</th>
-                    <th>Users name</th>
+                    <th><p class="p-0 m-0 sm">Users name</p></th>
                     <th class="th-modify">Modify</th>
                   </tr>
                 </thead>
@@ -37,8 +37,10 @@
                   <tr role="row" class="odd" v-for="(user,index) in users" :class="{open: user == userOpen}" :key="user.index">
                     <td class="col-sm-1">{{index+1}}</td>
                     <td class="col-sm-9">
-                      <span class="hid pl-2">{{user.name}}</span>
-                      <input type="text" class="form-control col-sm-7 shw" v-model="user.name" />
+                      <p class="p-0 m-0 sm">
+                        <span class="hid pl-2">{{user.name}}</span>
+                        <input type="text" class="form-control col-sm-7 shw" v-model="user.name" />
+                      </p>
                     </td>            
                     <td class="col-sm-2 text-left">
                       <a class="col-sm-5 btn btn-w-md btn-primary btn-outline nav-action shw mr-2 bg-white" @click="save(index,'users')">Save</a>
@@ -57,7 +59,7 @@
                 <thead>
                   <tr role="row">
                     <th class="th-1">Sr. No.</th>
-                    <th>Vendors name</th>
+                    <th><p class="p-0 m-0 sm">Vendors name</p></th>
                     <th class="th-modify">Modify</th>
                   </tr>
                 </thead>
@@ -65,8 +67,10 @@
                   <tr role="row" class="odd" v-for="(vendor,index) in vendors" :class="{open: vendor == vendorOpen}" :key="vendor.index">
                     <td class="">{{index+1}}</td>
                     <td>
-                      <span class="hid pl-2">{{vendor.name}}</span>
-                      <input type="text" class="form-control col-sm-7 shw" v-model="vendor.name" />
+                      <p class="p-0 m-0 sm">
+                        <span class="hid pl-2">{{vendor.name}}</span>
+                        <input type="text" class="form-control col-sm-7 shw" v-model="vendor.name" />
+                      </p>
                     </td>
                     <td class="text-left">
                       <a class="col-sm-5 btn btn-w-md btn-primary btn-outline nav-action shw mr-2 bg-white" @click="save(index,'vendors')">Save</a>
@@ -84,7 +88,7 @@
                 <thead>
                   <tr role="row">
                     <th class="th-1">Sr. No.</th>
-                    <th>Receivers name</th>
+                    <th><p class="p-0 m-0 sm">Receivers name</p></th>
                     <th class="th-modify">Modify</th>
                   </tr>
                 </thead>
@@ -92,8 +96,10 @@
                   <tr role="row" class="odd" v-for="(receiver,index) in receivers" :class="{open: receiver == receiverOpen}" :key="receiver.index">
                     <td class="">{{index+1}}</td>
                     <td>
-                      <span class="hid pl-2">{{receiver.name}}</span>
-                      <input type="text" class="form-control col-sm-7 shw" v-model="receiver.name" />
+                      <p class="p-0 m-0 sm">
+                        <span class="hid pl-2">{{receiver.name}}</span>
+                        <input type="text" class="form-control col-sm-7 shw" v-model="receiver.name" />
+                      </p>
                     </td>            
                     <td class="text-left">
                       <a class="col-sm-5 btn btn-w-md btn-primary btn-outline nav-action shw mr-2 bg-white" @click="save(index,'receivers')">Save</a>
@@ -111,7 +117,7 @@
                 <thead>
                   <tr role="row">
                     <th class="th-1">Sr. No.</th>
-                    <th>Items name</th>
+                    <th><p class="p-0 m-0 sm">Items name</p></th>
                     <th class="th-modify">Modify</th>
                   </tr>
                 </thead>
@@ -119,8 +125,10 @@
                   <tr role="row" class="odd" v-for="(itemname,index) in itemnames" :class="{open: itemname == itemOpen}" :key="itemname.index">
                     <td class="">{{index+1}}</td>
                     <td>
-                      <span class="hid pl-2">{{itemname.name}}</span>
-                      <input type="text" class="form-control col-sm-7 shw" v-model="itemname.name" />
+                      <p class="p-0 m-0 sm">
+                        <span class="hid pl-2">{{itemname.name}}</span>
+                        <input type="text" class="form-control col-sm-7 shw" v-model="itemname.name" />
+                      </p>
                     </td>
                     <td class="text-left">
                       <a class="col-sm-5 btn btn-w-md btn-primary btn-outline nav-action shw mr-2 bg-white" @click="save(index,'itemnames')">Save</a>
@@ -138,7 +146,7 @@
                 <thead>
                   <tr role="row">
                     <th class="th-1">Sr. No.</th>
-                    <th>Board(s) name</th>
+                    <th><p class="p-0 m-0 sm">Board(s) name</p></th>
                     <th class="th-modify">Modify</th>
                   </tr>
                 </thead>
@@ -146,8 +154,10 @@
                   <tr role="row" class="odd" v-for="(board,index) in boards" :class="{open: board == boardOpen}" :key="board.index">
                     <td class="">{{index+1}}</td>
                     <td>
-                      <span class="hid pl-2">{{board.name}}</span>
-                      <input type="text" class="form-control col-sm-7 shw" v-model="board.name" />
+                      <p class="p-0 m-0 sm">
+                        <span class="hid pl-2">{{board.name}}</span>
+                        <input type="text" class="form-control col-sm-7 shw" v-model="board.name" />
+                      </p>
                     </td>
                     <td class="text-left">
                       <a class="col-sm-5 btn btn-w-md btn-primary btn-outline nav-action shw mr-2 bg-white" @click="save(index,'boards')">Save</a>
@@ -325,4 +335,10 @@
 </script>
 <style>
 table.dataTable tbody th, table.dataTable tbody td { padding:6px 10px; }
+table.dataTable thead th p.sm, table.dataTable tbody tr td p.sm{
+    max-height:18px;
+    -webkit-line-clamp: 1;
+    max-width:450px;
+    min-width:350px    
+}
 </style>

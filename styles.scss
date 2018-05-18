@@ -73,8 +73,8 @@ body > main {
 }
 //Scrollbar
 ::-webkit-scrollbar{
-    width:7px;
-    height:5px;
+    width:8px;
+    height:13px;
     background-color:$default-bg;
     border-radius:10px;
 }
@@ -907,6 +907,26 @@ thead th{
 .open .shw{ display:inline; }
 
 ins, .dropdown-menu a, table tr td, .card-body div span, input, label.col-sm-12.float-left.text-primary.p-0 { text-transform: capitalize}
+label.col-sm-12.float-left.text-primary.p-0, table.dataTable thead th p.sm, table.dataTable tbody tr td p.sm{
+    max-height:36px;
+    max-width:192px;
+    display:-webkit-box;
+    -webkit-line-clamp: 2;
+    line-height:18px;
+    -webkit-box-orient:vertical;
+    overflow:hidden;
+    text-overflow:ellipsis;    
+}
+a.text-dark.d-block.pt-3.pb-3.pl-4 ins {
+    max-height:18px;
+    max-width:70%;
+    text-overflow:ellipsis;
+    display:-webkit-box;
+    -webkit-line-clamp:1;
+    line-height:18px;
+    -webkit-box-orient:vertical;
+    overflow:hidden;
+}
 .el-range-editor.el-input__inner {
     padding:0 10px !important;
     height:34px;

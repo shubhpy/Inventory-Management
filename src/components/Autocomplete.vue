@@ -1,6 +1,6 @@
 <template>
     <div style="position:relative" v-bind:class="{'open':openSuggestion}" v-clickoutside="clickedOutside">
-      <input class="form-control"  type="text" :value="value" @input="updateValue($event.target.value)" @keydown.enter = 'enter' @keydown.down = 'down' @keydown.up = 'up' v-on:focus="setFocus">
+      <input class="form-control" type="text" :value="value" @input="updateValue($event.target.value)" @keydown.enter = 'enter' @keydown.down = 'down' @keydown.up = 'up' v-on:focus="setFocus" maxlength="64">
       <ul class="dropdown-menu">
         <li v-for="(suggestion, index) in matches" v-bind:class="{'active': isActive(index)}" @click="suggestionClick(index)" :key="suggestion.index">
           <a href="#">{{ suggestion.name }}<!-- <span class="text-primary"> {{ suggestion.remaining_quantity}}</span>--></a>
