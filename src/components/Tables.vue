@@ -32,6 +32,7 @@
                           <p class="p-0 m-0 sm">{{val}}</p>
                         </td>
                       </tr>
+                      <infinite-loading @infinite="infiniteHandler"></infinite-loading>
                     </tbody>
                   </table>
                 </div>
@@ -227,6 +228,7 @@
         tablOpen:null,
         searchBoardDates:null,
         searchVendorDates : null,
+        // list:[] // can you make partial loads
         // rows_:[],
         // header_:[],
         // vendorList1_:[],
@@ -245,7 +247,7 @@
           this.grown = false
           this.sunk = true
           this.textToShow = ""
-        }, timeout );
+        }, timeout );                                                                                                                                                                                                                   
       },
       itemHref: function (index) {
         return "#item" + index.toString();
@@ -297,7 +299,7 @@
       header (){
         if (this.$store.getters.getItemsTableHeader.length){
           return this.$store.getters.getItemsTableHeader
-        }else{
+        } else {
           return []
         }
       },

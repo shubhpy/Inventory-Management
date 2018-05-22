@@ -8,6 +8,8 @@ import ItemEntry from '@/components/ItemEntry'
 
 Vue.use(Router)
 
+//const InfiniteLoading = require('vue-infinite-loading');
+
 export default new Router({
   routes:[
     {
@@ -45,5 +47,5 @@ export default new Router({
       path:'**',
       redirect:'/login'
     },
-]
-})
+]},
+)

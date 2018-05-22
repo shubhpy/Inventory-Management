@@ -5,8 +5,11 @@ import router from '../router'
 Vue.use(Vuex)
 
 import createPersistedState from 'vuex-persistedstate';
+/* import InfiniteLoading from 'vue-infinite-loading'; */
 
-var hostname = "https://qcitech.org:8082/inventory/";
+// var hostname = "https://qcitech.org:8082/inventory/";
+   var hostname = 'Inventory-ELB-BACKEND-780554935.ap-south-1.elb.amazonaws.com';
+
 // var hostname = "http://192.168.15.153:5000/inventory/";
 
 // var token = localStorage.getItem('token');
@@ -90,19 +93,42 @@ export const store = new Vuex.Store({
             var headers =  new Headers();
             headers.append('Authorization',token);
 
-            fetch( hostname + 'tabledetails', {headers:headers} )
-            .then( response => response.json() )
-            .then( json => {
+            fetch(hostname + 'tabledetails', { headers:headers })
+            .then(response => response.json())
+            .then(json => {
             if ( json.success ) {
                 commit("gotItemsTable", json);
                 console.log("resolved")
                 resolve("response");
-            }else{
+            } else {
                 console.log("Some Error")
             }
           })
         })
+    },/* 
+    InfiniteHandler: function ($state){
+        let limit = state.itemsTableRows + 40
+        return new Promise((resolve, reject) => {
+            var token = localStorage.getItem('token');
+            var headers =  new Headers();
+            headers.append('Authorization',token);
+
+            fetch(hostname + 'tabledetails?limit=14', { headers:headers })
+            .then(response => this.loadMore())
+            .then(json => {
+                if ( json.success ) {
+                    commit("gotItemsTable", json);
+                    console.log("resolved")
+                    resolve("response");
+                } else {
+                    console.log("Some Error")
+                }
+            })
+        })
     },
+    loadMore:function(){
+
+    }, */
     fetchInputDetails({commit,state}){
         return new Promise((resolve, reject) => {
             var token = localStorage.getItem('token');
