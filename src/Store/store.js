@@ -7,8 +7,8 @@ Vue.use(Vuex)
 import createPersistedState from 'vuex-persistedstate';
 /* import InfiniteLoading from 'vue-infinite-loading'; */
 
-// var hostname = "https://qcitech.org:8082/inventory/";
-   var hostname = 'Inventory-ELB-BACKEND-780554935.ap-south-1.elb.amazonaws.com/';
+var hostname = "https://qcitech.org:8082/inventory/";
+//    var hostname = 'Inventory-ELB-BACKEND-780554935.ap-south-1.elb.amazonaws.com/';
 
 // var hostname = "http://192.168.15.153:5000/inventory/";
 
