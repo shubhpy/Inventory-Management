@@ -32,7 +32,6 @@
                           <p class="p-0 m-0 sm">{{val}}</p>
                         </td>
                       </tr>
-                      <infinite-loading @infinite="infiniteHandler"></infinite-loading>
                     </tbody>
                   </table>
                 </div>
