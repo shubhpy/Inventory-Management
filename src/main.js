@@ -13,7 +13,9 @@ Vue.config.productionTip = false
 Vue.http.options.emulateJSON = true
 
 // Vue.prototype.$hostname = "https://qcitech.org:8082/inventory/"
-Vue.prototype.$hostname = 'Inventory-ELB-BACKEND-780554935.ap-south-1.elb.amazonaws.com/';
+
+Vue.prototype.$hostname = 'http://inventory-elb-backend-780554935.ap-south-1.elb.amazonaws.com/';
+
 // Vue.prototype.$hostname = "http://192.168.15.153:5000/inventory/";
 // var token = localStorage.getItem('token')
 // console.log(token)
