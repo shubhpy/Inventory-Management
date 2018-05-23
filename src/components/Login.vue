@@ -18,11 +18,11 @@
         <form>
           <div class="form-group do-float">
             <label>Username</label>
-            <input type="text" placeholder="Enter your username..." class="form-control" name="email" v-model="email" />
+            <input type="text" value="" placeholder="Enter your username..." class="form-control" name="email" v-model="email" />
           </div>
           <div class="form-group do-float">
             <label>Password</label>
-            <input type="password" placeholder="Enter your password..." class="form-control" name="pwd" v-model="pwd" />
+            <input type="password" value="" placeholder="Enter your password..." class="form-control" name="pwd" v-model="pwd" />
           </div>
           <div class="form-group">
             <button class="btn btn-bold btn-block btn-primary" type="submit" @click="loginMethod">Login</button>

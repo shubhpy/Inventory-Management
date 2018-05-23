@@ -113,14 +113,14 @@ export const store = new Vuex.Store({
             var headers =  new Headers();
             headers.append('Authorization',token);
 
-            fetch(hostname + 'tabledetails?limit=14', { headers:headers })
-            .then(response => this.loadMore())
-            .then(json => {
-                if ( json.success ) {
-                    commit("gotItemsTable", json);
-                    console.log("resolved")
-                    resolve("response");
-                } else {
+            fetch( hostname + 'tabledetails?limit=14', { headers:headers })
+            .then( response => this.loadMore() )
+            .then( json => {
+                if( json.success ) {
+                    commit( "gotItemsTable" , json );
+                    console.log( "resolved" )
+                    resolve( "response" );
+                }else{
                     console.log("Some Error")
                 }
             })
