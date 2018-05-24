@@ -7,7 +7,7 @@ Vue.use(Vuex)
 import createPersistedState from 'vuex-persistedstate';
 
 // var hostname = "https://qcitech.org:8082/inventory/";
-var hostname = 'http://inventory-elb-backend-780554935.ap-south-1.elb.amazonaws.com/';
+var hostname = 'https://api-inventory.qcitech.org/';
 // var hostname = "http://192.168.15.153:5000/inventory/";
 
 // var token = localStorage.getItem('token');
