@@ -80,9 +80,24 @@
                               <div class="col-sm-3 p-0"><span>{{item.quantity}}</span></div>
                               <div class="col-sm-3 p-0"><span>{{item.price}}</span></div>
                             </div>
-                            <div class="col-sm-12">
-                              <br />
-                            </div>
+                            <h3 class="fa fa-trash float-right text-danger p-3 b-rnd mt-0 mb-0 mr-3 del" aria-hidden="true" data-toggle="modal" data-target="#vendorone"></h3>
+                            <div class="clearfix pb-4"></div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="modal modal-center fade" id="vendorone" tabindex="-1" style="display:none;" aria-hidden="true">
+                      <div class="modal-dialog">
+                        <div class="modal-content">
+                          <div class="modal-header">
+                            <h6 class="modal-title col-sm-12">Delete permanently from inventory store, you will not be able to see this information again!</h6>
+                          </div>
+                          <div class="modal-body">
+                            <h6 class="col-sm-12">Are you sure to proceed?</h6>
+                          </div>
+                          <div class="pl-4 pt-4">
+                            <button type="button" class="btn btn-bold btn-pure btn-secondary" data-dismiss="modal">Cancel</button>
+                            <button type="button" class="btn btn-bold btn-pure btn-primary" @click="delet(index,'vendorList1')">Delete</button>
                           </div>
                         </div>
                       </div>
@@ -120,9 +135,24 @@
                               <div class="col-sm-3 p-0"><span>{{item.quantity}}</span></div>
                               <div class="col-sm-3 p-0"><span>{{item.price}}</span></div>
                             </div>
-                            <div class="col-sm-12">
-                              <br />
-                            </div>
+                            <h3 class="fa fa-trash float-right text-danger p-3 b-rnd mt-0 mb-0 mr-3 del" aria-hidden="true" data-toggle="modal" data-target="#vendortwo"></h3>
+                            <div class="clearfix pb-4"></div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="modal modal-center fade" id="vendortwo" tabindex="-1" style="display: none;" aria-hidden="true">
+                      <div class="modal-dialog">
+                        <div class="modal-content">
+                          <div class="modal-header">
+                            <h6 class="modal-title col-sm-12">Delete permanently from inventory store, you will not be able to see this information again!</h6>
+                          </div>
+                          <div class="modal-body">
+                            <h6 class="col-sm-12">Are you sure to proceed?</h6>
+                          </div>
+                          <div class="pl-4 pt-4">
+                            <button type="button" class="btn btn-bold btn-pure btn-secondary" data-dismiss="modal">Cancel</button>
+                            <button type="button" class="btn btn-bold btn-pure btn-primary" @click="delet(index,'vendorList2')">Delete</button>
                           </div>
                         </div>
                       </div>
@@ -162,6 +192,24 @@
                               <div class="col-sm-6 p-0"><span>{{board.name}}</span></div>
                               <div class="col-sm-6 p-0"><span>{{board.quantity}}</span></div>
                             </div>
+                            <h3 class="fa fa-trash float-right text-danger p-3 b-rnd mt-0 mb-0 mr-3 del" aria-hidden="true" data-toggle="modal" data-target="#boardone"></h3>
+                            <div class="clearfix pb-4"></div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="modal modal-center fade" id="boardone" tabindex="-1" style="display: none;" aria-hidden="true">
+                      <div class="modal-dialog">
+                        <div class="modal-content">
+                          <div class="modal-header">
+                            <h6 class="modal-title col-sm-12">Delete permanently from inventory store, you will not be able to see this information again!</h6>
+                          </div>
+                          <div class="modal-body">
+                            <h6 class="col-sm-12">Are you sure to proceed?</h6>
+                          </div>
+                          <div class="pl-4 pt-4">
+                            <button type="button" class="btn btn-bold btn-pure btn-secondary" data-dismiss="modal">Cancel</button>
+                            <button type="button" class="btn btn-bold btn-pure btn-primary" @click="delet(index,'boardList1')">Delete</button>
                           </div>
                         </div>
                       </div>
@@ -186,6 +234,24 @@
                               <div class="col-sm-6 p-0"><span>{{board.name}}</span></div>
                               <div class="col-sm-6 p-0"><span>{{board.quantity}}</span></div>
                             </div>
+                            <h3 class="fa fa-trash float-right text-danger p-3 b-rnd mt-0 mb-0 mr-3 del" aria-hidden="true" data-toggle="modal" data-target="#boardtwo"></h3>
+                            <div class="clearfix pb-4"></div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="modal modal-center fade" id="boardtwo" tabindex="-1" style="display: none;" aria-hidden="true">
+                      <div class="modal-dialog">
+                        <div class="modal-content">
+                          <div class="modal-header">
+                            <h6 class="modal-title col-sm-12">Delete permanently from inventory store, you will not be able to see this information again!</h6>
+                          </div>
+                          <div class="modal-body">
+                            <h6 class="col-sm-12">Are you sure to proceed?</h6>
+                          </div>
+                          <div class="pl-4 pt-4">
+                            <button type="button" class="btn btn-bold btn-pure btn-secondary" data-dismiss="modal">Cancel</button>
+                            <button type="button" class="btn btn-bold btn-pure btn-primary" @click="delet(index,'boardList2')">Delete</button>
                           </div>
                         </div>
                       </div>
@@ -277,6 +343,34 @@
       },
       getOutputDetails: function(){
           // this.$store.dispatch('fetchOutputDetails')
+      },
+      delet: function(index,typee) {
+        var datatosend = {}
+        if (typee =="vendorList1"){
+          datatosend['_id'] = this.vendorList1[index]._id
+          datatosend['type'] = "input"
+        } else if (typee == "vendorList2"){
+          datatosend['_id'] = this.vendorList2[index]._id
+          datatosend['type'] = "input"
+        } else if ( typee == "boardList1" ) {
+          datatosend['_id'] = this.boardList1[index]._id
+          datatosend['type'] = "output"
+        } else if ( typee == "boardList2" ) {
+          datatosend['_id'] = this.boardList2[index]._id
+          datatosend['type'] = "output"
+        }
+        console.log(datatosend)
+        var token = localStorage.getItem('token')
+        this.$http.post( this.$hostname + 'delete' , JSON.stringify(datatosend),{headers: {Authorization: token}})
+        .then( function ( data ) {
+          console.log(data)
+          if (data.body.success){
+            this.snackMsg("Data deleted...",3500)
+            
+          }else{
+            this.snackMsg("Please try again...",3500)   
+          }
+        })
       }
     },
     computed:{
@@ -393,8 +487,6 @@
       }
     }
   }
-
-
 </script>
 <style>
   @import url("//unpkg.com/element-ui@2.3.3/lib/theme-chalk/index.css");

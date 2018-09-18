@@ -231,13 +231,14 @@
       edit_board(board) {
         this.boardOpen = board
       },
-      save: function(index,typee) {        
+      save: function(index,typee) {
         var datatosend = {
           type : typee
         }
         if (typee =="users"){
           this.userOpen = null
           datatosend['element'] = this.users[index]
+          console.log(datatosend)
         } else if ( typee == "vendors" ) {
           this.vendorOpen = null
           datatosend['element'] = this.vendors[index]
@@ -336,8 +337,8 @@
 <style>
 table.dataTable tbody th, table.dataTable tbody td { padding:6px 10px; }
 table.dataTable thead th p.sm, table.dataTable tbody tr td p.sm{
-    max-height:18px;
-    -webkit-line-clamp: 1;
+    max-height:36px;
+    -webkit-line-clamp: 2;
     max-width:450px;
     min-width:350px    
 }

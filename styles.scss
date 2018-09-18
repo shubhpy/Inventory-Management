@@ -987,3 +987,19 @@ a.text-dark.d-block.pt-3.pb-3.pl-4 ins {
     from {transform:scale(1);}
     to {transform:scale(0);}
 }
+
+.b-rnd {
+    border:1px solid #ccc;
+    border-radius:3px;
+}
+.del:hover {
+    cursor: pointer;
+    box-shadow:3px 2px 5px #f0f0f0;
+    transition: all 150ms ease 20ms;
+}
+.del:active {
+    box-shadow:2px 3px 5px #f0f0f0 inset;
+}
+.modal-backdrop.fade {
+    opacity: 0.2;
+}
