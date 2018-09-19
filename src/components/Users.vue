@@ -223,6 +223,7 @@
         this.vendorOpen = vendor
       },
       edit_receiver(receiver) {
+        console.log(receiver)
         this.receiverOpen = receiver
       },
       edit_item(itemname) {

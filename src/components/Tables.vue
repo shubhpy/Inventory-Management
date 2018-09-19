@@ -86,7 +86,7 @@
                         </div>
                       </div>
                     </div>
-                    <div class="modal modal-center fade" id="vendorone" tabindex="-1" style="display:none;" aria-hidden="true">
+                    <div class="modal modal-center fade" id="vendorone" tabindex="-1" aria-hidden="true">
                       <div class="modal-dialog">
                         <div class="modal-content">
                           <div class="modal-header">
@@ -141,7 +141,7 @@
                         </div>
                       </div>
                     </div>
-                    <div class="modal modal-center fade" id="vendortwo" tabindex="-1" style="display: none;" aria-hidden="true">
+                    <div class="modal modal-center fade" id="vendortwo" tabindex="-1" aria-hidden="true">
                       <div class="modal-dialog">
                         <div class="modal-content">
                           <div class="modal-header">
@@ -198,7 +198,7 @@
                         </div>
                       </div>
                     </div>
-                    <div class="modal modal-center fade" id="boardone" tabindex="-1" style="display: none;" aria-hidden="true">
+                    <div class="modal modal-center fade" id="boardone" tabindex="-1" aria-hidden="true" v-bind:class="{ dont: isActive }">
                       <div class="modal-dialog">
                         <div class="modal-content">
                           <div class="modal-header">
@@ -240,7 +240,7 @@
                         </div>
                       </div>
                     </div>
-                    <div class="modal modal-center fade" id="boardtwo" tabindex="-1" style="display: none;" aria-hidden="true">
+                    <div class="modal modal-center fade" id="boardtwo" tabindex="-1" aria-hidden="true">
                       <div class="modal-dialog">
                         <div class="modal-content">
                           <div class="modal-header">
@@ -269,7 +269,7 @@
 <script>
   import { store } from '../Store/store'
   import router from '../router'
-
+  
   export default {
     beforeRouteEnter(to, from, next) {
       // // router.go({path: router.path})
@@ -286,6 +286,7 @@
         textToShow:'',
         grown:false,
         sunk:false,
+        isActive:false,
         searchBoardKey:null,
         searchVendorKey:null,
         searchReceiverKey:null,
@@ -359,15 +360,21 @@
           datatosend['_id'] = this.boardList2[index]._id
           datatosend['type'] = "output"
         }
-        console.log(datatosend)
         var token = localStorage.getItem('token')
         this.$http.post( this.$hostname + 'delete' , JSON.stringify(datatosend),{headers: {Authorization: token}})
         .then( function ( data ) {
-          console.log(data)
           if (data.body.success){
             this.snackMsg("Data deleted...",3500)
-            
-          }else{
+            if (typee =="vendorList1"){
+              window.location.reload(true)
+            } else if (typee == "vendorList2"){
+              window.location.reload(true)
+            } else if ( typee == "boardList1" ) {
+              window.location.reload(true)
+            } else if ( typee == "boardList2" ) {
+              window.location.reload(true)
+            }
+          } else {
             this.snackMsg("Please try again...",3500)   
           }
         })
@@ -437,6 +444,7 @@
         }
       },
       boardList1 (){
+        this.isActive = false
         if (this.$store.getters.getBoardDetails1.length){
             return this.$store.getters.getBoardDetails1.filter(row => {
               if ( this.searchReceiverKey ) {
@@ -520,5 +528,5 @@
     -webkit-line-clamp: 1;
     max-width:180px;
     min-width:90px    
-}
+} 
 </style>

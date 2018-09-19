@@ -4,11 +4,12 @@ import router from '../router'
 
 Vue.use(Vuex)
 
-import createPersistedState from 'vuex-persistedstate'
+// import createPersistedState from 'vuex-persistedstate'
 
 // var hostname = "https://qcitech.org:8082/inventory/"
-// var hostname = 'https://api-inventory.qcitech.org/'
-var hostname = "http://192.168.15.153:5000/inventory/"
+var hostname = 'https://api-inventory.qcitech.org/'
+
+// var hostname = "http://192.168.15.153:5000/inventory/"
 
 // var token = localStorage.getItem('token');
 // var headers =  new Headers();
@@ -30,7 +31,7 @@ export const store = new Vuex.Store({
     outputDetails1: [], // Output = Board
     outputDetails2: []
   },
-  plugins: [createPersistedState()],
+ // plugins: [createPersistedState()],
   getters: {
     getUserNames(state) {
       return state.users
@@ -118,30 +119,27 @@ export const store = new Vuex.Store({
         var headers = new Headers();
         headers.append('Authorization', token);
         fetch(hostname + 'inputdetails', {
-            headers: headers
-          })
-          .then(response => response.json())
-          .then(json => {
-            console.log(json)
-            if (json.success) {
-              commit("gotInputDetails", json);
-              resolve("response");
-            } else {
-              console.log("Some Error")
-            }
-          })
+          headers: headers
+        })
+        .then(response => response.json())
+        .then(json => {
+          if (json.success) {
+            commit("gotInputDetails", json);
+            resolve("response");
+          } else {
+            console.log("Some Error")
+          }
+        })
       })
     },
-    fetchOutputDetails({commit,state}){
+    fetchOutputDetails({commit, state}){
       return new Promise((resolve, reject) => {
         var token = localStorage.getItem('token');
         var headers =  new Headers();
         headers.append('Authorization',token);
-
         fetch( hostname + 'outputdetails' ,{headers:headers} )
         .then( response => response.json() )
         .then( json => {
-          console.log(json)
           if ( json.success ) {
             commit("gotOutputDetails", json);
             resolve("response");

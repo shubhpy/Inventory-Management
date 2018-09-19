@@ -331,6 +331,7 @@
             this.price = '0'
             this.addedItems = []
             this.$store.dispatch('fetchItemTable')
+            window.location.reload(true)
           }else if (data.body.response == "Headers required") {
             localStorage.removeItem('token');
             localStorage.removeItem('vuex');       
@@ -366,7 +367,8 @@
             this.noBoxes = '0'
             this.quantity_Collect = '0'
             this.addedItems_Collect = []
-            this.$store.dispatch('fetchItemTable')            
+            this.$store.dispatch('fetchItemTable')
+            window.location.reload(true)          
           }else if (data.body.response == "Headers required") {
             localStorage.removeItem('token');
             localStorage.removeItem('vuex');
