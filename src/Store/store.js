@@ -7,7 +7,7 @@ Vue.use(Vuex)
 // import createPersistedState from 'vuex-persistedstate'
 
 // var hostname = "https://qcitech.org:8082/inventory/"
-var hostname = 'https://api-inventory.qcitech.org/'
+var hostname = 'https://api-inventory.qcin.org/'
 
 // var hostname = "http://192.168.15.153:5000/inventory/"
 
